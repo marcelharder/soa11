@@ -1,0 +1,65 @@
+<header>
+  <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-1">
+    <div class="navbar-collapse collapse d-sm-inline-flex" [ngClass]="{ show: isExpanded }">
+      <a class="navbar-brand" href="#">Surgical Outcomes Application</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <ul class="navbar-nav flex-grow" *ngIf="loggedInAsSurgeon()">
+        <li class="nav-item" [routerLinkActive]="['link-active']" [routerLinkActiveOptions]="{ exact: true }">
+          <a class="nav-link text-dark" [routerLink]="['/procedures']">Procedures</a>
+        </li>
+        <li class="nav-item" [routerLinkActive]="['link-active']" [routerLinkActiveOptions]="{ exact: true }">
+          <a class="nav-link text-dark" [routerLink]="['/statistics']">Statistics</a>
+        </li>
+        <li class="nav-item" [routerLinkActive]="['link-active']" [routerLinkActiveOptions]="{ exact: true }">
+          <a class="nav-link text-dark" [routerLink]="['/configuration']">Configuration</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav flex-grow" *ngIf="loggedInAsChef()">
+        <li class="nav-item" [routerLinkActive]="['link-active']" [routerLinkActiveOptions]="{ exact: true }">
+          <a class="nav-link text-dark" [routerLink]="['/aiosList']">List AIOS</a>
+        </li>
+        <li  class="nav-item" [routerLinkActive]="['link-active']" [routerLinkActiveOptions]="{ exact: true }">
+          <a class="nav-link text-dark" [routerLink]="['/statistics']">Statistics</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav flex-grow" *ngIf="loggedInAsAdmin()">
+        <li class="nav-item" [routerLinkActive]="['link-active']" [routerLinkActiveOptions]="{ exact: true }">
+          <a class="nav-link text-dark" [routerLink]="['/userList']">Users</a>
+        </li>
+        <li class="nav-item" [routerLinkActive]="['link-active']" [routerLinkActiveOptions]="{ exact: true }">
+          <a class="nav-link text-dark" [routerLink]="['/hospitalList']">Hospitals</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav flex-grow" >
+        <li class="nav-item" [routerLinkActive]="['link-active']" [routerLinkActiveOptions]="{ exact: true }">
+          <a class="nav-link text-dark" [routerLink]="['/about']">About</a>
+      </li>
+      </ul>
+      <ul class="navbar-nav flex-grow ml-auto">
+        <li class="nav-item">
+          <div *ngIf="loggedIn()" class="dropdown" dropdown>
+            <a class="dropdown-toggle" dropdownToggle>
+              {{ welcometext }}
+              {{ auth.decodedToken?.unique_name | titlecase }}
+            </a>
+            <div class="dropdown-menu mt-3" *dropdownMenu>
+              <a class="dropdown-item" href="#" [routerLink]="['/profile']"><i class="fa fa-user"></i>Profile</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#" (click)="logOut()"><i class="fa fa-sign-out"></i>Log out</a>
+            </div>
+          </div>
+        </li>
+      </ul>
+      <ul class="navbar-nav flex-grow ">
+        <li class="nav-item" [routerLinkActive]="['link-active']" [routerLinkActiveOptions]="{ exact: true }"
+          *ngIf="!loggedIn()">
+          <a class="nav-link text-dark" [routerLink]="['/login']">Login</a>
+        </li>
+
+      </ul>
+    </div>
+  </nav>
+</header>
