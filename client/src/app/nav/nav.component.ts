@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ChildActivationStart } from '@angular/router';
+import { AccountService } from '../_services/account.service';
 
 @Component({
   selector: 'app-nav',
@@ -6,10 +8,20 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./nav.component.css']
 })
 export class NavComponent implements OnInit {
-
-  constructor() { }
+  model: any = {};
+  loggedIn: boolean;
+  constructor(private accountService: AccountService) { }
 
   ngOnInit(): void {
   }
+
+  login(){
+    this.accountService.login(this.model).subscribe((next)=>{
+      console.log(next);
+      this.loggedIn = true;
+    }, error => console.log(error))
+  }
+
+  logout(){this.loggedIn = false;}
 
 }

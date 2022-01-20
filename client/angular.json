@@ -1,5 +1,8 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "cli": {
+    "analytics": "67bb380e-5df6-4096-b576-2e59512b1af6"
+  },
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
@@ -65,8 +68,8 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "sslCert": "./ssl/myserver.crt",
-            "sslKey": "./ssl/myserver.key",
+            "sslCert": "./ssl/server.crt",
+            "sslKey": "./ssl/server.key",
             "ssl":true
           },
           "configurations": {
