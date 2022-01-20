@@ -9,12 +9,21 @@ import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { NavComponent } from './nav/nav.component';
 import { FormsModule } from '@angular/forms';
 
-import {BsDropdownModule} from 'ngx-bootstrap/dropdown'
+import {BsDropdownModule} from 'ngx-bootstrap/dropdown';
+import { HomeComponent } from './home/home.component';
+import { ProceduredetailsComponent } from './procedures/proceduredetails/proceduredetails.component';
+import { DetailsmainComponent } from './procedures/detailsmain/detailsmain.component';
+import { EuroscoredetailsComponent } from './procedures/euroscoredetails/euroscoredetails.component'
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavComponent,
+    HomeComponent,
+    ProceduredetailsComponent,
+    DetailsmainComponent,
+    EuroscoredetailsComponent,
     
   ],
   imports: [
@@ -23,7 +32,10 @@ import {BsDropdownModule} from 'ngx-bootstrap/dropdown'
     HttpClientModule,
     BrowserAnimationsModule,
     FormsModule,
-    BsDropdownModule.forRoot()
+    BsDropdownModule.forRoot(),
+    ToastrModule.forRoot({
+      positionClass: 'toast-bottom-right'
+    })
   ],
   providers: [
    
