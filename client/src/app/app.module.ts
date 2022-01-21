@@ -15,6 +15,7 @@ import { ProceduredetailsComponent } from './procedures/proceduredetails/procedu
 import { DetailsmainComponent } from './procedures/detailsmain/detailsmain.component';
 import { EuroscoredetailsComponent } from './procedures/euroscoredetails/euroscoredetails.component'
 import { ToastrModule } from 'ngx-toastr';
+import { TestErrorsComponent } from './errors/test-errors/test-errors.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { ToastrModule } from 'ngx-toastr';
     ProceduredetailsComponent,
     DetailsmainComponent,
     EuroscoredetailsComponent,
+    TestErrorsComponent,
     
   ],
   imports: [
