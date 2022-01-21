@@ -29,7 +29,9 @@
         </div>
       </div>
 
-    
+      <li class="nav-item">
+        <a class="nav-link" routerLink='/errors' routerLinkActive="active" >Errors</a>
+      </li>
     <form *ngIf="(accountService.currentUser$ |async) === null" #loginForm="ngForm" class="form-inline mt-2 mt-md-0" (ngSubmit)="login()" autocomplete="off">
       <input class="form-control mr-sm-2" name="username" type="text" placeholder="Username" [(ngModel)]="model.username">
       <input class="form-control mr-sm-2" name="password" type="password" placeholder="Password" [(ngModel)]="model.password">
