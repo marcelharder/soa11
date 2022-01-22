@@ -19,6 +19,7 @@ namespace api.Extensions
                 options.UseSqlite(config.GetConnectionString("DefaultConnection"));
             });
             services.AddScoped<ITokenService, TokenService>();
+            // services.AddTransient<Seed>();
             services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
             return services;
        }
