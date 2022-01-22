@@ -21,18 +21,8 @@ export class NavComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  login(){
-    this.accountService.login(this.model).subscribe((next)=>{
-      console.log(next);
-    }, error => {
-      console.log(error);
-      this.toastr.error(error.error);
-    
-    })
-  }
+  login(){this.accountService.login(this.model).subscribe((next)=>{ console.log(next); })}
 
-  logout(){
-    this.accountService.logout();
-    }
+  logout(){ this.accountService.logout(); }
 
 }
