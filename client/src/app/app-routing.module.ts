@@ -11,6 +11,7 @@ import { StatisticsComponent } from './statistics/statistics.component';
 import { UserlistComponent } from './userlist/userlist.component';
 import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { ServerErrorComponent } from './errors/server-error/server-error.component';
+import { ConfigurationComponent } from './_config/configuration/configuration.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -21,6 +22,7 @@ const routes: Routes = [
   { path: 'about', component: AboutComponent},
   { path: 'not-found', component: NotFoundComponent},
   { path: 'server-error', component: ServerErrorComponent},
+  { path: 'config', component: ConfigurationComponent},
 
 
 
