@@ -16,6 +16,10 @@ import { DetailsmainComponent } from './procedures/detailsmain/detailsmain.compo
 import { EuroscoredetailsComponent } from './procedures/euroscoredetails/euroscoredetails.component'
 import { ToastrModule } from 'ngx-toastr';
 import { TestErrorsComponent } from './errors/test-errors/test-errors.component';
+import { ProcedurelistComponent } from './procedures/procedurelist/procedurelist.component';
+import { StatisticsComponent } from './procedures/statistics/statistics.component';
+import { UserlistComponent } from './procedures/userlist/userlist.component';
+import { AboutComponent } from './procedures/about/about.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +30,10 @@ import { TestErrorsComponent } from './errors/test-errors/test-errors.component'
     DetailsmainComponent,
     EuroscoredetailsComponent,
     TestErrorsComponent,
+    ProcedurelistComponent,
+    StatisticsComponent,
+    UserlistComponent,
+    AboutComponent,
     
   ],
   imports: [
