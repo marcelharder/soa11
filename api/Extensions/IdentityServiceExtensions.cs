@@ -35,6 +35,11 @@ namespace api.Extensions
                          ValidateAudience = false
                      };
                  });
+
+            services.AddAuthorization(opt => {
+                opt.AddPolicy("RequireAdminRole", policy => policy.RequireRole("Admin"));
+                opt.AddPolicy("RequireChefRole", policy => policy.RequireRole("Chef"));
+            });
             return services;
         }
     }

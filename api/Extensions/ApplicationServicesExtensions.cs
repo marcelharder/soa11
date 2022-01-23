@@ -1,5 +1,6 @@
 
 using api.Data;
+using api.Seeding;
 using api.Helpers;
 using api.Interfaces;
 using api.Services;
@@ -16,7 +17,7 @@ namespace api.Extensions
                 options.UseSqlite(config.GetConnectionString("DefaultConnection"));
             });
             services.AddScoped<ITokenService, TokenService>();
-            // services.AddTransient<Seed>();
+            services.AddTransient<Seed>();
             services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
             return services;
        }
