@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
-using api.Data;
 using api.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -12,7 +11,7 @@ namespace api.Seed
 {
     public class Seed
     {
-        /*  public static async Task SeedUsers(UserManager<AppUser> manager, RoleManager<AppRole> roleManager)
+         public static async Task SeedUsers(UserManager<AppUser> manager, RoleManager<AppRole> roleManager)
          {
              if (await manager.Users.AnyAsync()) return;
              var userData = await System.IO.File.ReadAllTextAsync("UserSeedData.json");
@@ -42,7 +41,7 @@ namespace api.Seed
              await manager.AddToRoleAsync(admin, "Admin");
 
 
-         } */
+         } 
         /* public static async Task SeedEmployees(DataContext context)
         {
             if (await context.Employees.AnyAsync()) return;
@@ -101,7 +100,7 @@ namespace api.Seed
             }
             await context.SaveChangesAsync();
         } */
-        /*   public static async Task SeedRefPhys(DataContext context)
+        /* public static async Task SeedRefPhys(DataContext context)
           {
               if (await context.RefPhys.AnyAsync()) return;
 

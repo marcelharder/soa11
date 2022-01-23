@@ -1,75 +1,105 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
 using System.Threading.Tasks;
-using api.Data;
 using api.DTOs;
 using api.Entities;
 using api.Interfaces;
+using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace api.Controllers
 {
-    public class AccountController : BaseApiController
+    public class AuthController : BaseApiController
     {
-        private readonly DataContext _context;
-        private readonly ITokenService _tokenService;
-        public AccountController(DataContext context, ITokenService tokenService)
+
+        private readonly ITokenService _ts;
+        private IMapper _mapper;
+        private readonly UserManager<AppUser> _manager;
+        private readonly SignInManager<AppUser> _signIn;
+        private readonly IConfiguration _config;
+        public AuthController(
+            ITokenService ts,
+
+            IMapper mapper,
+            IConfiguration config,
+            UserManager<AppUser> manager,
+            SignInManager<AppUser> signIn)
         {
-            _tokenService = tokenService;
-            _context = context;
-        }
-      [HttpPost("register")] 
-      public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto){
+            _config = config;
 
-          if(await UserExists(registerDto.Username)) return BadRequest("Username is taken ...");
-          using var hmac = new HMACSHA512();
-
-          var user = new AppUser{
-              UserName = registerDto.Username.ToLower(),
-              PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password)),
-              PasswordSalt = hmac.Key
-          };
-          _context.Users.Add(user);
-          await _context.SaveChangesAsync();
-
-          return new UserDto{
-              Username = user.UserName,
-              Token = _tokenService.CreateToken(user)
-          };
-      }
-      [HttpPost("login")] 
-      public async Task<ActionResult<UserDto>> Login(LoginDto loginDto){
-
-         var user = await _context.Users.SingleOrDefaultAsync(x => x.UserName == loginDto.Username.ToLower());
-         if(user == null) return Unauthorized("Invalid username");
-
-         using var hmac = new HMACSHA512(user.PasswordSalt);
-        var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(loginDto.Password));
-        for(int i = 0; i < computedHash.Length; i++){
-            if(computedHash[i] != user.PasswordHash[i]) return Unauthorized("Invalid Password");
+            _manager = manager;
+            _signIn = signIn;
+            _mapper = mapper;
+            _ts = ts;
         }
 
-       return new UserDto{
-              Username = user.UserName,
-              Token = _tokenService.CreateToken(user)
-          };
+        [HttpPost("register")]
+        public async Task<ActionResult<UserDto>> Register(UserForRegisterDto registerDto)
+        {
+
+            var user = await _manager.Users.SingleOrDefaultAsync(x => x.UserName == registerDto.UserName.ToLower());
+            if (user != null) { return BadRequest("User already exists ..."); }
+
+            user = new AppUser { 
+                
+                UserName = registerDto.UserName.ToLower(),
+                Country = "NL",
+                Created = DateTime.Now,
+                LastActive = DateTime.Now,
+                active = true,
+                ltk = false
+                             
+                
+                 };
+
+            var result = await _manager.CreateAsync(user, registerDto.password);
+            if (!result.Succeeded) { return BadRequest(result.Errors); }
+
+            var roleResult = await _manager.AddToRoleAsync(user, "Surgeon");
+            if(!roleResult.Succeeded){return BadRequest(roleResult.Errors); }
+
+            return new UserDto
+            {
+                UserName = user.UserName,
+                Token = await _ts.CreateToken(user)
+            };
+
+           
+        }
+
+        [HttpPost("login")]
+        public async Task<ActionResult<UserDto>> Login(UserForLoginDto ufl)
+        {
+           var user = await _manager.Users.SingleOrDefaultAsync(x => x.UserName == ufl.UserName.ToLower());
+           if (user == null) return Unauthorized();
+
+           var result = await _signIn.CheckPasswordSignInAsync(user, ufl.password, false);
+           if(!result.Succeeded) return Unauthorized();
+
+           return new UserDto
+            {
+                UserName = user.UserName,
+                Token = await _ts.CreateToken(user)
+            };
+        }
+
+        [HttpPut("changePassword/{newpassword}")]
+        public async Task<ActionResult<UserDto>> CP(UserForLoginDto ufl, string newpassword)
+        {
+            var user = new AppUser { UserName = ufl.UserName.ToLower() }; 
+            await _manager.ChangePasswordAsync(user, ufl.password, newpassword);
+
+            return new UserDto
+            {
+                UserName = user.UserName,
+                Token = await _ts.CreateToken(user)
+            };
+        }
 
 
 
-          
-      }
-      
-
-
-
-
-
-      private async Task<bool> UserExists(string username){
-          return await _context.Users.AnyAsync(x => x.UserName == username.ToLower());
-      }
     }
+
 }
