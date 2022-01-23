@@ -11,7 +11,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace api.Controllers
 {
-    public class AuthController : BaseApiController
+    public class AccountController : BaseApiController
     {
 
         private readonly ITokenService _ts;
@@ -19,9 +19,8 @@ namespace api.Controllers
         private readonly UserManager<AppUser> _manager;
         private readonly SignInManager<AppUser> _signIn;
         private readonly IConfiguration _config;
-        public AuthController(
+        public AccountController(
             ITokenService ts,
-
             IMapper mapper,
             IConfiguration config,
             UserManager<AppUser> manager,

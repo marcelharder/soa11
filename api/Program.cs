@@ -32,8 +32,8 @@ namespace api
                 await Seed.SeedPatients(context);
                 await Seed.SeedProcedures(context);
                 await Seed.SeedRefPhys(context);
-                await Seed.SeedEpaas(manager);
-                await Seed.SeedCourses(manager);
+               // await Seed.SeedEpaas(manager);
+               // await Seed.SeedCourses(manager);
                 // await Seed.SeedValvesInHospital(context);
             }
             catch (Exception ex)

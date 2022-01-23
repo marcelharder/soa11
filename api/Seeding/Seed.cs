@@ -14,7 +14,7 @@ namespace api.Seeding
         public static async Task SeedUsers(UserManager<AppUser> manager, RoleManager<AppRole> roleManager)
          {
              if (await manager.Users.AnyAsync()) return;
-             var userData = await System.IO.File.ReadAllTextAsync("UserSeedData.json");
+             var userData = await System.IO.File.ReadAllTextAsync("Seeding/UserSeedData.json");
              var users = JsonSerializer.Deserialize<List<AppUser>>(userData);
              if (users == null) return;
 
@@ -34,6 +34,7 @@ namespace api.Seeding
 
              var admin = new AppUser{
                   UserName = "Admin",
+                  Gender = "male",
                   ltk = false,
                   active = true,
                   Country = "NL" };
@@ -111,7 +112,7 @@ namespace api.Seeding
          public static async Task SeedEpaas(UserManager<AppUser> manager)
           {
               var listOfEpas = new List<Class_Epa>();
-              var user = await manager.Users.Include(x => x.Epa).FirstOrDefaultAsync(x => x.Id == 7);
+              var user = await manager.Users.Include(x => x.Epa).FirstOrDefaultAsync(x => x.Id == 2);
               listOfEpas = user.Epa.ToList();
               if (listOfEpas.Count != 0) return;
 
@@ -123,7 +124,7 @@ namespace api.Seeding
          public static async Task SeedCourses(UserManager<AppUser> manager)
           {
               var listOfCourses = new List<Class_Course>();
-              var user = await manager.Users.Include(x => x.Courses).FirstOrDefaultAsync(x => x.Id == 7);
+              var user = await manager.Users.Include(x => x.Courses).FirstOrDefaultAsync(x => x.Id == 2);
               listOfCourses = user.Courses.ToList();
               if (listOfCourses.Count != 0) return;
 
