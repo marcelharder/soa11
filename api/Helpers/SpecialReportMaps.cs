@@ -10,6 +10,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using api.Entities;
+using api.Interfaces;
+using api.Data;
 
 namespace api.Helpers
 {
@@ -23,7 +25,7 @@ namespace api.Helpers
         private IUserRepository _user;
         private IHospitalRepository _hos;
         private IEmployeeRepository _emp;
-        private dataContext _context;
+        private DataContext _context;
         private OperatieDrops _drops;
 
         private IWebHostEnvironment _env;
@@ -36,7 +38,7 @@ namespace api.Helpers
             IHospitalRepository hos,
             OperatieDrops drops,
             IWebHostEnvironment env,
-            dataContext context)
+            DataContext context)
         {
             _http = http;
             _map = map;
@@ -58,11 +60,11 @@ namespace api.Helpers
             var userId = _http.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
             return Convert.ToInt32(userId);
         }
-        internal Class_Preview_Operative_report mapToClassPreviewOperativeReport(dtos.PreviewForReturnDTO pvfr, Class_Preview_Operative_report cp)
+        internal Class_Preview_Operative_report mapToClassPreviewOperativeReport(PreviewForReturnDTO pvfr, Class_Preview_Operative_report cp)
         {
             return _map.Map<PreviewForReturnDTO, Class_Preview_Operative_report>(pvfr, cp);
         }
-        internal Class_privacy_model mapToClassPrivacyModel(dtos.PreviewForReturnDTO pvfr)
+        internal Class_privacy_model mapToClassPrivacyModel(PreviewForReturnDTO pvfr)
         {
             return _map.Map<PreviewForReturnDTO, Class_privacy_model>(pvfr);
         }

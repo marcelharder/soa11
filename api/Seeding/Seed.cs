@@ -19,8 +19,10 @@ namespace api.Seeding
              if (users == null) return;
 
              var roles = new List<AppRole>{
-                 new AppRole{Name = "Surgeon"},
+                 new AppRole{Name = "Surgery"},
+                 new AppRole{Name = "Refcard"},
                  new AppRole{Name = "Admin"},
+                 new AppRole{Name = "Cardiologist"},
                  new AppRole{Name = "Chef"}
              };
              foreach (var role in roles) { await roleManager.CreateAsync(role); }

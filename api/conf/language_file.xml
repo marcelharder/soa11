@@ -3670,28 +3670,7 @@
       </soort>
    </closing_remark_by_type_of_surgery>
    
-   <roles>
-      <items>
-         <description>Surgery</description>
-         <value>1</value>
-      </items>
-      <items>
-         <description>refCard</description>
-         <value>2</value>
-      </items>
-      <items>
-         <description>admin</description>
-         <value>3</value>
-      </items>
-      <items>
-         <description>cardiologist</description>
-         <value>4</value>
-      </items>
-      <items>
-         <description>Chef</description>
-         <value>5</value>
-      </items>
-   </roles>
+   
    <career>
       <items>
          <description>Entrusted Professional Activity</description>
