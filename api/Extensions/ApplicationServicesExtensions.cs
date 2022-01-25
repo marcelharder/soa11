@@ -18,7 +18,14 @@ namespace api.Extensions
             });
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+            services.AddScoped<IHospitalRepository, HospitalRepository>();
+
             services.AddTransient<Seed>();
+            services.AddTransient<OperatieDrops>();
+            services.AddTransient<SpecialMaps>();
+            services.AddTransient<SpecialReportMaps>();
+
             services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
             return services;
        }

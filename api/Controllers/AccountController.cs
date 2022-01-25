@@ -61,7 +61,7 @@ namespace api.Controllers
 
             return new UserDto
             {
-                UserName = user.UserName,
+                Username = user.UserName,
                 Token = await _ts.CreateToken(user)
             };
 
@@ -79,18 +79,18 @@ namespace api.Controllers
 
            return new UserDto
             {
-                UserName = user.UserName,
+                Username = user.UserName,
                 Token = await _ts.CreateToken(user)
             };
         }
 
         [HttpPut("changePassword/{newpassword}")]
-        public async Task<ActionResult<UserDto>> CP(UserForLoginDto ufl, string newpassword)
+        public async Task<ActionResult<UserForReturnDto>> CP(UserForLoginDto ufl, string newpassword)
         {
             var user = new AppUser { UserName = ufl.UserName.ToLower() }; 
             await _manager.ChangePasswordAsync(user, ufl.password, newpassword);
 
-            return new UserDto
+            return new UserForReturnDto
             {
                 UserName = user.UserName,
                 Token = await _ts.CreateToken(user)

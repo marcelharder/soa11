@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using api.Data;
 using api.Entities;
+using api.DTOs;
 
 namespace api.Helpers
 {
@@ -19,9 +20,6 @@ namespace api.Helpers
     {
         private IHttpContextAccessor _http;
         private IMapper _map;
-
-
-
         private DataContext _context;
         private IWebHostEnvironment _env;
         public SpecialMaps(IHttpContextAccessor http, IMapper map, IWebHostEnvironment env, DataContext context)
@@ -125,13 +123,12 @@ namespace api.Helpers
         {
             var h = new UserForReturnDto();
             h = _map.Map<AppUser, UserForReturnDto>(help);
-            h.country = getCountryCode(help.Country); // help.country is bv 'NL' and the spa wants 31
             return h;
         }
         public AppUser mapToUser(UserForUpdateDto help, AppUser h)
         {
             h = _map.Map<UserForUpdateDto, AppUser>(help, h);
-            h.Country = getCountryFromCode(help.country);// help.country is bv 31 and the spa wants 'NL'
+            h.Country = getCountryFromCode(help.country);
             return h;
         }
         #endregion
@@ -358,7 +355,7 @@ namespace api.Helpers
 
             var result = "";
             var contentRoot = _env.ContentRootPath;
-            var filename = Path.Combine(contentRoot, "data/config/Valve.xml");
+            var filename = Path.Combine(contentRoot, "conf/Valve.xml");
             XDocument order = XDocument.Load(filename);
             IEnumerable<XElement> help = from d in order.Descendants("valve_codes")
                                          where d.Element("UK_Code").Value == MODEL
@@ -444,7 +441,7 @@ namespace api.Helpers
         {
             var result = 0;
             var contentRoot = _env.ContentRootPath;
-            var filename = Path.Combine(contentRoot, "data/config/countries.xml");
+            var filename = Path.Combine(contentRoot, "conf/countries.xml");
             XDocument order = XDocument.Load(filename);
             IEnumerable<XElement> help = from d in order.Descendants("Country")
                                          where d.Element("ISO").Value == input
@@ -457,7 +454,7 @@ namespace api.Helpers
         {
             var result = "";
             var contentRoot = _env.ContentRootPath;
-            var filename = Path.Combine(contentRoot, "data/config/countries.xml");
+            var filename = Path.Combine(contentRoot, "conf/countries.xml");
             XDocument order = XDocument.Load(filename);
             IEnumerable<XElement> help = from d in order.Descendants("Country")
                                          where d.Element("ID").Value == input.ToString()
@@ -470,7 +467,7 @@ namespace api.Helpers
         {
             var result = "";
             var contentRoot = _env.ContentRootPath;
-            var filename = Path.Combine(contentRoot, "data/config/countries.xml");
+            var filename = Path.Combine(contentRoot, "conf/countries.xml");
             XDocument order = XDocument.Load(filename);
             IEnumerable<XElement> help = from d in order.Descendants("Country")
                                          where d.Element("ID").Value == input.ToString()
@@ -483,7 +480,7 @@ namespace api.Helpers
         {
             var result = "";
             var contentRoot = _env.ContentRootPath;
-            var filename = Path.Combine(contentRoot, "data/config/countries.xml");
+            var filename = Path.Combine(contentRoot, "conf/countries.xml");
             XDocument order = XDocument.Load(filename);
             IEnumerable<XElement> help = from d in order.Descendants("Country")
                                          where d.Element("ISO").Value == input
