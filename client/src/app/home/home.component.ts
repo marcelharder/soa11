@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AccountService } from '../_services/account.service';
 
 @Component({
   selector: 'app-home',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  constructor(private auth: AccountService) {
+   
+    }
 
-  ngOnInit(): void {
-  }
+  ngOnInit() {  }
 
+  linkToCSD() { window.location.href = "http://77.173.53.32:8046"; }
+
+  
 }
+
+

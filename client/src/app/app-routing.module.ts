@@ -6,19 +6,19 @@ import { AboutComponent } from './about/about.component';
 import { DetailsmainComponent } from './procedures/detailsmain/detailsmain.component';
 import { EuroscoredetailsComponent } from './procedures/euroscoredetails/euroscoredetails.component';
 import { ProceduredetailsComponent } from './procedures/proceduredetails/proceduredetails.component';
-import { ProcedurelistComponent } from './procedures/procedurelist/procedurelist.component';
 import { StatisticsComponent } from './statistics/statistics.component';
 import { UserlistComponent } from './userlist/userlist.component';
 import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { ServerErrorComponent } from './errors/server-error/server-error.component';
 import { ConfigurationComponent } from './_config/configuration/configuration.component';
+import { ProcedureMainComponent } from './procedures/procedurelist/procedure-main.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'errors', component: TestErrorsComponent},
   { path: 'users', component: UserlistComponent},
   { path: 'statistics', component: StatisticsComponent },
-  { path: 'procedures', component: ProcedurelistComponent},
+  { path: 'procedures', component: ProcedureMainComponent, resolve: { procedure: ProcedureListResolver }},
   { path: 'about', component: AboutComponent},
   { path: 'not-found', component: NotFoundComponent},
   { path: 'server-error', component: ServerErrorComponent},

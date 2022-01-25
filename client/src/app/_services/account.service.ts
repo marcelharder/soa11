@@ -4,7 +4,7 @@ import { BehaviorSubject, ReplaySubject } from 'rxjs';
 import {map} from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Procedure } from '../_models/Procedure';
-import { User } from '../_models/user';
+import { User } from '../_models/User';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +23,7 @@ export class AccountService {
   login(model: any){
     return this.http.post(this.baseUrl + 'account/login', model).pipe(
       map((response:User)=>{
+        debugger;
         const user = response;
         if (user) {localStorage.setItem('user', JSON.stringify(user))};
         this.currentUserSource.next(user);

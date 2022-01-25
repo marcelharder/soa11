@@ -16,7 +16,6 @@ import { DetailsmainComponent } from './procedures/detailsmain/detailsmain.compo
 import { EuroscoredetailsComponent } from './procedures/euroscoredetails/euroscoredetails.component'
 import { ToastrModule } from 'ngx-toastr';
 import { TestErrorsComponent } from './errors/test-errors/test-errors.component';
-import { ProcedurelistComponent } from './procedures/procedurelist/procedurelist.component';
 import { StatisticsComponent } from './statistics/statistics.component';
 import { UserlistComponent } from './userlist/userlist.component';
 import { AboutComponent } from './about/about.component';
@@ -25,6 +24,7 @@ import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { ServerErrorComponent } from './errors/server-error/server-error.component';
 import { ConfigurationComponent } from './_config/configuration/configuration.component';
 import { JwtInterceptor } from './_interceptors/jwt.interceptor';
+import { ProcedureMainComponent } from './procedures/procedurelist/procedure-main.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +35,7 @@ import { JwtInterceptor } from './_interceptors/jwt.interceptor';
     DetailsmainComponent,
     EuroscoredetailsComponent,
     TestErrorsComponent,
-    ProcedurelistComponent,
+    ProcedureMainComponent,
     StatisticsComponent,
     UserlistComponent,
     AboutComponent,

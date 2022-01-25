@@ -28,7 +28,7 @@ export class ProceduredetailsComponent implements OnInit {
     private alertify: ToastrService) { }
 
   ngOnInit(): void {
-    this.auth.currentProcedure$.subscribe((next)=>{this.currentProcedureId = next.id})
+    this.auth.currentProcedure$.subscribe((next)=>{this.currentProcedureId = next.procedureId})
   }
 
   goToDestination(d: string) {

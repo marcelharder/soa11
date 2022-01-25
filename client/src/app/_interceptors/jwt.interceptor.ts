@@ -6,7 +6,7 @@ import {
   HttpInterceptor
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { User } from '../_models/user';
+import { User } from '../_models/User';
 import { AccountService } from '../_services/account.service';
 import { take } from 'rxjs/operators';
 
@@ -21,7 +21,7 @@ export class JwtInterceptor implements HttpInterceptor {
     if(currentUser){
       request = request.clone({
         setHeaders: {
-          Authorization: `Bearer ${currentUser.token}`
+          Authorization: `Bearer ${currentUser.Token}`
         }
       })
     }

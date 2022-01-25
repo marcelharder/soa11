@@ -1,5 +1,5 @@
 export interface Procedure {
-    id: number;
+    procedureId: number;
     dateOfSurgery: Date;
     description: string;
     delectedSurgeon: string;

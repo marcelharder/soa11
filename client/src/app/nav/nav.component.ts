@@ -3,7 +3,7 @@ import { ChildActivationStart, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
-import { User } from '../_models/user';
+import { User } from '../_models/User';
 import { AccountService } from '../_services/account.service';
 
 @Component({
@@ -21,11 +21,19 @@ export class NavComponent implements OnInit {
     private toastr: ToastrService) { }
 
   ngOnInit(): void {
+   if(this.username == ''){
     this.accountService.currentUser$.pipe(take(1)).subscribe((u) => {this.username = u.username;})
+   }
   }
 
-  login(){this.accountService.login(this.model).subscribe((next)=>{ console.log(next); })}
+  login(){this.accountService.login(this.model).subscribe((next)=>{
+    
+    this.accountService.currentUser$.pipe(take(1)).subscribe((u) => {this.username = u.username;})
+    console.log(next); })}
 
-  logout(){ this.accountService.logout(); }
+  logout(){ 
+    this.model.username = "";
+    this.model.password = "";
+    this.accountService.logout(); }
 
 }
