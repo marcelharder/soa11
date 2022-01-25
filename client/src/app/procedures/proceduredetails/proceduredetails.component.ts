@@ -69,7 +69,7 @@ export class ProceduredetailsComponent implements OnInit {
 
   }
   goDelete(){
-   /*  this.alertify.success('Are you sure yoy want to delete this procedure', () => {
+   /* this.alertify.success('Are you sure yoy want to delete this procedure', () => {
       this.procedureService.deleteProcedure(this.currentProcedureId).subscribe(
         (next)=>{
           this.alertify.success('Procedure deleted');
