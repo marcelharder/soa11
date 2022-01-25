@@ -2,17 +2,19 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using api.Data;
-using api.DTOs;
 using api.Entities;
 using api.Helpers;
 using api.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace api.Controllers
 {
-    public class DropDownController : BaseApiController
+
+    [ApiController]
+    // [Authorize]
+    public class DropDownController : ControllerBase
     {
-       
         private IUserRepository _repo;
         private IHospitalRepository _hos;
         private IEmployeeRepository _emp;
@@ -22,6 +24,7 @@ namespace api.Controllers
         private OperatieDrops _copd;
         public DropDownController(
             IUserRepository repo,
+            
             SpecialMaps sp,
             IEmployeeRepository emp,
             IHospitalRepository hos,
@@ -37,21 +40,21 @@ namespace api.Controllers
 
         #region <!-- hospitalStuff -->
 
-        [Route("hospitalOptions/{id}")]
+        [Route("api/hospitalOptions/{id}")]
         [HttpGet]
         public async Task<IActionResult> getHO(int id)
         {
             _result = await _copd.getHospitalOptions(id); return Ok(_result);
         }
-        [Route("allHospitals")]
+        [Route("api/allHospitals")]
         [HttpGet]
-        public List<HospitalForReturnDTO> getHO()
+        public IActionResult getHO()
         {
-            var r = _hos.GetAllHospitals(); 
-            return r;
+            var test = _hos.GetAllHospitals(); 
+            return Ok(test);
         }
 
-        [Route("allHospitalOptionsPerCountry/{id}")]
+        [Route("api/allHospitalOptionsPerCountry/{id}")]
         [HttpGet]
         public async Task<IActionResult> getHp(int id)
         {
@@ -63,21 +66,21 @@ namespace api.Controllers
         #endregion
 
         #region <!-- cities-->
-        [Route("countriesDrops")]// get all the countries with possibe hospitals
+        [Route("api/countriesDrops")]// get all the countries with possibe hospitals
         [HttpGet]
         public IActionResult getThing02()
         {
             var result = _hos.GetAllCountries();
             return Ok(result);
         }
-        [Route("citiesDrops")]
+        [Route("api/citiesDrops")]
         [HttpGet]
         public IActionResult getThing12()
         {
             var result = _hos.GetAllCities();
             return Ok(result);
         }
-        [Route("citiesPerCountry/{id}")]
+        [Route("api/citiesPerCountry/{id}")]
         [HttpGet]
         public IActionResult getThing122(int id)
         {
@@ -85,18 +88,23 @@ namespace api.Controllers
             return Ok(result);
         }
         #endregion
-      
+
+
+
+
+
+       
 
         #region <!-- cpb -->
         
-        [Route("iabp_when")]
+        [Route("api/iabp_when")]
         [HttpGet]
         public async Task<IActionResult> getGeneral_073() { _result = await _copd.getCPB_iabp_timing(); return Ok(_result); }
-        [Route("iabp_why")]
+        [Route("api/iabp_why")]
         [HttpGet]
         public async Task<IActionResult> getGeneral_074() { _result = await _copd.getCPB_iabp_ind(); return Ok(_result); }
 
-        [Route("art_canulation_options")]
+        [Route("api/art_canulation_options")]
         [HttpGet]
         public async Task<IActionResult> getAa()
         {
@@ -104,7 +112,7 @@ namespace api.Controllers
 
             return Ok(result);
         }
-        [Route("ven_canulation_options")]
+        [Route("api/ven_canulation_options")]
         [HttpGet]
         public async Task<IActionResult> getAb()
         {
@@ -112,7 +120,7 @@ namespace api.Controllers
 
             return Ok(result);
         }
-        [Route("occl_method")]
+        [Route("api/occl_method")]
         [HttpGet]
         public async Task<IActionResult> getAc()
         {
@@ -120,7 +128,7 @@ namespace api.Controllers
 
             return Ok(result);
         }
-        [Route("myotech")]
+        [Route("api/myotech")]
         [HttpGet]
         public async Task<IActionResult> getAd()
         {
@@ -128,7 +136,7 @@ namespace api.Controllers
 
             return Ok(result);
         }
-        [Route("cardioplegtiming")]
+        [Route("api/cardioplegtiming")]
         [HttpGet]
         public async Task<IActionResult> getAe()
         {
@@ -136,7 +144,7 @@ namespace api.Controllers
 
             return Ok(result);
         }
-        [Route("mpt")]
+        [Route("api/mpt")]
         [HttpGet]
         public async Task<IActionResult> getAe2()
         {
@@ -144,7 +152,7 @@ namespace api.Controllers
 
             return Ok(result);
         }
-        [Route("cardioplegtemp")]
+        [Route("api/cardioplegtemp")]
         [HttpGet]
         public async Task<IActionResult> getAh()
         {
@@ -152,7 +160,7 @@ namespace api.Controllers
 
             return Ok(result);
         }
-        [Route("cardioplegdelivery")]
+        [Route("api/cardioplegdelivery")]
         [HttpGet]
         public async Task<IActionResult> getAf()
         {
@@ -160,7 +168,7 @@ namespace api.Controllers
 
             return Ok(result);
         }
-        [Route("typeCardiopleg")]
+        [Route("api/typeCardiopleg")]
         [HttpGet]
         public async Task<IActionResult> getAhy()
         {
@@ -168,45 +176,46 @@ namespace api.Controllers
 
             return Ok(result);
         }
-        [Route("myocardialPreservationTechnique")]
+        [Route("api/myocardialPreservationTechnique")]
         [HttpGet]
         public async Task<IActionResult> getMPT()
         {
             _result = await _copd.getMPT(); return Ok(_result);
         }
 
-        [Route("art_choice")]
+        [Route("api/art_choice")]
         [HttpGet]
         public async Task<IActionResult> getCPB_01() { _result = await _copd.getCPB_art_choice(); return Ok(_result); }
-        [Route("ven_choice")]
+        [Route("api/ven_choice")]
         [HttpGet]
         public async Task<IActionResult> getCPB_02() { _result = await _copd.getCPB_ven_choice(); return Ok(_result); }
-        [Route("cpb_delivery")]
+
+        [Route("api/cpb_delivery")]
         [HttpGet]
         public async Task<IActionResult> getCPB_03() { _result = await _copd.getCPB_delivery(); return Ok(_result); }
-        [Route("iabp_ind")]
+        [Route("api/iabp_ind")]
         [HttpGet]
         public async Task<IActionResult> getCPB_04() { _result = await _copd.getCPB_iabp_ind(); return Ok(_result); }
-        [Route("iabp_timing")]
+        [Route("api/iabp_timing")]
         [HttpGet]
         public async Task<IActionResult> getCPB_05() { _result = await _copd.getCPB_iabp_timing(); return Ok(_result); }
-        [Route("cpb_nccp")]
+        [Route("api/cpb_nccp")]
         [HttpGet]
         public async Task<IActionResult> getCPB_06() { _result = await _copd.getCPB_nccp(); return Ok(_result); }
-        [Route("cpb_aox")]
+        [Route("api/cpb_aox")]
         [HttpGet]
         public async Task<IActionResult> getCPB_07() { _result = await _copd.getCPB_aox(); return Ok(_result); }
-        [Route("cpb_timing")]
+        [Route("api/cpb_timing")]
         [HttpGet]
         public async Task<IActionResult> getCPB_08() { _result = await _copd.getCPB_timing(); return Ok(_result); }
-        [Route("cpb_temp")]
+        [Route("api/cpb_temp")]
         [HttpGet]
         public async Task<IActionResult> getCPB_09() { _result = await _copd.getCPB_temp(); return Ok(_result); }
 
         #endregion
 
         #region <!--valve options-->
-        [Route("implantPosition")]
+        [Route("api/implantPosition")]
         [HttpGet]
         public async Task<IActionResult> getIp()
         {
@@ -214,7 +223,7 @@ namespace api.Controllers
             return Ok(result);
         }
 
-        [Route("aorticProcedure")]
+        [Route("api/aorticProcedure")]
         [HttpGet]
         public async Task<IActionResult> getAhx()
         {
@@ -222,7 +231,7 @@ namespace api.Controllers
 
             return Ok(result);
         }
-        [Route("mitralProcedure")]
+        [Route("api/mitralProcedure")]
         [HttpGet]
         public async Task<IActionResult> getAhz()
         {
@@ -230,7 +239,7 @@ namespace api.Controllers
 
             return Ok(result);
         }
-        [Route("aetiology")]
+        [Route("api/aetiology")]
         [HttpGet]
         public async Task<IActionResult> getAha()
         {
@@ -238,7 +247,7 @@ namespace api.Controllers
 
             return Ok(result);
         }
-        [Route("tricuspidProcedure")]
+        [Route("api/tricuspidProcedure")]
         [HttpGet]
         public async Task<IActionResult> getAhd()
         {
@@ -246,7 +255,7 @@ namespace api.Controllers
 
             return Ok(result);
         }
-        [Route("pulmonaryProcedure")]
+        [Route("api/pulmonaryProcedure")]
         [HttpGet]
         public async Task<IActionResult> getAhe()
         {
@@ -254,7 +263,7 @@ namespace api.Controllers
 
             return Ok(result);
         }
-        [Route("mitralValveRepair")]
+        [Route("api/mitralValveRepair")]
         [HttpGet]
         public async Task<IActionResult> getAhf()
         {
@@ -262,14 +271,14 @@ namespace api.Controllers
 
             return Ok(result);
         }
-        [Route("tricuspidValveRepair")]
+        [Route("api/tricuspidValveRepair")]
         [HttpGet]
         public async Task<IActionResult> getAhg()
         {
             var result = await _copd.getTricuspidValveRepair();
             return Ok(result);
         }
-        [Route("valveType")]
+        [Route("api/valveType")]
         [HttpGet]
         public async Task<IActionResult> getAhh()
         {
@@ -278,14 +287,14 @@ namespace api.Controllers
         }
 
 
-        [Route("mitralRingType")]
+        [Route("api/mitralRingType")]
         [HttpGet]
         public IActionResult getAhhw1() // get the data from Valve.xml
         {
             var result = _copd.getMitralRingType();
             return Ok(result);
         }
-        [Route("tricuspidRingType")]
+        [Route("api/tricuspidRingType")]
         [HttpGet]
         public IActionResult getAhhw2() // get the data from Valve.xml
         {
@@ -298,35 +307,35 @@ namespace api.Controllers
 
        
 
-        [Route("timing_options")]
+        [Route("api/timing_options")]
         [HttpGet]
         public async Task<IActionResult> getTO() { await Task.Run(() => { _result = _copd.getTimingOptions(); }); return Ok(_result); }
 
-        [Route("urgent_options")]
+        [Route("api/urgent_options")]
         [HttpGet]
         public async Task<IActionResult> getUO() { await Task.Run(() => { _result = _copd.getUrgentOptions(); }); return Ok(_result); }
 
-        [Route("emergent_options")]
+        [Route("api/emergent_options")]
         [HttpGet]
         public async Task<IActionResult> getEO() { await Task.Run(() => { _result = _copd.getEmergentOptions(); }); return Ok(_result); }
 
-        [Route("inotrope_options")]
+        [Route("api/inotrope_options")]
         [HttpGet]
         public async Task<IActionResult> getIO() { await Task.Run(() => { _result = _copd.getInotropeOptions(); }); return Ok(_result); }
 
-        [Route("pacemaker_options")]
+        [Route("api/pacemaker_options")]
         [HttpGet]
         public async Task<IActionResult> getPO() { await Task.Run(() => { _result = _copd.getPacemakerOptions(); }); return Ok(_result); }
 
-        [Route("pericard_options")]
+        [Route("api/pericard_options")]
         [HttpGet]
         public async Task<IActionResult> getPOT() { await Task.Run(() => { _result = _copd.getPericardOptions(); }); return Ok(_result); }
 
-        [Route("pleura_options")]
+        [Route("api/pleura_options")]
         [HttpGet]
         public async Task<IActionResult> getPER() { await Task.Run(() => { _result = _copd.getPleuraOptions(); }); return Ok(_result); }
 
-        [Route("addProcedureCategory/{id}")]
+        [Route("api/addProcedureCategory/{id}")]
         [HttpGet]
         public async Task<IActionResult> getPERF(int id) // this used to give a list of procedures to choose from, should come from language_file
         {
@@ -337,74 +346,74 @@ namespace api.Controllers
 
         #region <!--cabg -->
 
-        [Route("cabg_quality")]
+        [Route("api/cabg_quality")]
         [HttpGet]
         public async Task<IActionResult> getCABG_Quality() { _result = await _copd.getCABGQuality(); return Ok(_result); }
 
-        [Route("cabg_diameter")]
+        [Route("api/cabg_diameter")]
         [HttpGet]
         public async Task<IActionResult> getCABG_Diameter() { _result = await _copd.getCABGDiameter(); return Ok(_result); }
 
-        [Route("cabg_proximal")]
+        [Route("api/cabg_proximal")]
         [HttpGet]
         public async Task<IActionResult> getCABG_Proximal() { _result = await _copd.getCABGProximal(); return Ok(_result); }
 
-        [Route("cabg_locatie")]
+        [Route("api/cabg_locatie")]
         [HttpGet]
         public async Task<IActionResult> getCABG_Locatie() { _result = await _copd.getCABGLocatie(); return Ok(_result); }
 
-        [Route("cabg_conduit")]
+        [Route("api/cabg_conduit")]
         [HttpGet]
         public async Task<IActionResult> getCABG_Conduit() { _result = await _copd.getCABGConduit(); return Ok(_result); }
 
-        [Route("cabg_type")]
+        [Route("api/cabg_type")]
         [HttpGet]
         public async Task<IActionResult> getCABG_Type() { _result = await _copd.getCABGType(); return Ok(_result); }
 
-        [Route("cabg_procedure")]
+        [Route("api/cabg_procedure")]
         [HttpGet]
         public async Task<IActionResult> getCABG_Procedure() { _result = await _copd.getCABGProcedure(); return Ok(_result); }
 
-        [Route("cabg_angle")]
+        [Route("api/cabg_angle")]
         [HttpGet]
         public async Task<IActionResult> getCABG_Angle() { _result = await _copd.getCABGAngle(); return Ok(_result); }
 
-        [Route("cabg_dropList1")]
+        [Route("api/cabg_dropList1")]
         [HttpGet]
         public async Task<IActionResult> getCABG_Droplist1() { _result = await _copd.getCABGDropList1(); return Ok(_result); }
 
-        [Route("cabg_radial")]
+        [Route("api/cabg_radial")]
         [HttpGet]
         public async Task<IActionResult> getCABG_Radial() { _result = await _copd.getCABGRadial(); return Ok(_result); }
 
-        [Route("cabg_leg")]
+        [Route("api/cabg_leg")]
         [HttpGet]
         public async Task<IActionResult> getCABG_Leg() { _result = await _copd.getCABGLeg(); return Ok(_result); }
 
         #endregion
 
         #region <!--history-->
-        [Route("eu_weight_intervention")]
+        [Route("api/eu_weight_intervention")]
         [HttpGet]
         public async Task<IActionResult> getCPB_11() { _result = await _copd.getWeightIntervention(); return Ok(_result); }
-        [Route("eu_lv_function")]
+        [Route("api/eu_lv_function")]
         [HttpGet]
         public async Task<IActionResult> getCPB_13() { _result = await _copd.getLVFunction(); return Ok(_result); }
 
-        [Route("eu_pulmonary_hypertension")]
+        [Route("api/eu_pulmonary_hypertension")]
         [HttpGet]
         public async Task<IActionResult> getCPB_19() { _result = await _copd.getPulmonaryHypertension(); return Ok(_result); }
 
-        [Route("eu_urgency")]
+        [Route("api/eu_urgency")]
         [HttpGet]
         public async Task<IActionResult> getCPB_14() { _result = await _copd.getUrgency(); return Ok(_result); }
-        [Route("eu_NYHA")]
+        [Route("api/eu_NYHA")]
         [HttpGet]
         public async Task<IActionResult> getCPB_15() { _result = await _copd.getNYHA(); return Ok(_result); }
-        [Route("eu_reason_urgent")]
+        [Route("api/eu_reason_urgent")]
         [HttpGet]
         public async Task<IActionResult> getCPB_16() { _result = await _copd.getReasonUrgent(); return Ok(_result); }
-        [Route("eu_reason_emergency")]
+        [Route("api/eu_reason_emergency")]
         [HttpGet]
         public async Task<IActionResult> getCPB_17() { _result = await _copd.getReasonEmergency(); return Ok(_result); }
 
@@ -412,7 +421,7 @@ namespace api.Controllers
 
         #region <!--general stuff-->
 
-        [Route("dropEmployee")]
+        [Route("api/dropEmployee")]
         [HttpGet]
         public async Task<IActionResult> getA([FromQuery] EmployeeParams emp)
         {
@@ -420,14 +429,14 @@ namespace api.Controllers
             return Ok(result);
         }
 
-        [Route("dropLtxIndication")]
+        [Route("api/dropLtxIndication")]
         [HttpGet]
         public async Task<IActionResult> getA2345()
         {
             var result = await _copd.getLTXIndication();
             return Ok(result);
         }
-        [Route("dropLtxType")]
+        [Route("api/dropLtxType")]
         [HttpGet]
         public async Task<IActionResult> getA1345()
         {
@@ -435,17 +444,18 @@ namespace api.Controllers
             return Ok(result);
         }
 
-        [Route("career")]
+      
+        [Route("api/career")]
         [HttpGet]
         public async Task<IActionResult> getCareer()
         {
             var result = await _copd.getCareerItems();
             return Ok(result);
         }
-        [Route("optionsYN")]
+        [Route("api/optionsYN")]
         [HttpGet]
         public async Task<IActionResult> getYN() { _result = await _copd.getYN(); return Ok(_result); }
-        [Route("dropHours")]
+        [Route("api/dropHours")]
         [HttpGet]
         public IActionResult getHours()
         {
@@ -454,7 +464,7 @@ namespace api.Controllers
             return Ok(_result);
         }
 
-        [Route("dropMins")]
+        [Route("api/dropMins")]
         [HttpGet]
         public IActionResult getMin()
         {
@@ -463,73 +473,73 @@ namespace api.Controllers
             return Ok(_result);
         }
 
-        [Route("gender_options")]
+        [Route("api/gender_options")]
         [HttpGet]
         public async Task<IActionResult> getGeneral_01() { _result = await _copd.getGenderOptions(); return Ok(_result); }
-        [Route("age_options")]
+        [Route("api/age_options")]
         [HttpGet]
         public async Task<IActionResult> getGeneral_02() { _result = await _copd.getAgeOptions(); return Ok(_result); }
-        [Route("weight_options")]
+        [Route("api/weight_options")]
         [HttpGet]
         public async Task<IActionResult> getGeneral_03() { _result = await _copd.getWeightOptions(); return Ok(_result); }
-        [Route("height_options")]
+        [Route("api/height_options")]
         [HttpGet]
         public async Task<IActionResult> getGeneral_05() { _result = await _copd.getHeightOptions(); return Ok(_result); }
-        [Route("creat_options")]
+        [Route("api/creat_options")]
         [HttpGet]
         public async Task<IActionResult> getGeneral_04() { _result = await _copd.getCreatOptions(); return Ok(_result); }
 
         #endregion
 
         #region <!-- postop -->
-        [Route("dead")]
+        [Route("api/dead")]
         [HttpGet]
         public async Task<IActionResult> getGeneral_051() { _result = await _copd.getDeadOrAlive(); return Ok(_result); }
-        [Route("dead_location")]
+        [Route("api/dead_location")]
         [HttpGet]
         public async Task<IActionResult> getGeneral_052() { _result = await _copd.getDeadLocation(); return Ok(_result); }
-        [Route("dead_cause")]
+        [Route("api/dead_cause")]
         [HttpGet]
         public async Task<IActionResult> getGeneral_053() { _result = await _copd.getDeadCause(); return Ok(_result); }
-        [Route("discharge_activities")]
+        [Route("api/discharge_activities")]
         [HttpGet]
         public async Task<IActionResult> getGeneral_054() { _result = await _copd.getDischargeActivities(); return Ok(_result); }
-        [Route("discharge_diagnosis")]
+        [Route("api/discharge_diagnosis")]
         [HttpGet]
         public async Task<IActionResult> getGeneral_055() { _result = await _copd.getDischargeDiagnosis(); return Ok(_result); }
-        [Route("discharge_direction")]
+        [Route("api/discharge_direction")]
         [HttpGet]
         public async Task<IActionResult> getGeneral_056() { _result = await _copd.getDischargeDirection(); return Ok(_result); }
 
-        [Route("AutoBloodTiming")]
+        [Route("api/AutoBloodTiming")]
         [HttpGet]
         public async Task<IActionResult> getGeneral_041() { _result = await _copd.getAutologousBloodTiming(); return Ok(_result); }
 
-        [Route("complicationOptions01")]
+        [Route("api/complicationOptions01")]
         [HttpGet]
         public async Task<IActionResult> getGeneral_042() { _result = await _copd.getComplicatieOptie01(); return Ok(_result); }
-        [Route("complicationOptions02")]
+        [Route("api/complicationOptions02")]
         [HttpGet]
         public async Task<IActionResult> getGeneral_043() { _result = await _copd.getComplicatieOptie02(); return Ok(_result); }
-        [Route("complicationOptions03")]
+        [Route("api/complicationOptions03")]
         [HttpGet]
         public async Task<IActionResult> getGeneral_044() { _result = await _copd.getComplicatieOptie03(); return Ok(_result); }
-        [Route("complicationOptions04")]
+        [Route("api/complicationOptions04")]
         [HttpGet]
         public async Task<IActionResult> getGeneral_045() { _result = await _copd.getComplicatieOptie04(); return Ok(_result); }
-        [Route("complicationOptions05")]
+        [Route("api/complicationOptions05")]
         [HttpGet]
         public async Task<IActionResult> getGeneral_046() { _result = await _copd.getComplicatieOptie05(); return Ok(_result); }
-        [Route("complicationOptions06")]
+        [Route("api/complicationOptions06")]
         [HttpGet]
         public async Task<IActionResult> getGeneral_047() { _result = await _copd.getComplicatieOptie06(); return Ok(_result); }
-        [Route("complicationOptions07")]
+        [Route("api/complicationOptions07")]
         [HttpGet]
         public async Task<IActionResult> getGeneral_048() { _result = await _copd.getComplicatieOptie07(); return Ok(_result); }
-        [Route("complicationOptions08")]
+        [Route("api/complicationOptions08")]
         [HttpGet]
         public async Task<IActionResult> getGeneral_049() { _result = await _copd.getComplicatieOptie08(); return Ok(_result); }
-        [Route("complicationOptions09")]
+        [Route("api/complicationOptions09")]
         [HttpGet]
         public async Task<IActionResult> getGeneral_050() { _result = await _copd.getComplicatieOptie09(); return Ok(_result); }
 
@@ -537,56 +547,56 @@ namespace api.Controllers
 
         #region <!-- aortic surgery -->
 
-        [Route("aneurysmType")]
+        [Route("api/aneurysmType")]
         [HttpGet]
         public async Task<IActionResult> getGeneral_057() { _result = await _copd.getAneurysmType(); return Ok(_result); }
-        [Route("dissectionOnset")]
+        [Route("api/dissectionOnset")]
         [HttpGet]
         public async Task<IActionResult> getGeneral_058() { _result = await _copd.getDissectionOnset(); return Ok(_result); }
-        [Route("dissectionType")]
+        [Route("api/dissectionType")]
         [HttpGet]
         public async Task<IActionResult> getGeneral_059() { _result = await _copd.getDissectionType(); return Ok(_result); }
-        [Route("pathology")]
+        [Route("api/pathology")]
         [HttpGet]
         public async Task<IActionResult> getGeneral_060() { _result = await _copd.getPathology(); return Ok(_result); }
-        [Route("opIndication")]
+        [Route("api/opIndication")]
         [HttpGet]
         public async Task<IActionResult> getGeneral_061() { _result = await _copd.getOpIndication(); return Ok(_result); }
-        [Route("optechnique")]
+        [Route("api/optechnique")]
         [HttpGet]
         public async Task<IActionResult> getGeneral_062() { _result = await _copd.getOpTechnique(); return Ok(_result); }
-        [Route("rangeReplacement")]
+        [Route("api/rangeReplacement")]
         [HttpGet]
         public async Task<IActionResult> getGeneral_063() { _result = await _copd.getRangeReplacement(); return Ok(_result); }
         #endregion
 
         #region <!-- off pump -->
 
-        [Route("conversionDetails")]
+        [Route("api/conversionDetails")]
         [HttpGet]
         public async Task<IActionResult> getGeneral_064() { _result = await _copd.getConversionDetails(); return Ok(_result); }
-        [Route("strategy")]
+        [Route("api/strategy")]
         [HttpGet]
         public async Task<IActionResult> getGeneral_065() { _result = await _copd.getStrategy(); return Ok(_result); }
-        [Route("primaryIncision")]
+        [Route("api/primaryIncision")]
         [HttpGet]
         public async Task<IActionResult> getGeneral_066() { _result = await _copd.getPrimaryIncision(); return Ok(_result); }
-        [Route("follow1")]
+        [Route("api/follow1")]
         [HttpGet]
         public async Task<IActionResult> getGeneral_067() { _result = await _copd.getFollow_1(); return Ok(_result); }
-        [Route("follow2")]
+        [Route("api/follow2")]
         [HttpGet]
         public async Task<IActionResult> getGeneral_068() { _result = await _copd.getFollow_2(); return Ok(_result); }
-        [Route("limaHarvest")]
+        [Route("api/limaHarvest")]
         [HttpGet]
         public async Task<IActionResult> getGeneral_069() { _result = await _copd.getLimaHarvest(); return Ok(_result); }
-        [Route("stabilization")]
+        [Route("api/stabilization")]
         [HttpGet]
         public async Task<IActionResult> getGeneral_070() { _result = await _copd.getStabilization(); return Ok(_result); }
-        [Route("sutureTechnique")]
+        [Route("api/sutureTechnique")]
         [HttpGet]
         public async Task<IActionResult> getGeneral_071() { _result = await _copd.getSutureTechnique(); return Ok(_result); }
-        [Route("follow3")]
+        [Route("api/follow3")]
         [HttpGet]
         public async Task<IActionResult> getGeneral_072() { _result = await _copd.getFollow_3(); return Ok(_result); }
         #endregion
