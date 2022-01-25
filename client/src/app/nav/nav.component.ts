@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ChildActivationStart, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
+import { take } from 'rxjs/operators';
 import { User } from '../_models/user';
 import { AccountService } from '../_services/account.service';
 
@@ -12,6 +13,7 @@ import { AccountService } from '../_services/account.service';
 })
 export class NavComponent implements OnInit {
   model: any = {};
+  username: string = '';
 
   constructor(
     public accountService: AccountService, 
@@ -19,20 +21,11 @@ export class NavComponent implements OnInit {
     private toastr: ToastrService) { }
 
   ngOnInit(): void {
+    this.accountService.currentUser$.pipe(take(1)).subscribe((u) => {this.username = u.username;})
   }
 
-  login(){
-    this.accountService.login(this.model).subscribe((next)=>{
-      console.log(next);
-    }, error => {
-      console.log(error);
-      this.toastr.error(error.error);
-    
-    })
-  }
+  login(){this.accountService.login(this.model).subscribe((next)=>{ console.log(next); })}
 
-  logout(){
-    this.accountService.logout();
-    }
+  logout(){ this.accountService.logout(); }
 
 }
