@@ -1,4 +1,10 @@
 
+using api.DTOs;
+using api.Entities;
+using api.Helpers;
+using api.Interfaces;
+using CloudinaryDotNet;
+using CloudinaryDotNet.Actions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -96,8 +102,6 @@ namespace api.Controllers
         [HttpPost("addHospitalPhoto/{id}")]
         public async Task<IActionResult> AddPhotoForHospital(int id, [FromForm] PhotoForCreationDto photoDto)
         {
-            // var hospital = _hos.GetSpecificHospital(id.ToString());
-            
             var h = await _hos.getClassHospital(id.ToString().makeSureTwoChar());
 
             var file = photoDto.file;
@@ -113,7 +117,7 @@ namespace api.Controllers
                     };
                     uploadResult = _cloudinary.Upload(uploadParams);
                 }
-                h.ImageUrl = uploadResult.Uri.ToString();
+                h.ImageUrl = uploadResult.SecureUrl.AbsoluteUri;
                 // automap it to class-hospital before save
                 var no = await _hos.updateHospital(h);
                 if (no == 1)

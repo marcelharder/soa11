@@ -1,8 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using api.DTOs;
+using api.Entities;
+using api.Helpers;
+using api.Interfaces;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace api.Controllers
 {
@@ -13,14 +19,17 @@ namespace api.Controllers
     {
 
         private IAioRepo _repo;
+        private UserManager<AppUser> _manager;
+
         private IUserRepository _user;
         private SpecialMaps _spec;
 
-        public AioController(IAioRepo repo, IUserRepository user, SpecialMaps spec)
+        public AioController(IAioRepo repo, UserManager<AppUser> manager, SpecialMaps spec, IUserRepository user)
         {
             _repo = repo;
-            _user = user;
+            _manager = manager;
             _spec = spec;
+            _user = user;
         }
 
 
@@ -45,10 +54,10 @@ namespace api.Controllers
             var currentUserId = _spec.getCurrentUserId();
             cd.Id = currentUserId;
 
-            var currentUser = await _user.GetUser(currentUserId);
+            var currentUser = await _manager.Users.SingleOrDefaultAsync(x => x.Id == currentUserId);
             var course = _spec.mapToCourse(cd, new Class_Course());
             currentUser.Courses.Add(course);
-            if (await _user.SaveAll())
+            if (await _user.SaveAllAsync())
             {
                 var ret = _spec.mapToCoursedto(course);
                 return CreatedAtRoute("GetCourse", new { id = course.CourseId }, ret);
@@ -93,11 +102,11 @@ namespace api.Controllers
         {
             var currentUserId = _spec.getCurrentUserId();
             if (currentUserId != epd.Id) return Unauthorized();
-            var currentUser = await _user.GetUser(currentUserId);
+            var currentUser = await _manager.Users.SingleOrDefaultAsync(x => x.Id == currentUserId);
 
             var epa = _spec.mapToEpa(epd, new Class_Epa());
             currentUser.Epa.Add(epa);
-            if (await _user.SaveAll())
+            if (await _user.SaveAllAsync())
             {
                 var ret = _spec.mapToepadto(epa);
                 return CreatedAtRoute("GetEpa", new { id = epa.EpaId }, ret);

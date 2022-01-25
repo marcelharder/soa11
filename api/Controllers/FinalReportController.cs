@@ -1,5 +1,7 @@
 using System.IO;
 using System.Threading.Tasks;
+using api.Data.reports.interfaces;
+using api.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;

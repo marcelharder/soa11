@@ -2,9 +2,18 @@ using System;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using api.Data;
+using api.DTOs;
+using api.Entities;
+using api.Helpers;
+using api.Interfaces;
+using CloudinaryDotNet;
+using CloudinaryDotNet.Actions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
 namespace api.Controllers
@@ -19,14 +28,14 @@ namespace api.Controllers
         private IHttpContextAccessor _ht;
         List<Class_Item> _result = new List<Class_Item>();
         OperatieDrops _copd;
-        private IUserRepository _user;
+        private UserManager<AppUser> _manager;
         private readonly IOptions<CloudinarySettings> _cloudinaryConfig;
         private Cloudinary _cloudinary;
 
         private SpecialMaps _maps;
 
         public EmployeeController(IUserRepository repo, 
-            IUserRepository user, 
+            UserManager<AppUser> manager, 
             SpecialMaps maps,
             IHttpContextAccessor ht, 
             IEmployeeRepository emp, 
@@ -36,7 +45,7 @@ namespace api.Controllers
             _emp = emp;
             _copd = copd;
             _ht = ht;
-            _user = user;
+            _manager = manager;
             _maps = maps;
 
             _cloudinaryConfig = cloudinaryConfig;
@@ -80,7 +89,8 @@ namespace api.Controllers
         {
             var employee = await _emp.addEmployee();
             var currentUserId = _ht.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            var currentUser = await _user.GetUser(Convert.ToInt32(currentUserId));
+            var id = Convert.ToInt32(currentUserId);
+            var currentUser = await _manager.Users.SingleOrDefaultAsync(x => x.Id == id);
 
             employee.profession = profession;
             employee.selected_hospital_id = currentUser.hospital_id.ToString();
@@ -116,7 +126,7 @@ namespace api.Controllers
                     };
                     uploadResult = _cloudinary.Upload(uploadParams);
                 }
-                employee.image = uploadResult.Uri.ToString();
+                employee.image = uploadResult.SecureUrl.AbsoluteUri;
 
                 if (await _emp.SaveAll()) return CreatedAtRoute("GetEmpById", new {id = employee.Id }, employee);
 

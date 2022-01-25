@@ -1,7 +1,11 @@
 using System;
 using System.Net.Http;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
+using api.DTOs;
+using api.Helpers;
+using api.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -119,7 +123,7 @@ namespace api.Controllers
         {
             var comaddress = _com.Value.emailURL;
             string result = "";
-            var jsonString = JsonConvert.SerializeObject(em);
+            var jsonString = JsonSerializer.Serialize(em);
             var payLoad = new StringContent(jsonString, Encoding.UTF8, "application/json");
             using (var httpClient = new HttpClient())
             {
