@@ -15,7 +15,7 @@ namespace api.Controllers
     // [Authorize]
     public class DropDownController : ControllerBase
     {
-        private IUserRepository _repo;
+       // private IUserRepository _repo;
         private IHospitalRepository _hos;
         private IEmployeeRepository _emp;
         private SpecialMaps _sp;
@@ -23,22 +23,20 @@ namespace api.Controllers
 
         private OperatieDrops _copd;
         public DropDownController(
-            IUserRepository repo,
-            
+          //  IUserRepository repo,
             SpecialMaps sp,
             IEmployeeRepository emp,
             IHospitalRepository hos,
             OperatieDrops copd)
         {
-            _repo = repo;
+         //   _repo = repo;
             _emp = emp;
             _copd = copd;
             _hos = hos;
-           
             _sp = sp;
         }
 
-        #region <!-- hospitalStuff -->
+        #region <!--hospitalStuff -->
 
         [Route("api/hospitalOptions/{id}")]
         [HttpGet]
@@ -64,8 +62,7 @@ namespace api.Controllers
         }
 
         #endregion
-
-        #region <!-- cities-->
+        #region <!--cities-->
         [Route("api/countriesDrops")]// get all the countries with possibe hospitals
         [HttpGet]
         public IActionResult getThing02()
@@ -88,14 +85,7 @@ namespace api.Controllers
             return Ok(result);
         }
         #endregion
-
-
-
-
-
-       
-
-        #region <!-- cpb -->
+        #region <!--cpb -->
         
         [Route("api/iabp_when")]
         [HttpGet]
@@ -213,7 +203,6 @@ namespace api.Controllers
         public async Task<IActionResult> getCPB_09() { _result = await _copd.getCPB_temp(); return Ok(_result); }
 
         #endregion
-
         #region <!--valve options-->
         [Route("api/implantPosition")]
         [HttpGet]
@@ -302,10 +291,7 @@ namespace api.Controllers
             return Ok(result);
         }
         #endregion
-
         #region <!--procedure-->
-
-       
 
         [Route("api/timing_options")]
         [HttpGet]
@@ -343,7 +329,6 @@ namespace api.Controllers
         }
 
  #endregion
-
         #region <!--cabg -->
 
         [Route("api/cabg_quality")]
@@ -391,7 +376,6 @@ namespace api.Controllers
         public async Task<IActionResult> getCABG_Leg() { _result = await _copd.getCABGLeg(); return Ok(_result); }
 
         #endregion
-
         #region <!--history-->
         [Route("api/eu_weight_intervention")]
         [HttpGet]
@@ -418,7 +402,6 @@ namespace api.Controllers
         public async Task<IActionResult> getCPB_17() { _result = await _copd.getReasonEmergency(); return Ok(_result); }
 
         #endregion
-
         #region <!--general stuff-->
 
         [Route("api/dropEmployee")]
@@ -490,8 +473,7 @@ namespace api.Controllers
         public async Task<IActionResult> getGeneral_04() { _result = await _copd.getCreatOptions(); return Ok(_result); }
 
         #endregion
-
-        #region <!-- postop -->
+        #region <!--postop -->
         [Route("api/dead")]
         [HttpGet]
         public async Task<IActionResult> getGeneral_051() { _result = await _copd.getDeadOrAlive(); return Ok(_result); }
@@ -544,8 +526,7 @@ namespace api.Controllers
         public async Task<IActionResult> getGeneral_050() { _result = await _copd.getComplicatieOptie09(); return Ok(_result); }
 
         #endregion
-
-        #region <!-- aortic surgery -->
+        #region <!--aortic surgery -->
 
         [Route("api/aneurysmType")]
         [HttpGet]
@@ -569,8 +550,7 @@ namespace api.Controllers
         [HttpGet]
         public async Task<IActionResult> getGeneral_063() { _result = await _copd.getRangeReplacement(); return Ok(_result); }
         #endregion
-
-        #region <!-- off pump -->
+        #region <!--off pump -->
 
         [Route("api/conversionDetails")]
         [HttpGet]
