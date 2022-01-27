@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Threading.Tasks;
+using api.Data;
 using api.Entities;
 using api.Helpers;
+using api.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using SOA.data.Interfaces;
 
-namespace api.Data
+
+namespace api.Implementations
 {
     public class CPBRepository : ICPBRepository
     {

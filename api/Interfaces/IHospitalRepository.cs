@@ -20,5 +20,8 @@ namespace api.Interfaces
         Task<int> DeleteAsync<T>(T entity) where T : class;
         Task<Class_Hospital> getClassHospital(string id);
         List<Class_Item> GetAllCitiesPerCountry(int id);
+        Task<bool> HospitalImplementsOVI(string id);
+        Task<List<Class_Hospital>> getAllFullHospitals();
+        Task<List<Class_Hospital>> getAllFullHospitalsPerCountry(string id);
     }
 }

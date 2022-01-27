@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using api.DTOs;
 using api.Entities;
 using api.Helpers;
+using api.Interfaces;
 using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
 using Microsoft.AspNetCore.Authorization;
@@ -13,7 +14,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
-using SOA.data.Interfaces;
 
 namespace api.Controllers
 {

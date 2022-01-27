@@ -16,7 +16,6 @@ namespace api.Data
         XElement _testje;
         XElement _val;
         List<Class_Item> _help = new List<Class_Item>();
-
         private IWebHostEnvironment _env;
         private DataContext _context;
 

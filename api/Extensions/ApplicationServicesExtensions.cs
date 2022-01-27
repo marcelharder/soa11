@@ -7,6 +7,7 @@ using api.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using api.Implementations;
 
 namespace api.Extensions
 {
@@ -22,7 +23,6 @@ namespace api.Extensions
             services.AddScoped<IHospitalRepository, HospitalRepository>();
 
             services.AddTransient<Seed>();
-            services.AddTransient<OperatieDrops>();
             services.AddTransient<SpecialMaps>();
             services.AddTransient<SpecialReportMaps>();
 

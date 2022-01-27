@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 
 
-namespace api.Data.reports.interfaces
+namespace api.interfaces.reports
 {
     public interface IComposeFinalReport
     {

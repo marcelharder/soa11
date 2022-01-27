@@ -1,6 +1,6 @@
 using System.IO;
 using System.Threading.Tasks;
-using api.Data.reports.interfaces;
+using api.interfaces.reports;
 using api.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;

@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using api.Entities;
 
-namespace api.Data.reports.interfaces
+namespace api.interfaces.reports
 {
     public interface IPV
     {

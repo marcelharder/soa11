@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using api.Data;
 using api.DTOs;
 using api.Entities;
 using api.Helpers;
@@ -13,7 +14,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
-namespace api.Data
+namespace api.Implementations
 {
     public class HospitalRepository : IHospitalRepository
     {
@@ -106,6 +107,17 @@ namespace api.Data
             return lis;
         }
 
+         public async Task<List<Class_Hospital>> getAllFullHospitals()
+        {
+            var result = await _context.Hospitals.ToListAsync();
+            return result;
+        }
+
+        public async Task<List<Class_Hospital>> getAllFullHospitalsPerCountry(string id)
+        {
+            var result = await _context.Hospitals.Where(a => a.Country == id).ToListAsync();
+            return result;
+        }
         public List<HospitalForReturnDTO> GetAllHospitals()
         {
             var hospitals = new List<HospitalForReturnDTO>();
@@ -133,6 +145,13 @@ namespace api.Data
         {
             var result = _context.Hospitals.Where(a => a.HospitalNo == id.makeSureTwoChar()).FirstOrDefault();
             return _sm.mapToHospitalForReturn(result);
+        }
+
+        public async Task<bool> HospitalImplementsOVI(string id)
+        {
+            var ch = await getClassHospital(id);
+            var result = ch.usesOnlineValveInventory;
+            if (result) { return true; } else { return false; }
         }
 
         public async Task<bool> SaveAll() { return await _context.SaveChangesAsync() > 0; }

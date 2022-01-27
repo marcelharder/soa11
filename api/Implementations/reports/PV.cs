@@ -2,10 +2,9 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using api.Data.reports.interfaces;
 using api.Entities;
 using api.Helpers;
-using api.Interfaces;
+using api.interfaces.reports;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;

@@ -1,13 +1,12 @@
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using api.Data;
 using api.DTOs;
 using api.Entities;
 using api.Helpers;
 using Microsoft.EntityFrameworkCore;
 
-namespace api.Data
+namespace api.Implementations
 {
     public class PatientRepository
     {

@@ -6,7 +6,9 @@ using api.Interfaces;
 using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using System.Collections.Generic;
 using System.Security.Claims;
@@ -22,16 +24,16 @@ namespace api.Controllers
         private readonly IOptions<CloudinarySettings> _cloudinaryConfig;
         private Cloudinary _cloudinary;
         private SpecialMaps _map;
-        private IUserRepository _user;
+        private UserManager<AppUser> _manager;
 
 
 
         public HospitalController
-        (IHospitalRepository hos, IUserRepository user, SpecialMaps map, IOptions<CloudinarySettings> cloudinaryConfig)
+        (IHospitalRepository hos, UserManager<AppUser> manager,SpecialMaps map, IOptions<CloudinarySettings> cloudinaryConfig)
         {
             _hos = hos;
             _map = map;
-            _user = user;
+            _manager = manager;
 
 
             _cloudinaryConfig = cloudinaryConfig;
@@ -133,7 +135,7 @@ namespace api.Controllers
         {
             if (id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value)) return Unauthorized();
             // get the hospitalId from the user
-            var us = await _user.GetUser(id);
+            var us = await _manager.Users.SingleOrDefaultAsync(x => x.Id == id);
             var result = _hos.GetSpecificHospital(us.hospital_id.ToString().makeSureTwoChar());
             return Ok(result.hospitalName);
         }

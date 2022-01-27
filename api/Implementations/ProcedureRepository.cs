@@ -6,16 +6,17 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using api.Data.reports.interfaces;
+using api.Data;
 using api.DTOs;
 using api.Entities;
 using api.Helpers;
+using api.interfaces.reports;
 using api.Interfaces;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 
-namespace api.Data
+namespace api.Implementations
 {
     public class ProcedureRepository : IProcedureRepository
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using api.Entities;
 
-namespace SOA.data.Interfaces
+namespace api.Interfaces
 {
     public interface IRefPhys
     {

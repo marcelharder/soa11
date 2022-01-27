@@ -1,12 +1,12 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using api.DTOs;
+using api.Entities;
+using api.Helpers;
+using api.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using SOA.data.code;
-using SOA.data.dtos;
-using SOA.data.Interfaces;
-using SOA.Models;
 
-namespace SOA.Controllers
+namespace api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

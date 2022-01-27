@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
+using api.Data;
 using api.DTOs;
 using api.Helpers;
 using api.Interfaces;
-using SOA.data.Interfaces;
 
-namespace api.Data
+namespace api.Implementations
 {
     public class Discharge : IDischarge
     {

@@ -1,13 +1,13 @@
 using api.Data;
 using api.Entities;
 using api.Helpers;
+using api.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using SOA.data.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SOA.data.Implementations
+namespace api.Implementations
 {
 
     public class RefPhys : IRefPhys

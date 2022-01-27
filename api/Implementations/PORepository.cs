@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using api.Data;
 using api.Entities;
 using api.Helpers;
 using api.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace api.Data
+namespace api.Implementations
 {
     public class PORepository : IPORepository
     {

@@ -1,9 +1,9 @@
 using System;
 using System.Threading.Tasks;
-using api.Data.reports.interfaces;
 using api.DTOs;
 using api.Entities;
 using api.Helpers;
+using api.interfaces.reports;
 using api.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 

@@ -1,4 +1,5 @@
 ﻿using api.Entities;
+using api.Interfaces.statistics;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;

@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using api.Entities;
 using api.Helpers;
 
-namespace SOA.data.Interfaces
+namespace api.Interfaces
 {
     public interface ICPBRepository
     {

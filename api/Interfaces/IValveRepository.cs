@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using api.DTOs;
 using api.Entities;
@@ -9,7 +7,7 @@ namespace api.Interfaces
 {
     public interface IValveRepository
     {
-         Task<Class_Valve> GetSpecificValve(string serial, int procedure_id);
+        Task<Class_Valve> GetSpecificValve(string serial, int procedure_id);
         Task<int> updateValve(Class_Valve p);
         Task<int> DeleteAsync<T>(T entity) where T : class;
         Task<bool> SaveAll();
