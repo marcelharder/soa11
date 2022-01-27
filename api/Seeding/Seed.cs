@@ -31,7 +31,7 @@ namespace api.Seeding
                  ap.UserName = ap.UserName.ToLower();
                  ap.Country = "NL";
                  await manager.CreateAsync(ap, "Pa$$w0rd");
-                 await manager.AddToRoleAsync(ap, "Surgeon");
+                 await manager.AddToRoleAsync(ap, "Surgery");
              }
 
              var admin = new AppUser{

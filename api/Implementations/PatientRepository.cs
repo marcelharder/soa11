@@ -4,11 +4,12 @@ using api.Data;
 using api.DTOs;
 using api.Entities;
 using api.Helpers;
+using api.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace api.Implementations
 {
-    public class PatientRepository
+    public class PatientRepository: IPatientRepository
     {
          private DataContext _context;
         private SpecialMaps _map;
