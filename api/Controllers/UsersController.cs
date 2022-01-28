@@ -26,10 +26,10 @@ namespace api.Controllers
             return Ok(users);
         }
 
-        [HttpGet("{username}")]
-        public async Task<ActionResult<AppUser>> GetUserAsync(string username)
+       [HttpGet("{id}")]
+        public async Task<ActionResult<AppUser>> GetUserById(int id)
         {
-            var user = await _userRepository.GetUserByNameAsync(username);
+            var user = await _userRepository.GetUserByIdAsync(id);
 
             return user;
         }

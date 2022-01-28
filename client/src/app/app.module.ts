@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import {JwtHelperService, JWT_OPTIONS} from '@auth0/angular-jwt';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -23,10 +24,10 @@ import { AboutComponent } from './about/about.component';
 import { ErrorInterceptor } from './_interceptors/error.interceptor';
 import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { ServerErrorComponent } from './errors/server-error/server-error.component';
-import { ConfigurationComponent } from './_config/configuration/configuration.component';
 import { JwtInterceptor } from './_interceptors/jwt.interceptor';
 import { ProcedureMainComponent } from './procedures/procedurelist/procedure-main.component';
 import { ProcedureListResolver } from './_resolvers/procedure-list.resolver';
+import { ConfigurationComponent } from './configuration/configuration.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,9 @@ import { ProcedureListResolver } from './_resolvers/procedure-list.resolver';
     })
   ],
   providers: [
-    ProcedureListResolver,
+   {provide: JWT_OPTIONS, useValue: JWT_OPTIONS},
+   JwtHelperService,
+   ProcedureListResolver,
    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}
   ],

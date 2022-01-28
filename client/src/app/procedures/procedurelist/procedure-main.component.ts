@@ -4,10 +4,11 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { PaginatedResult, Pagination } from 'src/app/_models/pagination';
 import { Procedure } from 'src/app/_models/Procedure';
 import { User } from 'src/app/_models/User';
-import { UserService } from 'src/app/_services/user.service';
 import { AccountService } from 'src/app/_services/account.service';
 import { HospitalService } from 'src/app/_services/hospital.service';
 import { ToastrService } from 'ngx-toastr';
+import { UserService } from 'src/app/_services/user.service';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Component({
   selector: 'app-procedure-main',
@@ -15,7 +16,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./procedure-main.component.css']
 })
 export class ProcedureMainComponent implements OnInit {
-
+  jwtHelper = new JwtHelperService();
   currentUserId = 0;
   user: User;
   primarySurgeon = true;
@@ -26,11 +27,12 @@ export class ProcedureMainComponent implements OnInit {
   selectedHospital = '';
 
   constructor(
+    
     private procedureService: ProcedureService,
+    private userService: UserService,
     private alertify: ToastrService,
     private auth: AccountService,
     private hos: HospitalService,
-    private userService: UserService,
     private router:Router,
     private route: ActivatedRoute
   ) {}
@@ -47,11 +49,24 @@ export class ProcedureMainComponent implements OnInit {
         this.procedures = data.procedure.result;
         this.pagination = data.procedure.pagination;
     });
-    this.auth.currentUser$.subscribe((res)=>{
-       this.hos.getHospitalNameFromId(res.hospital_id).subscribe((next)=>{
-        this.selectedHospital = next
-       })
-       });
+    this.auth.currentUser$.subscribe((response)=>{
+      let decodedToken = this.jwtHelper.decodeToken(response.token);
+      console.log("The id of the current loggedin user: " + decodedToken.nameid);
+      this.userService.getUserFromId(+decodedToken.nameid).subscribe((next)=>{
+         console.log("The hospitalId of the loggedin user: " + next.hospital_id);
+         this.hos.getHospitalNameFromId(next.hospital_id).subscribe((d)=>{this.selectedHospital = d});
+      })
+
+
+
+
+    });
+   /*  this.hos.getHospitalNameFromId(u.hospital_id).subscribe((next)=>{
+      this.selectedHospital = next
+     }) */
+      
+       
+       
   }
 
   pageChanged(event: any): void { this.pagination.currentPage = event.page; this.loadProcedures(); }

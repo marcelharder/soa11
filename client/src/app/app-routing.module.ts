@@ -10,7 +10,7 @@ import { StatisticsComponent } from './statistics/statistics.component';
 import { UserlistComponent } from './userlist/userlist.component';
 import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { ServerErrorComponent } from './errors/server-error/server-error.component';
-import { ConfigurationComponent } from './_config/configuration/configuration.component';
+import { ConfigurationComponent } from './configuration/configuration.component';
 import { ProcedureMainComponent } from './procedures/procedurelist/procedure-main.component';
 import { ProcedureListResolver } from './_resolvers/procedure-list.resolver';
 
@@ -25,7 +25,6 @@ const routes: Routes = [
   { path: 'config', component: ConfigurationComponent},
   { path: 'not-found', component: NotFoundComponent},
   { path: 'server-error', component: ServerErrorComponent},
-  { path: 'config', component: ConfigurationComponent},
 
 
 

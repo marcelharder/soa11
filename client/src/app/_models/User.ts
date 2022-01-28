@@ -6,7 +6,7 @@ export interface User {
     Id: number;
     hospital_id: number;
     username: string;
-    Token: string;
+    token: string;
     role: string;
     knownAs: string;
     age: number;
