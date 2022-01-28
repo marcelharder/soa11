@@ -12,14 +12,17 @@ import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { ServerErrorComponent } from './errors/server-error/server-error.component';
 import { ConfigurationComponent } from './_config/configuration/configuration.component';
 import { ProcedureMainComponent } from './procedures/procedurelist/procedure-main.component';
+import { ProcedureListResolver } from './_resolvers/procedure-list.resolver';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'errors', component: TestErrorsComponent},
+  { path: 'about', component: AboutComponent},
   { path: 'users', component: UserlistComponent},
   { path: 'statistics', component: StatisticsComponent },
   { path: 'procedures', component: ProcedureMainComponent, resolve: { procedure: ProcedureListResolver }},
   { path: 'about', component: AboutComponent},
+  { path: 'config', component: ConfigurationComponent},
   { path: 'not-found', component: NotFoundComponent},
   { path: 'server-error', component: ServerErrorComponent},
   { path: 'config', component: ConfigurationComponent},

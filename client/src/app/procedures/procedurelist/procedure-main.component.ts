@@ -7,6 +7,7 @@ import { User } from 'src/app/_models/User';
 import { UserService } from 'src/app/_services/user.service';
 import { AccountService } from 'src/app/_services/account.service';
 import { HospitalService } from 'src/app/_services/hospital.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-procedure-main',
@@ -26,6 +27,7 @@ export class ProcedureMainComponent implements OnInit {
 
   constructor(
     private procedureService: ProcedureService,
+    private alertify: ToastrService,
     private auth: AccountService,
     private hos: HospitalService,
     private userService: UserService,
@@ -78,15 +80,14 @@ export class ProcedureMainComponent implements OnInit {
       }
 
   addProcedure() {
-   this.alertify.confirm('Do you want to add a procedure to this list', ()=>{ this.router.navigate(['/addProcedure']);});
-   }
-
+     this.router.navigate(['/addProcedure']);
+  }
+   
   isCompleted(pd: string) { if (pd === 'Yes') { return true; } }
   isEligible(pd: string) { if (pd !== 'N/A') { return true; } }
  
-  testNav(id: number){
-    // change the id in the BehaviorSubject and redirect to procedureDetails
-    this.auth.changeCurrentProcedure(id.toString());
+  testNav(pro: Procedure){
+    this.auth.setCurrentProcedure(pro);
     this.router.navigate(['/procedureDetails']);
   }
 

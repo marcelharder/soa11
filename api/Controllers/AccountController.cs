@@ -56,7 +56,7 @@ namespace api.Controllers
             var result = await _manager.CreateAsync(user, registerDto.password);
             if (!result.Succeeded) { return BadRequest(result.Errors); }
 
-            var roleResult = await _manager.AddToRoleAsync(user, "Surgeon");
+            var roleResult = await _manager.AddToRoleAsync(user, "Surgery");
             if(!roleResult.Succeeded){return BadRequest(roleResult.Errors); }
 
             return new UserDto

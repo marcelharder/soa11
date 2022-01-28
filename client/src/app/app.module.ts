@@ -9,7 +9,8 @@ import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { NavComponent } from './nav/nav.component';
 import { FormsModule } from '@angular/forms';
 
-import {BsDropdownModule} from 'ngx-bootstrap/dropdown';
+import { BsDropdownModule} from 'ngx-bootstrap/dropdown';
+import { PaginationModule} from 'ngx-bootstrap/pagination';
 import { HomeComponent } from './home/home.component';
 import { ProceduredetailsComponent } from './procedures/proceduredetails/proceduredetails.component';
 import { DetailsmainComponent } from './procedures/detailsmain/detailsmain.component';
@@ -25,6 +26,7 @@ import { ServerErrorComponent } from './errors/server-error/server-error.compone
 import { ConfigurationComponent } from './_config/configuration/configuration.component';
 import { JwtInterceptor } from './_interceptors/jwt.interceptor';
 import { ProcedureMainComponent } from './procedures/procedurelist/procedure-main.component';
+import { ProcedureListResolver } from './_resolvers/procedure-list.resolver';
 
 @NgModule({
   declarations: [
@@ -45,6 +47,7 @@ import { ProcedureMainComponent } from './procedures/procedurelist/procedure-mai
     
   ],
   imports: [
+    PaginationModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
@@ -56,6 +59,7 @@ import { ProcedureMainComponent } from './procedures/procedurelist/procedure-mai
     })
   ],
   providers: [
+    ProcedureListResolver,
    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}
   ],
