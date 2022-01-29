@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "@auth0/angular-jwt": "^5.0.2"
+    "@auth0/angular-jwt": "^5.0.2",
+    "ngx-toggle-switch": "^2.0.5"
   }
 }

@@ -12,6 +12,8 @@ import { FormsModule } from '@angular/forms';
 
 import { BsDropdownModule} from 'ngx-bootstrap/dropdown';
 import { PaginationModule} from 'ngx-bootstrap/pagination';
+import { UiSwitchModule } from 'ngx-ui-switch';
+
 import { HomeComponent } from './home/home.component';
 import { ProceduredetailsComponent } from './procedures/proceduredetails/proceduredetails.component';
 import { DetailsmainComponent } from './procedures/detailsmain/detailsmain.component';
@@ -48,6 +50,7 @@ import { ConfigurationComponent } from './configuration/configuration.component'
     
   ],
   imports: [
+    UiSwitchModule,
     PaginationModule,
     BrowserModule,
     AppRoutingModule,

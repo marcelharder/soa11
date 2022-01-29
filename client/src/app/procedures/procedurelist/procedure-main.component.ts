@@ -56,18 +56,8 @@ export class ProcedureMainComponent implements OnInit {
          console.log("The hospitalId of the loggedin user: " + next.hospital_id);
          this.hos.getHospitalNameFromId(next.hospital_id).subscribe((d)=>{this.selectedHospital = d});
       })
-
-
-
-
     });
-   /*  this.hos.getHospitalNameFromId(u.hospital_id).subscribe((next)=>{
-      this.selectedHospital = next
-     }) */
-      
-       
-       
-  }
+ }
 
   pageChanged(event: any): void { this.pagination.currentPage = event.page; this.loadProcedures(); }
 

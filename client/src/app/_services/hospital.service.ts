@@ -11,7 +11,7 @@ export class HospitalService {
 
   constructor(private http: HttpClient) { }
   getHospitalNameFromId(hospital_id: number) {
-    return this.http.get<string>(this.baseUrl + "hospital/getHospitalNameFromId/" + hospital_id);
+    return this.http.get<string>(this.baseUrl + "hospital/getHospitalNameFromId/" + hospital_id, { responseType: 'text' as 'json'} );
   }
 
 

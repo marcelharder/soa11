@@ -28,8 +28,11 @@ namespace api.Controllers
 
 
 
-        public HospitalController
-        (IHospitalRepository hos, UserManager<AppUser> manager,SpecialMaps map, IOptions<CloudinarySettings> cloudinaryConfig)
+        public HospitalController(
+        IHospitalRepository hos, 
+        UserManager<AppUser> manager,
+        SpecialMaps map, 
+        IOptions<CloudinarySettings> cloudinaryConfig)
         {
             _hos = hos;
             _map = map;
@@ -37,13 +40,14 @@ namespace api.Controllers
 
 
             _cloudinaryConfig = cloudinaryConfig;
+             
 
             Account acc = new Account(
                 _cloudinaryConfig.Value.CloudName,
                 _cloudinaryConfig.Value.ApiKey,
                 _cloudinaryConfig.Value.ApiSecret
             );
-            _cloudinary = new Cloudinary(acc);
+           _cloudinary = new Cloudinary(acc);
 
         }
 
@@ -72,6 +76,13 @@ namespace api.Controllers
             var result = _hos.GetSpecificHospital(id.ToString().makeSureTwoChar());
             result.country = _map.getCountryNameFromISO(result.country);
             return Ok(result);
+        }
+
+        [HttpGet("getHospitalNameFromId/{id}")]// get specific hospital details
+        public IActionResult GetHospitalName(int id)
+        {
+            var result = _hos.GetSpecificHospital(id.ToString().makeSureTwoChar());
+            return Ok(result.hospitalName);
         }
 
         [HttpPut]
@@ -119,7 +130,7 @@ namespace api.Controllers
                     };
                     uploadResult = _cloudinary.Upload(uploadParams);
                 }
-                h.ImageUrl = uploadResult.SecureUrl.AbsoluteUri;
+                h.ImageUrl = uploadResult?.SecureUrl?.AbsoluteUri;
                 // automap it to class-hospital before save
                 var no = await _hos.updateHospital(h);
                 if (no == 1)

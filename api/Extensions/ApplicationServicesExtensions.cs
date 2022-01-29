@@ -33,6 +33,7 @@ namespace api.Extensions
                     ServerVersion.AutoDetect(_connectionString)
                 )
             );
+            services.Configure<CloudinarySettings>(config.GetSection("CloudinarySettings"));
 
             /*          services.AddDbContext<DataContext>(options => options
                        .UseMySql(config.GetConnectionString("SQLConnection"),
