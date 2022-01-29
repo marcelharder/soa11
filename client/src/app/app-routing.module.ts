@@ -13,33 +13,40 @@ import { ServerErrorComponent } from './errors/server-error/server-error.compone
 import { ConfigurationComponent } from './configuration/configuration.component';
 import { ProcedureMainComponent } from './procedures/procedurelist/procedure-main.component';
 import { ProcedureListResolver } from './_resolvers/procedure-list.resolver';
+import { AuthGuard } from './_guards/auth.guard';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'errors', component: TestErrorsComponent},
-  { path: 'about', component: AboutComponent},
-  { path: 'users', component: UserlistComponent},
-  { path: 'statistics', component: StatisticsComponent },
-  { path: 'procedures', component: ProcedureMainComponent, resolve: { procedure: ProcedureListResolver }},
-  { path: 'about', component: AboutComponent},
-  { path: 'config', component: ConfigurationComponent},
-  { path: 'not-found', component: NotFoundComponent},
-  { path: 'server-error', component: ServerErrorComponent},
+  { path: 'errors', component: TestErrorsComponent },
+  { path: 'about', component: AboutComponent },
 
 
-
+  {
+    path: '',
+    runGuardsAndResolvers: 'always',
+    canActivate: [AuthGuard],
+    children:[{ path: 'users', component: UserlistComponent },
+    { path: 'statistics', component: StatisticsComponent },
+    { path: 'procedures', component: ProcedureMainComponent, resolve: { procedure: ProcedureListResolver } },
+    { path: 'about', component: AboutComponent },
+    { path: 'config', component: ConfigurationComponent },
+    { path: 'not-found', component: NotFoundComponent },
+    { path: 'server-error', component: ServerErrorComponent },]
+  },
+  
   {
     path: 'procedureDetails',
     component: ProceduredetailsComponent,
     runGuardsAndResolvers: 'always',
+    canActivate: [AuthGuard],
     children: [
-      {  path: 'detailsMain/:id', outlet: 'details', component: DetailsmainComponent  },
-      {  path: 'euroscore/:id', outlet: 'details', component: EuroscoredetailsComponent  }
+      { path: 'detailsMain/:id', outlet: 'details', component: DetailsmainComponent },
+      { path: 'euroscore/:id', outlet: 'details', component: EuroscoredetailsComponent }
 
     ]
   },
- 
-  {path: '**', component: NotFoundComponent, pathMatch: 'full'}
+
+  { path: '**', component: NotFoundComponent, pathMatch: 'full' }
 
 ]
 

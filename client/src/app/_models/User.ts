@@ -3,7 +3,7 @@ import { Invoice } from './Invoice';
 
 
 export interface User {
-    Id: number;
+    userId: number;
     hospital_id: number;
     username: string;
     token: string;

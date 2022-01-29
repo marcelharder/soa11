@@ -62,7 +62,8 @@ namespace api.Controllers
             return new UserDto
             {
                 Username = user.UserName,
-                Token = await _ts.CreateToken(user)
+                Token = await _ts.CreateToken(user),
+                UserId = user.Id
             };
 
            
@@ -80,7 +81,8 @@ namespace api.Controllers
            return new UserDto
             {
                 Username = user.UserName,
-                Token = await _ts.CreateToken(user)
+                Token = await _ts.CreateToken(user),
+                UserId = user.Id
             };
         }
 
@@ -93,7 +95,8 @@ namespace api.Controllers
             return new UserDto
             {
                 Username = user.UserName,
-                Token = await _ts.CreateToken(user)
+                Token = await _ts.CreateToken(user),
+                UserId = user.Id
             };
         }
 

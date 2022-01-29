@@ -30,6 +30,7 @@ import { JwtInterceptor } from './_interceptors/jwt.interceptor';
 import { ProcedureMainComponent } from './procedures/procedurelist/procedure-main.component';
 import { ProcedureListResolver } from './_resolvers/procedure-list.resolver';
 import { ConfigurationComponent } from './configuration/configuration.component';
+import { AddEuroScoreDetailsComponent } from './procedures/addprocedure/add-euro-score-details/add-euro-score-details.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { ConfigurationComponent } from './configuration/configuration.component'
     NotFoundComponent,
     ServerErrorComponent,
     ConfigurationComponent,
+    AddEuroScoreDetailsComponent,
     
   ],
   imports: [

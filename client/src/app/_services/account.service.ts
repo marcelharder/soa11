@@ -12,7 +12,7 @@ import { User } from '../_models/User';
 export class AccountService {
   baseUrl = environment.apiUrl;
   private currentUserSource = new ReplaySubject<User>(1);
-  private currentProcedureSource = new ReplaySubject<Procedure>(1);
+  private currentProcedureSource = new ReplaySubject<number>(1);
   currentUser$ = this.currentUserSource.asObservable();
   currentProcedure$ = this.currentProcedureSource.asObservable();
   soortProcedure = new BehaviorSubject<string>('0');
@@ -31,7 +31,7 @@ export class AccountService {
     );
   }
   setCurrentUser(u: User){this.currentUserSource.next(u);}
-  setCurrentProcedure(u: Procedure){this.currentProcedureSource.next(u);}
+  setCurrentProcedure(procedureId: number){this.currentProcedureSource.next(procedureId);}
   changeSoortOperatie(sh: string) { this.soortProcedure.next(sh); }
 
   logout(){localStorage.removeItem('user'); this.currentUserSource.next(null);}
