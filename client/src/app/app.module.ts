@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import {JwtHelperService, JWT_OPTIONS} from '@auth0/angular-jwt';
+import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -21,7 +21,7 @@ import { EuroscoredetailsComponent } from './procedures/euroscoredetails/eurosco
 import { ToastrModule } from 'ngx-toastr';
 import { TestErrorsComponent } from './errors/test-errors/test-errors.component';
 import { StatisticsComponent } from './statistics/statistics.component';
-import { UserlistComponent } from './userlist/userlist.component';
+import { UserlistComponent } from './users/userlist/userlist.component';
 import { AboutComponent } from './about/about.component';
 import { ErrorInterceptor } from './_interceptors/error.interceptor';
 import { NotFoundComponent } from './errors/not-found/not-found.component';
@@ -31,6 +31,9 @@ import { ProcedureMainComponent } from './procedures/procedurelist/procedure-mai
 import { ProcedureListResolver } from './_resolvers/procedure-list.resolver';
 import { ConfigurationComponent } from './configuration/configuration.component';
 import { AddEuroScoreDetailsComponent } from './procedures/addprocedure/add-euro-score-details/add-euro-score-details.component';
+import { AddprocedureComponent } from './procedures/addprocedure/addprocedure.component';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { UserprofileComponent } from './users/userprofile/userprofile.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +52,8 @@ import { AddEuroScoreDetailsComponent } from './procedures/addprocedure/add-euro
     ServerErrorComponent,
     ConfigurationComponent,
     AddEuroScoreDetailsComponent,
+    AddprocedureComponent,
+    UserprofileComponent
     
   ],
   imports: [
@@ -62,7 +67,8 @@ import { AddEuroScoreDetailsComponent } from './procedures/addprocedure/add-euro
     BsDropdownModule.forRoot(),
     ToastrModule.forRoot({
       positionClass: 'toast-bottom-right'
-    })
+    }),
+    ModalModule.forRoot()
   ],
   providers: [
    {provide: JWT_OPTIONS, useValue: JWT_OPTIONS},

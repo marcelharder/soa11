@@ -7,14 +7,17 @@
               </h3>
             </div>
             <div class="col-sm-6">
-
-              <button class="btn btn-secondary float-right"
-                      (click)="addProcedure()"
-                      routerLinkActive="router-link-active">
-                Add Procedure
-              </button>
-              
-            </div>
+              <button type="button" 
+              class="btn btn-secondary float-right" (click)="openModal(template)">Add Procedure</button>
+              <br><br>
+              <ng-template #template>
+                <div class="modal-body text-center">
+                  <p>Do you want to add a procedure now ?</p>
+                  <button type="button" class="btn btn-default" (click)="confirm()" >Yes</button>
+                  <button type="button" class="btn btn-primary" (click)="decline()" >No</button>
+                </div>
+              </ng-template>
+           </div>
           </div>
          
           <div class="row">

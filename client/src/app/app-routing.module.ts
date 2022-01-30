@@ -7,13 +7,15 @@ import { DetailsmainComponent } from './procedures/detailsmain/detailsmain.compo
 import { EuroscoredetailsComponent } from './procedures/euroscoredetails/euroscoredetails.component';
 import { ProceduredetailsComponent } from './procedures/proceduredetails/proceduredetails.component';
 import { StatisticsComponent } from './statistics/statistics.component';
-import { UserlistComponent } from './userlist/userlist.component';
+import { UserlistComponent } from './users/userlist/userlist.component';
 import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { ServerErrorComponent } from './errors/server-error/server-error.component';
 import { ConfigurationComponent } from './configuration/configuration.component';
 import { ProcedureMainComponent } from './procedures/procedurelist/procedure-main.component';
 import { ProcedureListResolver } from './_resolvers/procedure-list.resolver';
 import { AuthGuard } from './_guards/auth.guard';
+import { AddprocedureComponent } from './procedures/addprocedure/addprocedure.component';
+import { UserprofileComponent } from './users/userprofile/userprofile.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -28,9 +30,11 @@ const routes: Routes = [
     children:[{ path: 'users', component: UserlistComponent },
     { path: 'statistics', component: StatisticsComponent },
     { path: 'procedures', component: ProcedureMainComponent, resolve: { procedure: ProcedureListResolver } },
+    { path: 'addProcedure', component: AddprocedureComponent},
     { path: 'about', component: AboutComponent },
     { path: 'config', component: ConfigurationComponent },
     { path: 'not-found', component: NotFoundComponent },
+    { path: 'userprofile', component: UserprofileComponent},
     { path: 'server-error', component: ServerErrorComponent },]
   },
   

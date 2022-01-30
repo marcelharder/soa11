@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { ProcedureService } from 'src/app/_services/procedure.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { PaginatedResult, Pagination } from 'src/app/_models/pagination';
@@ -19,14 +20,14 @@ export class ProcedureMainComponent implements OnInit {
   currentUserId = 0;
   user: User;
   primarySurgeon = true;
-
+  modalRef?: BsModalRef;
 
   procedures: Array<Procedure> = [];
   pagination: Pagination;
   selectedHospital = '';
 
   constructor(
-
+    private modalService: BsModalService,
     private procedureService: ProcedureService,
     private userService: UserService,
     private alertify: ToastrService,
@@ -49,6 +50,19 @@ export class ProcedureMainComponent implements OnInit {
       })
     })
  }
+
+ openModal(template: TemplateRef<any>) {
+  this.modalRef = this.modalService.show(template, {class: 'modal-sm'});
+}
+
+confirm(): void {
+  this.router.navigate(['/addProcedure']);
+  this.modalRef?.hide();
+}
+
+decline(): void {
+  this.modalRef?.hide();
+}
 
   pageChanged(event: any): void { this.pagination.currentPage = event.page; this.loadProcedures(); }
 
@@ -75,9 +89,7 @@ export class ProcedureMainComponent implements OnInit {
     );
   }
 
-  addProcedure() {
-    this.router.navigate(['/addProcedure']);
-  }
+ 
 
   isCompleted(pd: string) { if (pd === 'Yes') { return true; } }
   isEligible(pd: string) { if (pd !== 'N/A') { return true; } }
