@@ -8,7 +8,7 @@ import { AccountService } from 'src/app/_services/account.service';
 import { HospitalService } from 'src/app/_services/hospital.service';
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from 'src/app/_services/user.service';
-import { map } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-procedure-main',
@@ -42,16 +42,13 @@ export class ProcedureMainComponent implements OnInit {
       this.procedures = data.procedure.result;
       this.pagination = data.procedure.pagination;
     });
-
-    this.auth.currentUser$.pipe(
-      map(user => this.currentUserId = user.userId)
-    )
-
-    this.userService.getUser(this.currentUserId).subscribe((next) => {
-      this.hos.getSpecificHospital(next.hospital_id).subscribe((d) => { this.selectedHospital = d.hospitalName });
+    this.auth.currentUser$.pipe(take(1)).subscribe((u) => {
+      this.currentUserId = u.userId;
+      this.userService.getUser(this.currentUserId).subscribe((next) => {
+        this.hos.getSpecificHospital(next.hospital_id).subscribe((d) => { this.selectedHospital = d.hospitalName });
+      })
     })
-
-  }
+ }
 
   pageChanged(event: any): void { this.pagination.currentPage = event.page; this.loadProcedures(); }
 
