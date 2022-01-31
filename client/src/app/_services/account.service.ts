@@ -15,8 +15,12 @@ export class AccountService {
   private currentProcedureSource = new ReplaySubject<number>(1);
   currentUser$ = this.currentUserSource.asObservable();
   currentProcedure$ = this.currentProcedureSource.asObservable();
+
   soortProcedure = new BehaviorSubject<string>('0');
   currentSoortProcedure = this.soortProcedure.asObservable();
+
+  HospitalName = new BehaviorSubject<string>('0');
+  currentHospitalName = this.soortProcedure.asObservable();
 
   constructor(private http: HttpClient) { }
 
@@ -33,6 +37,7 @@ export class AccountService {
   setCurrentUser(u: User){this.currentUserSource.next(u);}
   setCurrentProcedure(procedureId: number){this.currentProcedureSource.next(procedureId);}
   changeSoortOperatie(sh: string) { this.soortProcedure.next(sh); }
+  changeCurrentHospital(sh: string){ this.HospitalName.next(sh);}
 
   logout(){localStorage.removeItem('user'); this.currentUserSource.next(null);}
 }

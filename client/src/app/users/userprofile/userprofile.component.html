@@ -1,5 +1,77 @@
-<div class="card m-5">
-    <div class="card-header"><h5><span class="badge badge-info">Profile</span></h5></div>
-    <div class="class-body"><p>profile works!</p></div>
-    <div class="card-footer"></div>
+<div class="container">
+  <div class="row">
+      <div class="col-sm-4"><h3><span class="badge badge-info">Your profile</span></h3></div>
+      <div class="col-sm-8">
+        <div *ngIf="editForm.dirty" class="alert alert-info">
+          <strong><span class="badge badge-default">Your data are changed, please Save ...</span></strong>
+        </div>
+      </div>
+      
+    </div>
+<div class="row">
+  <div class="col-sm-4">
+    <div class="card">
+      <img
+        class="card-img-top img-thumbnail"
+        src="{{ user.photoUrl || '../../../../../assets/user.jpg'}}"
+        alt="{{ user.knownAs }}"
+      />
+      <div class="card-body">
+        <div>
+          <strong><span class="badge badge-default">Location</span></strong>
+          <p>{{ user.city }}, {{ countryWhereUserLives }}</p>
+        </div>
+        <div>
+          <strong><span class="badge badge-default">Last active</span></strong>
+          <p>{{ user.lastActive}}</p>
+        </div>
+        <div class="card-footer">
+            <div class="btn-group d-flex mt-3">
+                <button class="btn btn-danger w-50 mr-5"(click)='cancel()'><span class="badge badge-default">Cancel</span></button>
+                <button class="btn btn-success w-50" [disabled]="!editForm.dirty" form="editForm"><span class="badge badge-default">Save</span></button>
+              </div>
+          </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-8">
+    <div class="tab-panel">
+      <tabset class="member-tabset">
+        <tab heading="Profiel aanpassen">
+          <form #editForm="ngForm" (ngSubmit)="updateUser()" id="editForm">
+            <strong><span class="badge badge-default">Phone</span></strong>
+            <input class="form-control"
+                   type="text"
+                   name="phone"
+                   [(ngModel)]="user.mobile" />
+            <strong><span class="badge badge-default">Email</span></strong>
+            <input class="form-control"
+                   type="text"
+                   name="email"
+                   [(ngModel)]="user.email" />
+            <strong><span class="badge badge-default">Location details</span></strong>
+            <div class="form-inline">
+              <label for="city">City</label>
+              <input class="form-control ml-2 mr-2"  type="text"  name="city" [(ngModel)]="user.city" />
+              <label for="country">Country</label>
+              <select [(ngModel)]="user.country"
+                      name="q12"
+                      (change)="changeCountry()"
+                      class="form-control ml-2 mr-2">
+                <option *ngFor="let item of optionCountries"
+                        [value]=item.value>{{ item.description }}</option>
+              </select>
+            </div>
+          </form>
+        </tab>
+        <tab heading="Photo uploaden">
+            <app-photo-editor [userId]="user.userId" [refId]="0" [hospitalId]="0" (getMemberPhotoChange)="updatePhoto($event)"></app-photo-editor>
+          </tab>
+        <tab heading="Hospitals">
+          <app-worked-in [user]="user" (updateUserToParent)="updateFromWorkedIn($event)"></app-worked-in>
+        </tab>
+      </tabset>
+    </div>
+  </div>
+</div>
 </div>

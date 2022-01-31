@@ -15,7 +15,8 @@ import { ProcedureMainComponent } from './procedures/procedurelist/procedure-mai
 import { ProcedureListResolver } from './_resolvers/procedure-list.resolver';
 import { AuthGuard } from './_guards/auth.guard';
 import { AddprocedureComponent } from './procedures/addprocedure/addprocedure.component';
-import { UserprofileComponent } from './users/userprofile/userprofile.component';
+import { UserProfileComponent } from './users/userprofile/userprofile.component';
+import { ProfileResolver } from './_resolvers/profile.resolver';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -28,13 +29,13 @@ const routes: Routes = [
     runGuardsAndResolvers: 'always',
     canActivate: [AuthGuard],
     children:[{ path: 'users', component: UserlistComponent },
+    { path: 'profile', component: UserProfileComponent, resolve: { user: ProfileResolver } },
     { path: 'statistics', component: StatisticsComponent },
     { path: 'procedures', component: ProcedureMainComponent, resolve: { procedure: ProcedureListResolver } },
     { path: 'addProcedure', component: AddprocedureComponent},
     { path: 'about', component: AboutComponent },
     { path: 'config', component: ConfigurationComponent },
     { path: 'not-found', component: NotFoundComponent },
-    { path: 'userprofile', component: UserprofileComponent},
     { path: 'server-error', component: ServerErrorComponent },]
   },
   

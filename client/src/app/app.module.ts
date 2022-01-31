@@ -13,6 +13,8 @@ import { FormsModule } from '@angular/forms';
 import { BsDropdownModule} from 'ngx-bootstrap/dropdown';
 import { PaginationModule} from 'ngx-bootstrap/pagination';
 import { UiSwitchModule } from 'ngx-ui-switch';
+import { TabsModule } from 'ngx-bootstrap/tabs';
+import { FileUploadModule } from 'ng2-file-upload';
 
 import { HomeComponent } from './home/home.component';
 import { ProceduredetailsComponent } from './procedures/proceduredetails/proceduredetails.component';
@@ -33,7 +35,11 @@ import { ConfigurationComponent } from './configuration/configuration.component'
 import { AddEuroScoreDetailsComponent } from './procedures/addprocedure/add-euro-score-details/add-euro-score-details.component';
 import { AddprocedureComponent } from './procedures/addprocedure/addprocedure.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
-import { UserprofileComponent } from './users/userprofile/userprofile.component';
+import { UserProfileComponent } from './users/userprofile/userprofile.component';
+import { WorkedInComponent } from './users/userprofile/worked-in/worked-in.component';
+import { CareerComponent } from './users/userprofile/career/career.component';
+import { PhotoEditorComponent } from './photo-editor/photo-editor.component';
+import { ProfileResolver } from './_resolvers/profile.resolver';
 
 @NgModule({
   declarations: [
@@ -53,10 +59,15 @@ import { UserprofileComponent } from './users/userprofile/userprofile.component'
     ConfigurationComponent,
     AddEuroScoreDetailsComponent,
     AddprocedureComponent,
-    UserprofileComponent
+    UserProfileComponent,
+    WorkedInComponent,
+    CareerComponent,
+    PhotoEditorComponent,
     
   ],
   imports: [
+    FileUploadModule,
+    TabsModule.forRoot(),
     UiSwitchModule,
     PaginationModule,
     BrowserModule,
@@ -70,10 +81,12 @@ import { UserprofileComponent } from './users/userprofile/userprofile.component'
     }),
     ModalModule.forRoot()
   ],
+  
   providers: [
    {provide: JWT_OPTIONS, useValue: JWT_OPTIONS},
    JwtHelperService,
    ProcedureListResolver,
+   ProfileResolver,
    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}
   ],
