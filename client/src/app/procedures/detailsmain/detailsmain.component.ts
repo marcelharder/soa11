@@ -9,6 +9,7 @@ import { AccountService } from 'src/app/_services/account.service';
 import { DropdownService } from 'src/app/_services/dropdown.service';
 import { HospitalService } from 'src/app/_services/hospital.service';
 import { ProcedureService } from 'src/app/_services/procedure.service';
+import { UserService } from 'src/app/_services/user.service';
 
 @Component({
   selector: 'app-detailsmain',
@@ -17,9 +18,10 @@ import { ProcedureService } from 'src/app/_services/procedure.service';
 })
 export class DetailsmainComponent implements OnInit {
   @ViewChild('editForm') editForm: NgForm;
+  ltk = 0;
 
   proc: ProcedureDetails;
-  CurrentUserName='';
+
   Surgeons: Array<dropItem> = [];
   Assistants: Array<dropItem> = [];
   Perfusionists: Array<dropItem> = [];
@@ -37,6 +39,7 @@ export class DetailsmainComponent implements OnInit {
 
   constructor(
     private procedureService: ProcedureService,
+    private userService: UserService,
     private hospitalService: HospitalService,
     private route: ActivatedRoute,
     public auth: AccountService,
@@ -45,21 +48,16 @@ export class DetailsmainComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    /* 
-    this.auth.currentUser$.pipe(take(1)).subscribe((u) => {this.CurrentUserName = u.username;})
-    this.CurrentUserName = this.CurrentUserName[0].toUpperCase() + this.CurrentUserName.slice(1); // capitalize
-    */
-    this.route.data.subscribe(
-      (data) => {
-        this.proc = data.procedureDetails;
-
-        this.loadEmployeeDrops(this.proc.hospital.toString());
+    this.route.data.subscribe((data) => {
+       this.proc = data.procedureDetails;
+       this.loadEmployeeDrops(this.proc.hospital.toString());
       },
       (error) => {
         this.alertify.error(error);
       }
     );
     this.loadDrops();
+    this.userService.getLtk(this.proc.selectedSurgeon).subscribe((next)=>{if(next){this.ltk = 0;} else {this.ltk = 1;}})
   }
 
   loadEmployeeDrops(hospitalId: string) {
@@ -93,7 +91,9 @@ export class DetailsmainComponent implements OnInit {
             this.Perfusionists = response;
           });
 
-       
+        const v = this.Surgeons.find(
+          (x) => x.description === this.auth.decodedToken.unique_name
+        );
 
       } // this is a historic record so all the employees in the database should be available
       else {
@@ -267,9 +267,8 @@ export class DetailsmainComponent implements OnInit {
 
   saveProcDetails() {
     // check that the assistant is entered
-    let userId: number = 0;
-    this.auth.currentUser$.pipe(take(1)).subscribe((u) => {userId = u.userId;})
-    
+
+    const userId: number = this.auth.decodedToken.nameid;
     this.procedureService
       .saveProcedureDetails(userId, this.proc)
       .subscribe((next) => {
@@ -280,11 +279,23 @@ export class DetailsmainComponent implements OnInit {
       });
   }
 
-  surgeonHasNoLTK(){}
-
   canDeactivate() {
     this.saveProcDetails();
-    this.alertify.show('saving procedure details');
+    this.alertify.message('saving procedure details');
     return true;
+  }
+
+  surgeonHasNoLTK(){
+    if(this.ltk === 1){return true;}
+    
+  }
+
+
+
+  findLtk(){
+    // find out if this surgeon has a ltk, if not show responsible surgeon
+    this.userService.getLtk(this.proc.selectedSurgeon).subscribe((next)=>{
+      if(next){this.ltk = 0;} else {this.ltk = 1;}
+    })
   }
 }
