@@ -54,8 +54,8 @@ namespace api.Controllers
             cp.Age = p.age;
             cp.gender = p.gender;
             cp.creat_number = p.creat_number;
-            cp.weight = p.weight;
-            cp.height = p.height;
+            cp.weight = p.weight.ToString();
+            cp.height = p.height.ToString();
             
             var result = await _rep.updatePatient(cp);
             if (result == 1)

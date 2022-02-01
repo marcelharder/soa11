@@ -96,16 +96,14 @@ export class AddEuroScoreDetailsComponent implements OnInit {
         this.modalRef = this.modalService.show(template);
     }
 
-    showDetails() {
+    showDetails(patienttemplate: TemplateRef<any>) {
         if (this.mrn === '') { this.alertify.error("Identification # can't be empty") }
         else {
             if (!this.findDataInHIS(this.mrn)) { // find data in HIS
                 this.patientservice.getPatientinDatabase(this.mrn)
                     .subscribe(response => {
                         if (response.toString() === '0') {
-                                // show additional patient data entry page
-                                this.showPanel = true;
-                                this.showPrevP = false;
+                            this.modalRef = this.modalService.show(patienttemplate);
                         } else {
                             if (response.toString() === '1') { // a patient was found, get list of procedure ids
                                 this.patientservice.getProceduresFromPatientId(this.mrn).subscribe((next) => {
@@ -128,6 +126,17 @@ export class AddEuroScoreDetailsComponent implements OnInit {
         }
         // if (this.patient.PatientId !== 0) { this.showPanel = true; }
     }
+
+    confirm(): void {
+        // show additional patient data entry page
+        this.showPanel = true;
+        this.showPrevP = false;
+        this.modalRef?.hide();
+      }
+      
+      decline(): void {
+        this.modalRef?.hide();
+      }
 
     addProcedure() {
         // send the patientId up to the parent

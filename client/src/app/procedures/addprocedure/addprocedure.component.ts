@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { map } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 import { dropItem } from 'src/app/_models/dropItem';
 import { ProcedureDetails } from 'src/app/_models/procedureDetails';
 import { AccountService } from 'src/app/_services/account.service';
@@ -39,12 +39,7 @@ export class AddprocedureComponent implements OnInit {
     private auth: AccountService) { }
 
   ngOnInit(): void {
-   this.auth.currentUser$.pipe(
-     map(user => {
-       this.currentUserName = user.username;
-       this.currentUserId = user.userId;
-    })
-   )
+    this.auth.currentUser$.pipe(take(1)).subscribe((u) => {this.currentUserId = u.userId;})
   }
 
 

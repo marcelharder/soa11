@@ -22,7 +22,7 @@
               <div class="card-header">Step 2, select the type of operation you are planning to do:</div>
               <div class="card-body">
                 <div *ngIf="showProcedure()">
-                  <app-selectProcedureType (sendProcedureId)="setProcedureNo($event)"></app-selectProcedureType>
+                  <app-select-procedure-type (sendProcedureId)="setProcedureNo($event)"></app-select-procedure-type>
                 </div>
               </div>
               <div class="row"  *ngIf="showProcedure()">

@@ -5,7 +5,17 @@
       </div>
       <div class="p-2 bd-highlight"><input type=text class=form-control name=mrn [(ngModel)]="mrn" /></div>
       <div class="p-2 bd-highlight"><button (click)=openModal(template) class="btn btn-xxs btn-secondary">?</button></div>
-      <div class="p-2 bd-highlight"><button class="btn btn-warning" (click)="showDetails()">Find patient details</button>
+      <div class="p-2 bd-highlight">
+        
+        <button class="btn btn-warning" (click)=showDetails(patienttemplate)>Find patient details</button>
+        <ng-template #patienttemplate>
+          <div class="modal-body text-center">
+            <p>This patient is not in the database, you want to add the details now ?</p>
+            <button type="button" class="btn btn-default" (click)="confirm()" >Yes</button>
+            <button type="button" class="btn btn-primary" (click)="decline()" >No</button>
+          </div>
+        </ng-template>
+
       </div>
     </div>
   </div>

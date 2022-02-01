@@ -6,8 +6,8 @@ namespace api.DTOs
         public int age { get; set; }
         public virtual string gender { get; set; }
         public virtual int creat_number { get; set; }
-        public virtual string weight { get; set; }
-        public virtual string height { get; set; }
+        public virtual int weight { get; set; }
+        public virtual int height { get; set; }
         
     }
 }

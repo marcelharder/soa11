@@ -42,6 +42,7 @@ import { PhotoEditorComponent } from './photo-editor/photo-editor.component';
 import { ProfileResolver } from './_resolvers/profile.resolver';
 import { UserService } from './_services/user.service';
 import { RefPhysService } from './_services/refPhys.service';
+import { SelectProcedureTypeComponent } from './procedures/addprocedure/select-procedure-type/select-procedure-type.component';
 
 @NgModule({
   declarations: [
@@ -60,6 +61,7 @@ import { RefPhysService } from './_services/refPhys.service';
     ServerErrorComponent,
     ConfigurationComponent,
     AddEuroScoreDetailsComponent,
+    SelectProcedureTypeComponent,
     AddprocedureComponent,
     UserProfileComponent,
     WorkedInComponent,
