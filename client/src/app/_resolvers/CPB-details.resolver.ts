@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import { Resolve, Router, ActivatedRouteSnapshot } from '@angular/router';
-import { AlertifyService } from '../_services/alertify.service';
+import { ToastrService } from 'ngx-toastr';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { CPB } from '../_models/CPB';
@@ -10,7 +10,7 @@ import { CPBService } from '../_services/cpb.service';
 export class CPBDetailsResolver implements Resolve<CPB> {
     constructor(private cpbservice: CPBService,
         private router: Router,
-        private alertify: AlertifyService) {
+        private alertify: ToastrService) {
   }
     resolve(route: ActivatedRouteSnapshot): Observable<CPB> {
         return this.cpbservice.getCPB(route.params.id).pipe(catchError(error => {

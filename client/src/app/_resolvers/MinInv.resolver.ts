@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Resolve, Router, ActivatedRouteSnapshot } from '@angular/router';
-import { AlertifyService } from '../_services/alertify.service';
+import { ToastrService } from 'ngx-toastr';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { MinInv } from '../_models/MinInv';
@@ -12,7 +12,7 @@ export class MinInvResolver implements Resolve<MinInv> {
     constructor(
         private router: Router,
         private min: MinInvService,
-        private alertify: AlertifyService) {
+        private alertify: ToastrService) {
 
     }
     resolve(route: ActivatedRouteSnapshot): Observable<MinInv> {

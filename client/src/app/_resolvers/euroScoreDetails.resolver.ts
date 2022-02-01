@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Resolve, Router, ActivatedRouteSnapshot } from '@angular/router';
-import { AlertifyService } from '../_services/alertify.service';
+import { ToastrService } from 'ngx-toastr';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Patient } from '../_models/Patient';
@@ -11,7 +11,7 @@ import { PatientService } from '../_services/patient.service';
 export class EuroScoreDetailsResolver implements Resolve<Patient> {
     constructor(private patservice: PatientService,
         private router: Router,
-        private alertify: AlertifyService) {
+        private alertify: ToastrService) {
 
     }
     resolve(route: ActivatedRouteSnapshot): Observable<Patient> {

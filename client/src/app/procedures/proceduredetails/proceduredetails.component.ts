@@ -16,7 +16,7 @@ import { ProcedureService } from 'src/app/_services/procedure.service';
 export class ProceduredetailsComponent implements OnInit {
   id=0;
   currentProcedureId = 0;
-  destinationUrl = 'detailsmain';
+  destinationUrl = 'detailsMain';
   procedureDescription = '';
   currentHospitalName = '';
   modalRef: BsModalRef;
@@ -109,10 +109,11 @@ export class ProceduredetailsComponent implements OnInit {
   }
 
 
-  goDelete(template: TemplateRef<any>){ this.modalRef = this.modalService.show(template); }
+  goDelete(template: TemplateRef<any>){ //ask if the user wants to delete this procedure
+    this.modalRef = this.modalService.show(template);
+   }
   confirm(): void {
-  
-    this.procedureService.deleteProcedure(this.currentProcedureId).subscribe(
+     this.procedureService.deleteProcedure(this.currentProcedureId).subscribe(
       (next)=>{
         this.alertify.success('Procedure deleted');
         this.router.navigate(['/procedures']);

@@ -4,7 +4,7 @@ import { Hospital } from '../_models/Hospital';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { HospitalService } from '../_services/hospital.service';
-import { AlertifyService } from '../_services/alertify.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable()
 
@@ -12,7 +12,7 @@ export class HospitalListResolver implements Resolve<Hospital[]> {
     constructor(
         private router: Router,
         private hos: HospitalService,
-        private alertify: AlertifyService) {
+        private alertify: ToastrService) {
 
     }
     resolve(route: ActivatedRouteSnapshot): Observable<Hospital[]> {

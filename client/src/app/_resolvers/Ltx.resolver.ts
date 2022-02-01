@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Resolve, ActivatedRouteSnapshot, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { AlertifyService } from '../_services/alertify.service';
 import { Ltx } from '../_models/Ltx';
 import { LtxService } from '../_services/ltx.service';
 
@@ -12,7 +12,7 @@ export class LtxResolver implements Resolve<Ltx> {
     constructor(
         private router: Router,
         private ltx: LtxService,
-        private alertify: AlertifyService) {
+        private alertify: ToastrService) {
 
     }
     resolve(route: ActivatedRouteSnapshot): Observable<Ltx> {

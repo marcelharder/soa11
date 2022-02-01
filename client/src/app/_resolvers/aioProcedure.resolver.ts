@@ -1,11 +1,8 @@
 import {Injectable} from '@angular/core';
-import { User } from '../_models/User';
 import { Resolve, Router, ActivatedRouteSnapshot } from '@angular/router';
-import { UserService } from '../_services/user.service';
-import { AlertifyService } from '../_services/alertify.service';
+import { ToastrService } from 'ngx-toastr';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { AuthService } from '../_services/auth.service';
 import { Procedure } from '../_models/Procedure';
 import { ProcedureService } from '../_services/procedure.service';
 
@@ -17,7 +14,7 @@ export class AioProcedureResolver implements Resolve<Procedure[]> {
     
     constructor(private pservice: ProcedureService,
         private router: Router,
-        private alertify: AlertifyService) {
+        private alertify: ToastrService) {
 
     }
     resolve(route: ActivatedRouteSnapshot): Observable<Procedure[]> {

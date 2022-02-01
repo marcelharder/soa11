@@ -12,6 +12,7 @@ import { FormsModule } from '@angular/forms';
 
 import { BsDropdownModule} from 'ngx-bootstrap/dropdown';
 import { PaginationModule} from 'ngx-bootstrap/pagination';
+import { BsDatepickerModule} from 'ngx-bootstrap/datepicker';
 import { UiSwitchModule } from 'ngx-ui-switch';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { FileUploadModule } from 'ng2-file-upload';
@@ -43,6 +44,17 @@ import { ProfileResolver } from './_resolvers/profile.resolver';
 import { UserService } from './_services/user.service';
 import { RefPhysService } from './_services/refPhys.service';
 import { SelectProcedureTypeComponent } from './procedures/addprocedure/select-procedure-type/select-procedure-type.component';
+import { CpbComponent } from './procedures/cpb/cpb.component';
+import { CabgComponent } from './procedures/cabg/cabg.component';
+import { LtxComponent } from './procedures/ltx/ltx.component';
+import { AorticComponent } from './procedures/aortic/aortic.component';
+import { ValveComponent } from './procedures/valve/valve.component';
+import { ValverepairComponent } from './procedures/valverepair/valverepair.component';
+import { PostopComponent } from './procedures/postop/postop.component';
+import { MininvComponent } from './procedures/mininv/mininv.component';
+import { PreviewreportComponent } from './procedures/previewreport/previewreport.component';
+import { ExistingconduitComponent } from './procedures/aortic/existingconduit/existingconduit.component';
+import { GamecardComponent } from './procedures/aortic/gamecard/gamecard.component';
 
 @NgModule({
   declarations: [
@@ -67,6 +79,17 @@ import { SelectProcedureTypeComponent } from './procedures/addprocedure/select-p
     WorkedInComponent,
     CareerComponent,
     PhotoEditorComponent,
+    CpbComponent,
+    CabgComponent,
+    LtxComponent,
+    AorticComponent,
+    ValveComponent,
+    ValverepairComponent,
+    PostopComponent,
+    MininvComponent,
+    PreviewreportComponent,
+    ExistingconduitComponent,
+    GamecardComponent,
     
   ],
   imports: [
@@ -80,6 +103,7 @@ import { SelectProcedureTypeComponent } from './procedures/addprocedure/select-p
     BrowserAnimationsModule,
     FormsModule,
     BsDropdownModule.forRoot(),
+    BsDatepickerModule.forRoot(),
     ToastrModule.forRoot({
       positionClass: 'toast-bottom-right'
     }),

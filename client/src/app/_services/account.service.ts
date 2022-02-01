@@ -22,6 +22,9 @@ export class AccountService {
   HospitalName = new BehaviorSubject<string>('0');
   currentHospitalName = this.soortProcedure.asObservable();
 
+  dst = new BehaviorSubject<string>('0');
+  currentDst = this.dst.asObservable();
+
   constructor(private http: HttpClient) { }
 
   login(model: any){
@@ -38,6 +41,7 @@ export class AccountService {
   setCurrentProcedure(procedureId: number){this.currentProcedureSource.next(procedureId);}
   changeSoortOperatie(sh: string) { this.soortProcedure.next(sh); }
   changeCurrentHospital(sh: string){ this.HospitalName.next(sh);}
+  changeDst(sh: string) { this.dst.next(sh); }
 
   logout(){localStorage.removeItem('user'); this.currentUserSource.next(null);}
 }

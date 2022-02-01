@@ -17,6 +17,37 @@ import { AuthGuard } from './_guards/auth.guard';
 import { AddprocedureComponent } from './procedures/addprocedure/addprocedure.component';
 import { UserProfileComponent } from './users/userprofile/userprofile.component';
 import { ProfileResolver } from './_resolvers/profile.resolver';
+import { ChangesProcedureDetails } from './_guards/changes-procedureDetails.guard';
+import { changesAorticDetails } from './_guards/changes-aorticDetails.guard';
+import { changesCABGDetails } from './_guards/changes-cabgDetails.guard';
+import { changesCPBDetails } from './_guards/changes-cpbDetails.guard';
+import { changesEuroscoreDetails } from './_guards/changes-euroscoreDetails.guard';
+import { changesLtxDetails } from './_guards/changes-ltxDetails.guard';
+import { changesMinInv } from './_guards/changes-minInvDetails.guard';
+import { changesPOSTOPDetails } from './_guards/changes-postopDetails.guard';
+import { changesPreViewReport } from './_guards/changes-previewReport.guard';
+import { changesValveDetails } from './_guards/changes-valveDetails.guard';
+import { changesValveRepairDetails } from './_guards/changes-valveRepair.guard';
+import { AorticSurgeryResolver } from './_resolvers/aorticSurgery.resolver';
+import { CabgResolver } from './_resolvers/CABG-details.resolver';
+import { CPBDetailsResolver } from './_resolvers/CPB-details.resolver';
+import { EuroScoreDetailsResolver } from './_resolvers/euroScoreDetails.resolver';
+import { LtxResolver } from './_resolvers/Ltx.resolver';
+import { MinInvResolver } from './_resolvers/MinInv.resolver';
+import { PostResolver } from './_resolvers/PostOp-details.resolver';
+import { PreviewReportResolver } from './_resolvers/PreviewReport.resolver';
+import { ProcedureDetailsResolver } from './_resolvers/procedure-details.resolver';
+import { ValveResolver } from './_resolvers/Valve.resolver';
+import { ValveRepairResolver } from './_resolvers/ValveRepair.resolver';
+import { CpbComponent } from './procedures/cpb/cpb.component';
+import { CabgComponent } from './procedures/cabg/cabg.component';
+import { LtxComponent } from './procedures/ltx/ltx.component';
+import { AorticComponent } from './procedures/aortic/aortic.component';
+import { ValveComponent } from './procedures/valve/valve.component';
+import { MininvComponent } from './procedures/mininv/mininv.component';
+import { ValverepairComponent } from './procedures/valverepair/valverepair.component';
+import { PostopComponent } from './procedures/postop/postop.component';
+import { PreviewreportComponent } from './procedures/previewreport/previewreport.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -45,9 +76,62 @@ const routes: Routes = [
     runGuardsAndResolvers: 'always',
     canActivate: [AuthGuard],
     children: [
-      { path: 'detailsMain/:id', outlet: 'details', component: DetailsmainComponent },
-      { path: 'euroscore/:id', outlet: 'details', component: EuroscoredetailsComponent }
+      {
+        path: 'detailsMain/:id', outlet: 'details', component: DetailsmainComponent,
+        resolve: { procedureDetails: ProcedureDetailsResolver },
+        canDeactivate: [ChangesProcedureDetails]
+      },
+      {
+        path: 'euroscore/:id', outlet: 'details', component: EuroscoredetailsComponent,
+        resolve: { patient: EuroScoreDetailsResolver },
+        canDeactivate: [changesEuroscoreDetails]
+      },
+      {
+        path: 'cpb/:id', outlet: 'details', component: CpbComponent,
+        resolve: { cpb: CPBDetailsResolver },
+        canDeactivate: [changesCPBDetails]
+      },
+      {
+        path: 'cabg/:id', outlet: 'details', component: CabgComponent,
+        resolve: { cabg: CabgResolver },
+        canDeactivate: [changesCABGDetails]
+      },
+      {
+        path: 'ltx/:id', outlet: 'details', component: LtxComponent,
+        resolve: { ltx: LtxResolver },
+        canDeactivate: [changesLtxDetails]
+      },
+      {
+        path: 'aortic/:id', outlet: 'details', component: AorticComponent,
+        resolve: { aortic: AorticSurgeryResolver },
+        canDeactivate: [changesAorticDetails]
+      },
+      {
+        path: 'valve/:id', outlet: 'details', component: ValveComponent,
+        resolve: { valve: ValveResolver },
+        canDeactivate: [changesValveDetails]
 
+      },
+      {
+        path: 'valverepair/:id', outlet: 'details', component: ValverepairComponent,
+        resolve: { valve: ValveRepairResolver },
+        canDeactivate: [changesValveRepairDetails]
+      },
+      {
+        path: 'postop/:id', outlet: 'details', component: PostopComponent,
+        resolve: { postop: PostResolver },
+        canDeactivate: [changesPOSTOPDetails]
+      },
+      {
+        path: 'mininv/:id', outlet: 'details', component: MininvComponent,
+        resolve: { min: MinInvResolver },
+        canDeactivate: [changesMinInv]
+      },
+      {
+        path: 'previewReport/:id', outlet: 'details', component: PreviewreportComponent,
+        resolve: { preView: PreviewReportResolver },
+        canDeactivate: [changesPreViewReport]
+      },
     ]
   },
 
