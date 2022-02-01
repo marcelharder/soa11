@@ -50,7 +50,7 @@ namespace api.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        [Route("api/patient_in_database/{id}")]
+        [Route("patient_in_database/{id}")]
         public async Task<ActionResult> GetIDB(string id)
         {
             var p = await _rep.GetPatientInDatabase(id);
@@ -59,7 +59,7 @@ namespace api.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        [Route("api/patientFromProcedureId/{id}")]
+        [Route("patientFromProcedureId/{id}")]
         public async Task<ActionResult> GetFromProc(int id)
         {
             var p = await _rep.GetPatientFromProcedureId(id);
@@ -67,7 +67,7 @@ namespace api.Controllers
         }
         [HttpGet]
         [AllowAnonymous]
-        [Route("api/proceduresFromPatientId/{mrn}")]
+        [Route("proceduresFromPatientId/{mrn}")]
          public async Task<IActionResult> getiets(string mrn) {
              var result = await _proc.getProceduresFromPatientId(mrn);
              return Ok(result);
@@ -75,7 +75,7 @@ namespace api.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        [Route("api/isComplete/{id}")]
+        [Route("isComplete/{id}")]
         public async Task<ActionResult> GetComplete(int id)
         {
             var p = await _sp.IsThisProcedureComplete(id);
@@ -85,21 +85,21 @@ namespace api.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        [Route("api/showVSM/{id}")]
+        [Route("showVSM/{id}")]
         public async Task<ActionResult> GetVSM(int id)
         {
             return Ok(await _cabg.showVSMHarvestAsync(id));
         }
         [HttpGet]
         [AllowAnonymous]
-        [Route("api/showRadial/{id}")]
+        [Route("showRadial/{id}")]
         public async Task<ActionResult> GetRadial(int id)
         {
             return Ok(await _cabg.showRadialHarvestAsync(id));
         }
         [HttpGet]
         [AllowAnonymous]
-        [Route("api/showTachtig/{id}")]
+        [Route("showTachtig/{id}")]
         public async Task<ActionResult> Get80(int id)
         {
             return Ok(await _cabg.show80Async(id));
@@ -108,7 +108,7 @@ namespace api.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        [Route("api/loadReportCode/{id}")]
+        [Route("loadReportCode/{id}")]
         public IActionResult GetRC(int id)
         {// get the correct report code for this procedure type, used in preview reports
             var result = _sprm.getReportCode(id);
@@ -118,7 +118,7 @@ namespace api.Controllers
         #region <!-- email stuff -->
         [HttpPost]
         [AllowAnonymous]
-        [Route("api/sendEmail")]
+        [Route("sendEmail")]
         public async Task<IActionResult> postEmailAsync(EmailDTO em)
         {
             var comaddress = _com.Value.emailURL;
@@ -140,7 +140,7 @@ namespace api.Controllers
       
         [HttpGet]
         [AllowAnonymous]
-        [Route("api/products/{type}/{position}")]
+        [Route("products/{type}/{position}")]
         public async Task<IActionResult> getValveById(string type, string position)
         {
             var result = "";
@@ -159,7 +159,7 @@ namespace api.Controllers
       
         [HttpGet]
         [AllowAnonymous]
-        [Route("api/ppm")]
+        [Route("ppm")]
         public async Task<IActionResult> getPPM([FromQuery] ValveParams vp)
         {
            var result = "";
@@ -179,7 +179,7 @@ namespace api.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        [Route("api/productByValveTypeId/{id}")]
+        [Route("productByValveTypeId/{id}")]
         public async Task<IActionResult> getVVID(int id){
             var result = "";
             var comaddress = _com.Value.valveURL;
@@ -197,7 +197,7 @@ namespace api.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        [Route("api/getValveCodeSizes/{id}")]
+        [Route("getValveCodeSizes/{id}")]
         public async Task<IActionResult> getCS(int id)
         {
            var result = "";

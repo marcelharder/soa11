@@ -40,6 +40,8 @@ import { WorkedInComponent } from './users/userprofile/worked-in/worked-in.compo
 import { CareerComponent } from './users/userprofile/career/career.component';
 import { PhotoEditorComponent } from './photo-editor/photo-editor.component';
 import { ProfileResolver } from './_resolvers/profile.resolver';
+import { UserService } from './_services/user.service';
+import { RefPhysService } from './_services/refPhys.service';
 
 @NgModule({
   declarations: [
@@ -84,6 +86,8 @@ import { ProfileResolver } from './_resolvers/profile.resolver';
   
   providers: [
    {provide: JWT_OPTIONS, useValue: JWT_OPTIONS},
+   RefPhysService,
+   UserService,
    JwtHelperService,
    ProcedureListResolver,
    ProfileResolver,

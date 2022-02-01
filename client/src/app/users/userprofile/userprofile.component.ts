@@ -13,7 +13,7 @@ import { AccountService } from 'src/app/_services/account.service';
 
 @Component({
     templateUrl: './userprofile.component.html',
-    styleUrls: ['./userprofile.component.scss']
+    styleUrls: ['./userprofile.component.css']
 })
 
 export class UserProfileComponent implements OnInit {

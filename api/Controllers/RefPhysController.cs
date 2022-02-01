@@ -54,7 +54,7 @@ namespace api.Controllers
         }
 
         [HttpGet]
-        [Route("api/specificRefPhys/{id}", Name = "GetRefById")]
+        [Route("specificRefPhys/{id}", Name = "GetRefById")]
         public async Task<ActionResult> Get(int id)
         {
             var p = await _ref.getSpecificRefPhys(id);
@@ -65,7 +65,7 @@ namespace api.Controllers
         
 
         [HttpGet]
-        [Route("api/AllRefPhys/{hospital_id}")]
+        [Route("AllRefPhys/{hospital_id}")]
         public async Task<ActionResult> GetAll(int hospital_id) //should return list of dropItems
         {
             var p = await _ref.getAllRefPhysInThisHospital(hospital_id);
@@ -74,7 +74,7 @@ namespace api.Controllers
         }
 
         [HttpPut]
-        [Route("api/updateRefPhys")]
+        [Route("updateRefPhys")]
         public async Task<ActionResult> updateRefPhys(refphysForUpdate cr) {
             var old = await _ref.getSpecificRefPhys(cr.Id);
             old = _mapper.mapToRefRhys(cr,old);
@@ -83,7 +83,7 @@ namespace api.Controllers
         }
 
         [HttpDelete]
-        [Route("api/deleteRefPhys/{id}")]
+        [Route("deleteRefPhys/{id}")]
         public async Task<ActionResult> deleteRefPhys(int id)
         {
             var p = await _ref.deleteRefPhys(id);
@@ -91,7 +91,7 @@ namespace api.Controllers
         }
 
         [HttpGet]
-        [Route("api/addRefPhys")]
+        [Route("addRefPhys")]
         [Authorize]
         public async Task<ActionResult> addRefPhys()
         {
@@ -114,7 +114,7 @@ namespace api.Controllers
             return BadRequest("Could not add RefPhys");
         }
 
-        [HttpPost("api/addPhoto/{id}")]
+        [HttpPost("addPhoto/{id}")]
         public async Task<IActionResult> AddPhotoForRefPhys(int id, [FromForm]PhotoForCreationDto photoDto)
         {
             // if (id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value)) return Unauthorized();

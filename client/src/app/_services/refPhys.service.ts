@@ -11,15 +11,15 @@ export class RefPhysService {
    
     constructor(private http: HttpClient) { }
 
-    getSpecificRefPhys(id: number) { return this.http.get<RefPhysModel>(this.baseUrl + 'specificRefPhys/' + id); }
+    getSpecificRefPhys(id: number) { return this.http.get<RefPhysModel>(this.baseUrl + 'RefPhys/specificRefPhys/' + id); }
 
-    updateRefPhys(c: RefPhysModel) { return this.http.put<RefPhysModel>(this.baseUrl + 'updateRefPhys/', c); }
+    updateRefPhys(c: RefPhysModel) { return this.http.put<RefPhysModel>(this.baseUrl + 'RefPhys/updateRefPhys/', c); }
 
-    addRefPhys() { return this.http.get<RefPhysModel>(this.baseUrl + 'addRefPhys'); }
+    addRefPhys() { return this.http.get<RefPhysModel>(this.baseUrl + 'RefPhys/addRefPhys'); }
 
-    deleteRefPhys(id: number) { return this.http.delete<number>(this.baseUrl + 'deleteRefPhys/' + id);}
+    deleteRefPhys(id: number) { return this.http.delete<number>(this.baseUrl + 'RefPhys/deleteRefPhys/' + id);}
 
-    getRefPhys(id: number) { return this.http.get<dropItem[]>(this.baseUrl + 'AllRefPhys/' + id); }
+    getRefPhys(id: number) { return this.http.get<dropItem[]>(this.baseUrl + 'RefPhys/AllRefPhys/' + id); }
 
     sendEmail(e: EmailModel) // Use the config service to send email
     {

@@ -4,7 +4,7 @@ import { AlertifyService } from '../_services/alertify.service';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { RefPhysModel } from '../_models/RefPhysModel';
-import { RefPhysService } from '../_services/ref-phys.service';
+import { RefPhysService } from '../_services/refPhys.service';
 
 @Injectable()
 
