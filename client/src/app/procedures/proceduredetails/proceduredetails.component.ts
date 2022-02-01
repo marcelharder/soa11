@@ -1,9 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { Router } from '@angular/router';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { take } from 'rxjs/operators';
 import { CandA } from 'src/app/_models/CandA';
+import { ProcedureDetails } from 'src/app/_models/procedureDetails';
 import { AccountService } from 'src/app/_services/account.service';
+import { ProcedureService } from 'src/app/_services/procedure.service';
 
 @Component({
   selector: 'app-proceduredetails',
@@ -11,10 +14,12 @@ import { AccountService } from 'src/app/_services/account.service';
   styleUrls: ['./proceduredetails.component.css']
 })
 export class ProceduredetailsComponent implements OnInit {
+  id=0;
   currentProcedureId = 0;
   destinationUrl = 'detailsmain';
   procedureDescription = '';
   currentHospitalName = '';
+  modalRef: BsModalRef;
 
   cap: CandA;
 
@@ -22,13 +27,45 @@ export class ProceduredetailsComponent implements OnInit {
   button_4 = 'button 4'; button_5 = 'button 5'; button_6 = 'button 6';
   button_7 = ''; button_8 = '';
 
+  
+  action_1 = '/about'; action_2 = '/home'; action_3 = '/users';
+  action_4 = '/about'; action_5 = '/home'; action_6 = '/users';
+  action_7 = ''; action_8 = '';
+
+  procedureDetails: ProcedureDetails;
+
+
+
+
   constructor(
     private router: Router,
+    private procedureService: ProcedureService,
+    private modalService: BsModalService,
     private auth: AccountService,
     private alertify: ToastrService) { }
 
   ngOnInit(): void {
-    this.auth.currentProcedure$.subscribe((next)=>{this.currentProcedureId = next})
+    this.auth.currentProcedure$.pipe(take(1)).subscribe((u) => {this.id = u;})
+    this.procedureService.getProcedure(this.id).subscribe((result) => {
+      this.procedureDescription = result.description;
+
+      this.procedureService.getButtonsAndCaptions(result.fdType).subscribe(response => {
+
+        this.cap = response;
+
+        this.button_1 = this.cap.button_caption[0];
+        this.button_2 = this.cap.button_caption[1];
+        this.button_3 = this.cap.button_caption[2];
+        this.button_4 = this.cap.button_caption[3];
+        this.button_5 = this.cap.button_caption[4];
+        this.button_6 = this.cap.button_caption[5];
+        this.button_7 = this.cap.button_caption[6];
+        this.button_8 = this.cap.button_caption[7];
+
+
+      }, error => { this.alertify.error(error + ' van mijn'); });
+    })
+    this.goToDestination(this.destinationUrl);
   }
 
   goToDestination(d: string) {
@@ -66,25 +103,27 @@ export class ProceduredetailsComponent implements OnInit {
       };
       default: { this.destinationUrl = d; break; }
     }
+   
+    this.router.navigate(['/procedureDetails', { outlets: { details: [this.destinationUrl, this.id] } }]);
 
   }
-  goDelete(){
-   /* this.alertify.success('Are you sure yoy want to delete this procedure', () => {
-      this.procedureService.deleteProcedure(this.currentProcedureId).subscribe(
-        (next)=>{
-          this.alertify.success('Procedure deleted');
-          this.router.navigate(['/procedures']);
 
-        },
-        (error)=>{this.alertify.error(error)})
-      return true;
-    }); */
-    this.alertify.success('Hello','You want to continue')
-    .onTap
-    .pipe(take(1))
-    .subscribe((response:any) => this.toasterClickedHandler(response))
+
+  goDelete(template: TemplateRef<any>){ this.modalRef = this.modalService.show(template); }
+  confirm(): void {
+  
+    this.procedureService.deleteProcedure(this.currentProcedureId).subscribe(
+      (next)=>{
+        this.alertify.success('Procedure deleted');
+        this.router.navigate(['/procedures']);
+
+      },
+      (error)=>{this.alertify.error(error)})
+    this.modalRef?.hide();
   }
-  toasterClickedHandler(r: any) {
-    console.log('Toastr clicked');
+  
+  decline(): void {
+    this.modalRef?.hide();
   }
+ 
 }

@@ -97,7 +97,7 @@ export class ProcedureService {
 
     getProcedure(id: number): Observable<ProcedureDetails> { return this.http.get<ProcedureDetails>(this.baseUrl + 'procedure/' + id); }
 
-    deleteProcedure(id: string) { return this.http.delete<number>(this.baseUrl + 'procedure/' + id); }
+    deleteProcedure(id: number) { return this.http.delete<number>(this.baseUrl + 'procedure/' + id); }
 
     getRefPhysEmailHash(id: number){ return this.http.get<string>(
         this.baseUrl + 'procedure/refPhysEmailHash/' + id,{ responseType: 'text' as 'json' }); }
