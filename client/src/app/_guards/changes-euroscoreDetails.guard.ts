@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { CanDeactivate } from '@angular/router';
-import { EuroScoreDetailsComponent } from '../procedures/euroscore/euroscore.component';
+import { EuroscoredetailsComponent } from '../procedures/euroscoredetails/euroscoredetails.component';
 
 @Injectable()
 
-export class changesEuroscoreDetails implements CanDeactivate<EuroScoreDetailsComponent>{
-    canDeactivate(component: EuroScoreDetailsComponent) {
+export class changesEuroscoreDetails implements CanDeactivate<EuroscoredetailsComponent>{
+    canDeactivate(component: EuroscoredetailsComponent) {
         if (component.editForm.dirty) {
             const can = component.canDeactivate();
             return can;

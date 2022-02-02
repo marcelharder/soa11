@@ -76,6 +76,9 @@ import { EmployeesComponent } from './configuration/employees/employees.componen
 import { HospitalsComponent } from './configuration/hospitals/hospitals.component';
 import { OpreportComponent } from './configuration/opreport/opreport.component';
 import { RefphysComponent } from './configuration/refphys/refphys.component';
+import { EditComponent } from './configuration/employees/edit/edit.component';
+import { EditdetailsComponent } from './configuration/employees/editdetails/editdetails.component';
+import { UploadphotoComponent } from './configuration/employees/uploadphoto/uploadphoto.component';
 
 @NgModule({
   declarations: [
@@ -131,6 +134,9 @@ import { RefphysComponent } from './configuration/refphys/refphys.component';
     HospitalsComponent,
     OpreportComponent,
     RefphysComponent,
+    EditComponent,
+    EditdetailsComponent,
+    UploadphotoComponent,
     
   ],
   imports: [

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CanDeactivate } from '@angular/router';
-import { AorticComponent } from '../procedures/Aortic/Aortic.component';
+import { AorticComponent } from '../procedures/aortic/aortic.component';
 
 
 @Injectable()

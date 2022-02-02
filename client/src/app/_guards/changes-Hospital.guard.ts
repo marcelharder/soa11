@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { CanDeactivate } from '@angular/router';
-import { EditHospitalComponent } from '../configuration/hospital/edit-hospital.component';
+import { HospitalsComponent } from '../configuration/hospitals/hospitals.component';
 
 
 @Injectable()
 
 // tslint:disable-next-line:class-name
-export class changesHospital implements CanDeactivate<EditHospitalComponent>{
-    canDeactivate(component: EditHospitalComponent) {
+export class changesHospital implements CanDeactivate<HospitalsComponent>{
+    canDeactivate(component: HospitalsComponent) {
         if (component.hospitalForm.dirty) {
             const can = component.canDeactivate();
             return can;

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CanDeactivate } from '@angular/router';
-import { CabgComponent } from '../procedures/Cabg/cabg.component';
+import { CabgComponent } from '../procedures/cabg/cabg.component';
 
 
 @Injectable()

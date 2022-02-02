@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CanDeactivate } from '@angular/router';
-import { LtxComponent } from '../procedures/Ltx/Ltx.component';
+import { LtxComponent } from '../procedures/ltx/ltx.component';
 
 
 @Injectable()
