@@ -16,6 +16,7 @@ import { BsDatepickerModule} from 'ngx-bootstrap/datepicker';
 import { UiSwitchModule } from 'ngx-ui-switch';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { FileUploadModule } from 'ng2-file-upload';
+import { NgChartsModule } from 'ng2-charts';
 
 import { HomeComponent } from './home/home.component';
 import { ProceduredetailsComponent } from './procedures/proceduredetails/proceduredetails.component';
@@ -55,6 +56,22 @@ import { MininvComponent } from './procedures/mininv/mininv.component';
 import { PreviewreportComponent } from './procedures/previewreport/previewreport.component';
 import { ExistingconduitComponent } from './procedures/aortic/existingconduit/existingconduit.component';
 import { GamecardComponent } from './procedures/aortic/gamecard/gamecard.component';
+import { Blok1Component } from './procedures/previewreport/blok1/blok1.component';
+import { Blok2Component } from './procedures/previewreport/blok2/blok2.component';
+import { Blok3Component } from './procedures/previewreport/blok3/blok3.component';
+import { Blok6Component } from './procedures/previewreport/blok6/blok6.component';
+import { BlokcabgComponent } from './procedures/previewreport/blokcabg/blokcabg.component';
+import { BlokvalveComponent } from './procedures/previewreport/blokvalve/blokvalve.component';
+import { EmailRefPhysComponent } from './procedures/previewreport/email-ref-phys/email-ref-phys.component';
+import { ReportHeaderComponent } from './procedures/previewreport/report-header/report-header.component';
+import { ValverepairdetailsComponent } from './procedures/valverepair/valverepairdetails/valverepairdetails.component';
+import { ValverepairoviComponent } from './procedures/valverepair/valverepairovi/valverepairovi.component';
+import { AgeComponent } from './statistics/age/age.component';
+import { CasemixComponent } from './statistics/casemix/casemix.component';
+import { FiveriskbandsComponent } from './statistics/fiveriskbands/fiveriskbands.component';
+import { PermonthComponent } from './statistics/permonth/permonth.component';
+import { PeryearComponent } from './statistics/peryear/peryear.component';
+import { VladComponent } from './statistics/vlad/vlad.component';
 
 @NgModule({
   declarations: [
@@ -90,6 +107,22 @@ import { GamecardComponent } from './procedures/aortic/gamecard/gamecard.compone
     PreviewreportComponent,
     ExistingconduitComponent,
     GamecardComponent,
+    Blok1Component,
+    Blok2Component,
+    Blok3Component,
+    Blok6Component,
+    BlokcabgComponent,
+    BlokvalveComponent,
+    EmailRefPhysComponent,
+    ReportHeaderComponent,
+    ValverepairdetailsComponent,
+    ValverepairoviComponent,
+    AgeComponent,
+    CasemixComponent,
+    FiveriskbandsComponent,
+    PermonthComponent,
+    PeryearComponent,
+    VladComponent,
     
   ],
   imports: [
@@ -98,6 +131,7 @@ import { GamecardComponent } from './procedures/aortic/gamecard/gamecard.compone
     UiSwitchModule,
     PaginationModule,
     BrowserModule,
+    NgChartsModule,
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,

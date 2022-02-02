@@ -19,6 +19,8 @@ import { UserService } from 'src/app/_services/user.service';
 export class DetailsmainComponent implements OnInit {
   @ViewChild('editForm') editForm: NgForm;
   ltk = 0;
+  currentUserId = 0;
+  currentUserName = '';
 
   proc: ProcedureDetails;
 
@@ -48,6 +50,8 @@ export class DetailsmainComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.auth.currentUser$.pipe(take(1)).subscribe((u) => {this.currentUserId = u.userId;})
+    this.auth.currentUser$.pipe(take(1)).subscribe((u) => {this.currentUserName = u.username;})
     this.route.data.subscribe((data) => {
        this.proc = data.procedureDetails;
        this.loadEmployeeDrops(this.proc.hospital.toString());
@@ -91,9 +95,7 @@ export class DetailsmainComponent implements OnInit {
             this.Perfusionists = response;
           });
 
-        const v = this.Surgeons.find(
-          (x) => x.description === this.auth.decodedToken.unique_name
-        );
+      //  const v = this.Surgeons.find((x) => x.description === this.currentUserName);
 
       } // this is a historic record so all the employees in the database should be available
       else {
@@ -268,9 +270,9 @@ export class DetailsmainComponent implements OnInit {
   saveProcDetails() {
     // check that the assistant is entered
 
-    const userId: number = this.auth.decodedToken.nameid;
+
     this.procedureService
-      .saveProcedureDetails(userId, this.proc)
+      .saveProcedureDetails(this.currentUserId, this.proc)
       .subscribe((next) => {
         if (next.toString() === '1') {
         } else {
@@ -281,7 +283,7 @@ export class DetailsmainComponent implements OnInit {
 
   canDeactivate() {
     this.saveProcDetails();
-    this.alertify.message('saving procedure details');
+    this.alertify.show('saving procedure details');
     return true;
   }
 

@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { CPB } from 'src/app/_models/CPB';
 import { dropItem } from 'src/app/_models/dropItem';
 import { CPBService } from 'src/app/_services/cpb.service';
 import { DropdownService } from 'src/app/_services/dropdown.service';

@@ -1,0 +1,248 @@
+<div class="card">
+    <div class="card-header">
+  
+    </div>
+  
+    <div class="card-body" *ngIf="showMVP()">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="row">
+            <div class="col-sm-4">
+              <h4><span class="badge badge-default">Type of repair</span></h4>
+            </div>
+            <div class="col-sm-4">
+              <select [(ngModel)]="pd.REPAIR_TYPE" name="repType" class="form-control">
+                <option *ngFor="let item of optionsMitralRepairType" [value]=item.value>{{ item.description }}</option>
+              </select>
+            </div>
+            <div class="col-sm-4"></div>
+          </div>
+        </div>
+        <div class="col-sm-12 mt-2">
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" (change)="onCheckBoxChange($event)"
+                  id="customCheckDetails" [(ngModel)]="additionalDetails" name="addet" />
+                <label class="custom-control-label" for="customCheckDetails">Additional Details</label>
+              </div>
+            </div>
+            <div class="col-sm-8">
+              <div *ngIf="additionalDetails">
+                <textarea rows="5" class="form-control" [(ngModel)]="pd.Memo" name="modelmemo"></textarea>
+              </div>
+            </div>
+  
+          </div>
+        </div>
+        <div class="col-sm-12 mt-2">
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="customCheck" (change)="onCheckBoxChange($event)"
+                  [(ngModel)]="ringCheck" name="mrused" />
+                <label class="custom-control-label" for="customCheck">Ring used</label>
+              </div>
+            </div>
+            <div class="col-sm-8">
+              <div class="row" *ngIf="showEditCard()">
+                <div class="col-sm-12">
+                  <div class="card">
+                    <div class="card-header">
+                      <h4><span class="badge badge-default">Edit selected ring</span></h4>
+                    </div>
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col-sm-6"><span class="badge badge-secondary">Available sizes:</span></div>
+                        <div class="col-sm-6">
+                          <select [(ngModel)]="pd.SIZE" name="vsize" class="form-control">
+                            <option *ngFor="let item of optionMitralRingSizes" [value]=item.size>{{ item.size }}</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-sm-6"><span class="badge badge-secondary">Serial number:</span></div>
+                        <div class="col-sm-6"><input type="text" class="form-control" [(ngModel)]="pd.SERIAL_IMP"
+                            name="sn"></div>
+                      </div>
+                      <div class="row">
+                        <div class="col-sm-6"><span class="badge badge-secondary">Type:</span></div>
+                        <div class="col-sm-6"><input type="text" class="form-control" [(ngModel)]="pd.TYPE" name="ty"
+                            disabled></div>
+                      </div>
+                      <div class="row">
+                        <div class="col-sm-6"><span class="badge badge-secondary">Position:</span></div>
+                        <div class="col-sm-6"><input type="text" class="form-control" [(ngModel)]="pd.Implant_Position"
+                            name="im" disabled></div>
+                      </div>
+                      <div class="row">
+                        <div class="col-sm-6"><span class="badge badge-secondary">Code: </span></div>
+                        <div class="col-sm-6"><input type="text" class="form-control" [(ngModel)]="pd.MODEL" name="co"
+                            disabled></div>
+                      </div>
+  
+                    </div>
+                  </div>
+                </div>
+              </div>
+  
+              <div *ngIf="showAvailableRings()">
+                <div class="card">
+                  <div class="card-header">
+                    <h4><span class="badge badge-default">Available mitral rings in your hospital</span></h4>
+  
+                  </div>
+                  <div class="card-body">
+  
+                    <table class="table table-striped">
+                      <tr>
+                        <th>Annuloplasty_Ring</th>
+                        <th>Description</th>
+                        <th></th>
+                      </tr>
+                      <tr *ngFor="let x of optionsAvailableMitralRings">
+                        <td>{{x.Code}}</td>
+                        <td>{{x.Description}}</td>
+                        <td><button type="button" class="badge badge-info btn-xxs"
+                            (click)="getThisOne(x.valveTypeId)">select</button></td>
+                      </tr>
+                    </table>
+  
+  
+  
+                  </div>
+  
+                </div>
+              </div>
+  
+  
+  
+            </div>
+  
+  
+          </div>
+        </div>
+      </div>
+  
+    </div>
+  
+    <div class="card-body" *ngIf="showTVP()">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="row">
+            <div class="col-sm-4">
+              <h4><span class="badge badge-default">Type of repair</span></h4>
+            </div>
+            <div class="col-sm-4">
+              <select [(ngModel)]="pd.REPAIR_TYPE" name="q2vw" class="form-control">
+                <option *ngFor="let item of optionsTricuspidRepairType" [value]=item.value>{{ item.description }}</option>
+              </select>
+            </div>
+            <div class="col-sm-4"></div>
+          </div>
+        </div>
+        <div class="col-sm-12 mt-2">
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" (change)="onCheckBoxChange($event)"
+                  id="customCheckTDetails" [(ngModel)]="additionalTDetails" name="addetT" />
+                <label class="custom-control-label" for="customCheckTDetails">Additional Details</label>
+              </div>
+            </div>
+            <div class="col-sm-8">
+              <div *ngIf="additionalTDetails">
+                <textarea rows="5" class="form-control" [(ngModel)]="pd.Memo" name="modelmemo"></textarea>
+              </div>
+            </div>
+  
+          </div>
+        </div>
+  
+  
+  
+        <div class="col-sm-12 mt-2">
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" (change)="onCheckBoxChange($event)" class="custom-control-input" id="customTCheck"
+                  [(ngModel)]="tricuspidRingUsed" name="ex2vc" />
+                <label class="custom-control-label" for="customTCheck">Ring used</label>
+              </div>
+            </div>
+            <div class="col-sm-4"></div>
+            <div class="col-sm-4"></div>
+          </div>
+        </div>
+  
+       
+     
+      </div>
+      <div class="row" *ngIf="showTricuspidRingDetails()">
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-header"><h4><span class="badge badge-default">Available tricuspid rings in {{currentHospital}}</span></h4></div>
+            <div class="card-body">
+              <table class="table table-striped">
+                <tr>
+                  <th>Annuloplasty_Ring</th>
+                  <th>Description</th>
+                  <th></th>
+                </tr>
+                <tr *ngFor="let x of optionsAvailableTricuspidRings">
+                  <td>{{x.Code}}</td>
+                  <td>{{x.Description}}</td>
+                  <td><button type="button" class="badge badge-info btn-xxs"
+                      (click)="getThisTricuspidRing(x.valveTypeId)">select</button></td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-header"><h4><span class="badge badge-default">Tricuspid ring details</span></h4></div>
+            
+              <div class="card-body" *ngIf="showTricuspidIndividualRing()">
+                <div class="row">
+                  <div class="col-sm-6"><span class="badge badge-secondary">Available sizes:</span></div>
+                  <div class="col-sm-6">
+                    <select [(ngModel)]="pd.SIZE" name="vsize" class="form-control">
+                      <option *ngFor="let item of optionTricuspidRingSizes" [value]=item.size>{{ item.size }}</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-6"><span class="badge badge-secondary">Serial number:</span></div>
+                  <div class="col-sm-6"><input type="text" class="form-control" [(ngModel)]="pd.SERIAL_IMP"
+                      name="sn"></div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-6"><span class="badge badge-secondary">Type:</span></div>
+                  <div class="col-sm-6"><input type="text" class="form-control" [(ngModel)]="pd.TYPE" name="ty"
+                      disabled></div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-6"><span class="badge badge-secondary">Position:</span></div>
+                  <div class="col-sm-6"><input type="text" class="form-control" [(ngModel)]="pd.Implant_Position"
+                      name="im" disabled></div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-6"><span class="badge badge-secondary">Code: </span></div>
+                  <div class="col-sm-6"><input type="text" class="form-control" [(ngModel)]="pd.MODEL" name="co"
+                      disabled></div>
+                </div>
+  
+              
+            </div>
+          </div>
+        </div>
+      </div>
+  
+    </div>
+  
+    <div class="card-footer">
+      <button class="badge badge-success" (click)="saveRing()">Save</button>
+    </div>
+  
+  </div>

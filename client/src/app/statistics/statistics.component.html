@@ -1,5 +1,41 @@
-<div class="card m-5">
-    <div class="card-header"><h5><span class="badge badge-info">Statistics</span></h5></div>
-    <div class="class-body"><p>Statistics works!</p></div>
-    <div class="card-footer"></div>
-</div>
+<div class="row">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-10">
+      <div class="row mt-2 mb-2">
+        <div class="col-sm-6">
+          <div class="row">
+           <div class="col-6">
+              <select [(ngModel)]="selectedHospital" name="hospital" class="form-control" >
+                <option *ngFor="let y of hospitals" [value]="y.value">{{ y.description }}</option>
+              </select>
+            </div>
+            <div class="col-6"></div>
+          </div>
+        </div>
+        <div class="col-sm-6"></div>
+      </div>
+    </div>
+  </div>
+  
+  
+  <div class="row">
+    <div class="col-sm-2" style="background-color:gainsboro">
+      <div class="row"><div class="col-sm-12"><button type="button" id="btn1"  class="btn btn-secondary m-2" (click)="getVL()">VLAD</button></div></div>
+      <div class="row"><div class="col-sm-12"><button type="button" id="btn2"  class="btn btn-secondary m-2" (click)="getAG()">Age distribution</button></div></div>
+      <div class="row"><div class="col-sm-12"><button type="button" id="btn3"  class="btn btn-secondary m-2" (click)="getCM()">CaseMix</button></div></div>
+      <div class="row"><div class="col-sm-12"><button type="button" id="btn4"  class="btn btn-secondary m-2" (click)="getPY()"># procedures/Year</button></div></div>
+      <div class="row"><div class="col-sm-12"><button type="button" id="btn5"  class="btn btn-secondary m-2" (click)="getPM()"># procedures/Month</button></div></div>
+      <div class="row"><div class="col-sm-12"><button type="button" id="btn6"  class="btn btn-secondary m-2" (click)="getEU()">Euroscore 5 risk bands</button></div></div>
+    </div>
+    <div class="col-sm-10" style="background-color:beige">
+      <app-vlad_graph *ngIf="showGraphNo === 1" [vladModel]="this.vladModel"></app-vlad_graph>
+      <app-age_graph *ngIf="showGraphNo === 3" [ageModel]="this.ageModel"></app-age_graph>
+      <app-casemix *ngIf="showGraphNo === 2" [caseMixModel]="this.cmModel"></app-casemix>
+      <app-band *ngIf="showGraphNo === 4" [euroModel]="this.euroModel"></app-band>
+      <app-per-year *ngIf="showGraphNo === 5" [PYModel]="this.PYModel"></app-per-year>
+      <app-per-month *ngIf="showGraphNo === 6" [PMModel]="this.PMModel"></app-per-month>
+    </div>
+  
+  </div>
+  
+  
