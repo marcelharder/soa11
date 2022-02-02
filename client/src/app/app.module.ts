@@ -72,6 +72,10 @@ import { FiveriskbandsComponent } from './statistics/fiveriskbands/fiveriskbands
 import { PermonthComponent } from './statistics/permonth/permonth.component';
 import { PeryearComponent } from './statistics/peryear/peryear.component';
 import { VladComponent } from './statistics/vlad/vlad.component';
+import { EmployeesComponent } from './configuration/employees/employees.component';
+import { HospitalsComponent } from './configuration/hospitals/hospitals.component';
+import { OpreportComponent } from './configuration/opreport/opreport.component';
+import { RefphysComponent } from './configuration/refphys/refphys.component';
 
 @NgModule({
   declarations: [
@@ -123,6 +127,10 @@ import { VladComponent } from './statistics/vlad/vlad.component';
     PermonthComponent,
     PeryearComponent,
     VladComponent,
+    EmployeesComponent,
+    HospitalsComponent,
+    OpreportComponent,
+    RefphysComponent,
     
   ],
   imports: [
