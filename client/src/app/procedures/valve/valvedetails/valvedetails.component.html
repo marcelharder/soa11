@@ -1,0 +1,147 @@
+<div class="row">
+    <div class="col-sm-12">
+      <div class="card" *ngIf="showPanel_1()">
+        <div class="card-header">
+          <div class="d-flex">
+            <div class="p-2">Implanted {{hv.Position}} valve</div>
+            <div class="ml-auto p-2">
+              <button class="badge badge-danger" (click)="deleteValve()">Delete</button>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div>
+            <div class="row">
+              <div class="col-md-4"><span class="badge badge-secondary">Type of prosthesis</span></div>
+              <div class="col-md-6">
+                <h4><span class="badge badge-default">{{pd.TYPE}}</span></h4>
+              </div>
+              <div class="col-md-2"></div>
+            </div>
+            <div class="row">
+              <div class="col-md-4"><span class="badge badge-secondary">Size (mm)</span></div>
+              <div class="col-md-6">
+                <h4><span class="badge badge-default">{{pd.SIZE}}</span></h4>
+              </div>
+              <div class="col-md-2"></div>
+            </div>
+            <div class="row">
+              <div class="col-md-4"><span class="badge badge-secondary">Model</span></div>
+              <div class="col-md-6">
+                <h4><span class="badge badge-default">{{pd.MODEL}}</span></h4>
+              </div>
+              <div class="col-md-2"></div>
+            </div>
+            <div class="row">
+              <div class="col-md-4"><span class="badge badge-secondary">Description</span></div>
+              <div class="col-md-6">
+                <h4><span class="badge badge-default">{{valveDescription}}</span></h4>
+              </div>
+              <div class="col-md-2"></div>
+            </div>
+            
+            <div class="row">
+              <div class="col-md-4"><span class="badge badge-secondary">Serial number</span></div>
+              <div class="col-md-6">
+                <h4><span class="badge badge-default">{{pd.SERIAL_IMP}}</span></h4>
+              </div>
+              <div class="col-md-2"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="card" *ngIf="showPanel_2()">
+            <div class="card-header">Choose a {{hv.Position | lowercase}} valve from the valves in your hospital</div>
+            <div class="card-body">
+              <div class="row">
+                <div class="d-flex">
+                  <div class="p-2"><span class="badge badge-secondary">Type of prosthesis</span></div>
+                  <div class="p-2">
+                    <select [(ngModel)]="hv.Type" name="aorticTypeImplant" class="form-control">
+                      <option *ngFor="let item of optionsTypes" [value]=item.description>{{ item.description }}</option>
+                    </select>
+                  </div>
+                  <div class="ml-auto p-2"><button class="badge badge-danger" (click)="getModelsInHospital()">Search</button>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-12">
+                  <!--list of valves from the server-->
+                  <table class="table table-striped">
+                    <tr>
+                      <th>Code</th>
+                      <th>Description</th>
+  
+                      <th></th>
+                    </tr>
+                    <tr *ngFor="let hv of hospitalValves">
+                      <td>{{hv.Code}}</td>
+                      <td>{{hv.Description}}</td>
+                      <td><button
+                        (click)="selectThisValve(hv.Code)"
+                        class="badge badge-warning">Select</button></td>
+                     </tr>
+                  </table>
+                </div>
+              </div>
+  
+  
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="card" *ngIf="showPanel_3()">
+            <div class="card-header">
+              <div class="d-flex">
+                <div class="p-2">Valve to be implanted</div>
+                <div class="ml-auto p-2"><button class="badge badge-success" (click)="implantValve(template)">Implant</button>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+  
+              <div class="row">
+                <div class="col-sm-6"><span class="badge badge-secondary">Valve annulur size:</span></div>
+                <div class="col-sm-6">
+                  <select [(ngModel)]="valveSize" name="vsize" class="form-control" (change)="findEOA(hv)">
+                  <option *ngFor="let item of optionSizes" [value]=item.size>{{ item.size }}</option>
+                </select></div>
+              </div>
+              <div class="row" *ngIf="showEoaAdvice()">
+                <div class="col-sm-6"><span class="badge badge-secondary">Patient-Prosthesis Mismatch:</span></div>
+                <div class="col-sm-6">{{adviceText}}</div>
+              </div>
+              <div class="row">
+                <div class="col-sm-6"><span class="badge badge-secondary">Serial number:</span></div>
+                <div class="col-sm-6"><input type="text" class="form-control" [(ngModel)]="pd.SERIAL_IMP" name="sn"></div>
+              </div>
+              <div class="row">
+                <div class="col-sm-6"><span class="badge badge-secondary">Type:</span></div>
+                <div class="col-sm-6"><input type="text" class="form-control" [(ngModel)]="hv.Type" name="model" disabled></div>
+              </div>
+              <div class="row">
+                <div class="col-sm-6"><span class="badge badge-secondary">Position:</span></div>
+                <div class="col-sm-6"><input type="text" class="form-control" [(ngModel)]="hv.Position" name="model" disabled></div>
+              </div>
+              <div class="row">
+                <div class="col-sm-6"><span class="badge badge-secondary">Code:</span></div>
+                <div class="col-sm-6"><input type="text" class="form-control" [(ngModel)]="hv.Code" name="model" disabled></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+    </div>
+  </div>
+ 
+<ng-template #template>
+    <div class="modal-body text-center">
+      <p>Confirm you want to implant this valve ?</p>
+      <button type="button" class="btn btn-default" (click)="confirm()" >Yes</button>
+      <button type="button" class="btn btn-primary" (click)="decline()" >No</button>
+    </div>
+  </ng-template>

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
@@ -16,7 +16,6 @@ import { BsDatepickerModule} from 'ngx-bootstrap/datepicker';
 import { UiSwitchModule } from 'ngx-ui-switch';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { FileUploadModule } from 'ng2-file-upload';
-import { NgChartsModule } from 'ng2-charts';
 
 import { HomeComponent } from './home/home.component';
 import { ProceduredetailsComponent } from './procedures/proceduredetails/proceduredetails.component';
@@ -79,6 +78,10 @@ import { RefphysComponent } from './configuration/refphys/refphys.component';
 import { EditComponent } from './configuration/employees/edit/edit.component';
 import { EditdetailsComponent } from './configuration/employees/editdetails/editdetails.component';
 import { UploadphotoComponent } from './configuration/employees/uploadphoto/uploadphoto.component';
+import { GoogleChartsModule } from 'angular-google-charts';
+import { ValvedetailsComponent } from './procedures/valve/valvedetails/valvedetails.component';
+import { ValvesinoviComponent } from './procedures/valve/valvesinovi/valvesinovi.component';
+import { GraphService } from './_services/graph.service';
 
 @NgModule({
   declarations: [
@@ -137,6 +140,8 @@ import { UploadphotoComponent } from './configuration/employees/uploadphoto/uplo
     EditComponent,
     EditdetailsComponent,
     UploadphotoComponent,
+    ValvedetailsComponent,
+    ValvesinoviComponent,
     
   ],
   imports: [
@@ -145,7 +150,6 @@ import { UploadphotoComponent } from './configuration/employees/uploadphoto/uplo
     UiSwitchModule,
     PaginationModule,
     BrowserModule,
-    NgChartsModule,
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
@@ -155,13 +159,15 @@ import { UploadphotoComponent } from './configuration/employees/uploadphoto/uplo
     ToastrModule.forRoot({
       positionClass: 'toast-bottom-right'
     }),
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    GoogleChartsModule
   ],
-  
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [
    {provide: JWT_OPTIONS, useValue: JWT_OPTIONS},
    RefPhysService,
    UserService,
+   GraphService,
    JwtHelperService,
    ProcedureListResolver,
    ProfileResolver,
@@ -169,5 +175,6 @@ import { UploadphotoComponent } from './configuration/employees/uploadphoto/uplo
    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}
   ],
   bootstrap: [AppComponent]
+  
 })
 export class AppModule { }

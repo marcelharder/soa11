@@ -1,0 +1,48 @@
+<div class="card" >
+    <div class="card-header">
+        <div class="d-flex flex-row">
+            <div class="p-2"> <h5><label class="badge badge-default">List of valves in your hospital</label></h5></div>
+        </div>
+        
+     </div>
+  
+    <div class="card-body">
+       <div>
+         Measured Annular Size
+       </div>
+       <div>
+        This Annular Size is too small for this patient
+      </div>
+  
+  
+  
+  
+      <div *ngIf="optionsAvailableValves.length === 0">
+        <h4><span class="badge badge-warning">There are no valves available in the online inventory</span></h4>
+      </div>
+      <table style="width: 100%" *ngIf="optionsAvailableValves.length !== 0">
+        <thead>
+          <tr>
+            <th style="white-space:nowrap">Valve</th>
+            <th>Description</th>
+            <th>Size</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let x of optionsAvailableValves" class="bg.secondary">
+          <tr>
+            <td style="white-space:nowrap">{{x.product_code}}</td>
+            <td style="padding-right:40px;white-space:nowrap">{{x.description}}</td>
+            <td style="padding-right:40px;white-space:nowrap">{{x.size}}</td>
+            <td><button type="button" class="btn btn-info btn-xxs" (click)="getThisOne(x)">this one</button></td>
+          </tr>
+        </tbody>
+      </table>
+  
+  
+    </div>
+    <div class="card-footer">
+      <button class="badge badge-secondary">done</button>
+    </div> 
+  </div>
+  

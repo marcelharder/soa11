@@ -21,7 +21,7 @@ namespace api.Controllers
         }
 
        
-        [Route("api/vladGraphPerHospital/{userId}/{hospitalId}")]
+        [Route("vladGraphPerHospital/{userId}/{hospitalId}")]
         [HttpGet]
         public async Task<IActionResult> gettwoAsync(int userId,int hospitalId)
         {
@@ -29,7 +29,7 @@ namespace api.Controllers
             return Ok(result);
         }
         
-        [Route("api/cmGraphPerHospital/{userId}/{hospitalId}")]
+        [Route("cmGraphPerHospital/{userId}/{hospitalId}")]
         [HttpGet]
         public async Task<IActionResult> getfourAsync(int userId, int hospitalId)
         {
@@ -38,7 +38,7 @@ namespace api.Controllers
         }
 
        
-        [Route("api/ageGraphPerHospital/{userId}/{hospitalId}")]
+        [Route("ageGraphPerHospital/{userId}/{hospitalId}")]
         [HttpGet]
         public async Task<IActionResult> getsixAsync(int userId, int hospitalId)
         {
@@ -47,7 +47,7 @@ namespace api.Controllers
             return BadRequest();
         }
        
-        [Route("api/euroGraphPerHospital/{userId}/{hospitalId}")]
+        [Route("euroGraphPerHospital/{userId}/{hospitalId}")]
         [HttpGet]
         public async Task<IActionResult> geteightAsync(int userId, int hospitalId)
         {
@@ -55,7 +55,7 @@ namespace api.Controllers
             return Ok(result);
         }
         
-        [Route("api/proceduresPerMonthGraphPerHospital/{userId}/{hospitalId}")]
+        [Route("proceduresPerMonthGraphPerHospital/{userId}/{hospitalId}")]
         [HttpGet]
         public async Task<IActionResult> geteightAsync1(int userId,int hospitalId)
         {
@@ -65,7 +65,7 @@ namespace api.Controllers
             return Ok(result);
         }
         
-        [Route("api/proceduresPerYearGraphPerHospital/{userId}/{hospitalId}")]
+        [Route("proceduresPerYearGraphPerHospital/{userId}/{hospitalId}")]
         [HttpGet]
         public async Task<IActionResult> getNine01Async(int userId, int hospitalId)
         {

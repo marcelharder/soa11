@@ -13,6 +13,7 @@ export class AccountService {
   baseUrl = environment.apiUrl;
   private currentUserSource = new ReplaySubject<User>(1);
   private currentProcedureSource = new ReplaySubject<number>(1);
+
   currentUser$ = this.currentUserSource.asObservable();
   currentProcedure$ = this.currentProcedureSource.asObservable();
 
@@ -30,7 +31,6 @@ export class AccountService {
   login(model: any){
     return this.http.post(this.baseUrl + 'account/login', model).pipe(
       map((response:User)=>{
-        debugger;
         const user = response;
         if (user) {localStorage.setItem('user', JSON.stringify(user))};
         this.currentUserSource.next(user);
