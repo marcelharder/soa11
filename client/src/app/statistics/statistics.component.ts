@@ -59,14 +59,14 @@ export class StatisticsComponent implements OnInit {
         this.vladModel = { dataXas: [], dataYas: [], caption: "" };
         this.graph.getVlad(this.currentUserId, this.selectedHospital).subscribe(
             (next) => {
-                this.vladModel = next; this.showGraphNo = 1;
+                this.vladModel = next;this.showGraphNo = 1;
             });
     }
     getCM() {
         this.cmModel = { dataXas: [], dataYas: [], caption: "" };
         this.graph.getCM(this.currentUserId, this.selectedHospital).subscribe(
             (next) => {
-                this.cmModel = next; this.showGraphNo = 2;
+              this.cmModel = next;this.showGraphNo = 2;
             });
     }
     getAG() {
