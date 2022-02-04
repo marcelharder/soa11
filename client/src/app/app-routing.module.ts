@@ -53,8 +53,24 @@ const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'errors', component: TestErrorsComponent },
   { path: 'about', component: AboutComponent },
-
-
+  {
+    path: 'procedureDetails',component: ProceduredetailsComponent,
+    runGuardsAndResolvers: 'always',
+    canActivate: [AuthGuard],
+    children: [
+      {path: 'detailsMain/:id', outlet: 'details', component: DetailsmainComponent, resolve: { procedureDetails: ProcedureDetailsResolver },canDeactivate: [ChangesProcedureDetails] },
+      {path: 'euroscore/:id', outlet: 'details', component: EuroscoredetailsComponent,resolve: { patient: EuroScoreDetailsResolver },canDeactivate: [changesEuroscoreDetails] },
+      {path: 'cpb/:id', outlet: 'details', component: CpbComponent,resolve: { cpb: CPBDetailsResolver },canDeactivate: [changesCPBDetails]},
+      {path: 'cabg/:id', outlet: 'details', component: CabgComponent,resolve: { cabg: CabgResolver },canDeactivate: [changesCABGDetails]},
+      {path: 'ltx/:id', outlet: 'details', component: LtxComponent,resolve: { ltx: LtxResolver },canDeactivate: [changesLtxDetails]},
+      {path: 'aortic/:id', outlet: 'details', component: AorticComponent,resolve: { aortic: AorticSurgeryResolver }, canDeactivate: [changesAorticDetails]},
+      {path: 'valve/:id', outlet: 'details', component: ValveComponent,resolve: { valve: ValveResolver },canDeactivate: [changesValveDetails]},
+      {path: 'valverepair/:id', outlet: 'details', component: ValverepairComponent,resolve: { valve: ValveRepairResolver },canDeactivate: [changesValveRepairDetails]},
+      {path: 'postop/:id', outlet: 'details', component: PostopComponent,resolve: { postop: PostResolver },canDeactivate: [changesPOSTOPDetails]},
+      {path: 'mininv/:id', outlet: 'details', component: MininvComponent,resolve: { min: MinInvResolver },canDeactivate: [changesMinInv]},
+      {path: 'previewReport/:id', outlet: 'details', component: PreviewreportComponent,resolve: { preView: PreviewReportResolver },canDeactivate: [changesPreViewReport]},
+    ]
+  },
   {
     path: '',
     runGuardsAndResolvers: 'always',
@@ -70,70 +86,7 @@ const routes: Routes = [
     { path: 'server-error', component: ServerErrorComponent },]
   },
   
-  {
-    path: 'procedureDetails',
-    component: ProceduredetailsComponent,
-    runGuardsAndResolvers: 'always',
-    canActivate: [AuthGuard],
-    children: [
-      {
-        path: 'detailsMain/:id', outlet: 'details', component: DetailsmainComponent,
-        resolve: { procedureDetails: ProcedureDetailsResolver },
-        canDeactivate: [ChangesProcedureDetails]
-      },
-      {
-        path: 'euroscore/:id', outlet: 'details', component: EuroscoredetailsComponent,
-        resolve: { patient: EuroScoreDetailsResolver },
-        canDeactivate: [changesEuroscoreDetails]
-      },
-      {
-        path: 'cpb/:id', outlet: 'details', component: CpbComponent,
-        resolve: { cpb: CPBDetailsResolver },
-        canDeactivate: [changesCPBDetails]
-      },
-      {
-        path: 'cabg/:id', outlet: 'details', component: CabgComponent,
-        resolve: { cabg: CabgResolver },
-        canDeactivate: [changesCABGDetails]
-      },
-      {
-        path: 'ltx/:id', outlet: 'details', component: LtxComponent,
-        resolve: { ltx: LtxResolver },
-        canDeactivate: [changesLtxDetails]
-      },
-      {
-        path: 'aortic/:id', outlet: 'details', component: AorticComponent,
-        resolve: { aortic: AorticSurgeryResolver },
-        canDeactivate: [changesAorticDetails]
-      },
-      {
-        path: 'valve/:id', outlet: 'details', component: ValveComponent,
-        resolve: { valve: ValveResolver },
-        canDeactivate: [changesValveDetails]
-
-      },
-      {
-        path: 'valverepair/:id', outlet: 'details', component: ValverepairComponent,
-        resolve: { valve: ValveRepairResolver },
-        canDeactivate: [changesValveRepairDetails]
-      },
-      {
-        path: 'postop/:id', outlet: 'details', component: PostopComponent,
-        resolve: { postop: PostResolver },
-        canDeactivate: [changesPOSTOPDetails]
-      },
-      {
-        path: 'mininv/:id', outlet: 'details', component: MininvComponent,
-        resolve: { min: MinInvResolver },
-        canDeactivate: [changesMinInv]
-      },
-      {
-        path: 'previewReport/:id', outlet: 'details', component: PreviewreportComponent,
-        resolve: { preView: PreviewReportResolver },
-        canDeactivate: [changesPreViewReport]
-      },
-    ]
-  },
+ 
 
   { path: '**', component: NotFoundComponent, pathMatch: 'full' }
 
