@@ -28,12 +28,12 @@
       <div class="row"><div class="col-sm-12"><button type="button" id="btn6"  class="btn btn-secondary m-2" (click)="getEU()">Euroscore 5 risk bands</button></div></div>
     </div>
     <div class="col-sm-10" style="background-color:beige">
-      <app-vlad *ngIf="showGraphNo === 1" [vladModel]="this.vladModel"></app-vlad>
-      <app-age *ngIf="showGraphNo === 3" [ageModel]="this.ageModel"></app-age>
-      <app-casemix *ngIf="showGraphNo === 2" [caseMixModel]="this.cmModel"></app-casemix>
-      <app-fiveriskbands *ngIf="showGraphNo === 4" [euroModel]="this.euroModel"></app-fiveriskbands>
-      <app-peryear *ngIf="showGraphNo === 5" [PYModel]="this.PYModel"></app-peryear>
-      <app-permonth *ngIf="showGraphNo === 6" [PMModel]="this.PMModel"></app-permonth>
+      <app-vlad *ngIf="showGraphNo === 1"          [gm]="this.gm"></app-vlad>
+      <app-age *ngIf="showGraphNo === 3"           [gm]="this.gm"></app-age>
+      <app-casemix *ngIf="showGraphNo === 2"       [gm]="this.gm"></app-casemix>
+      <app-fiveriskbands *ngIf="showGraphNo === 4" [gm]="this.gm"></app-fiveriskbands>
+      <app-peryear *ngIf="showGraphNo === 5"       [gm]="this.gm"></app-peryear>
+      <app-permonth *ngIf="showGraphNo === 6"      [gm]="this.gm"></app-permonth>
     </div>
   
   </div>

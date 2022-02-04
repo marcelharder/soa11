@@ -45,7 +45,9 @@ export class ProceduredetailsComponent implements OnInit {
     private alertify: ToastrService) { }
 
   ngOnInit(): void {
-    this.auth.currentProcedure$.pipe(take(1)).subscribe((u) => {this.id = u;})
+    this.auth.currentProcedure$.pipe(take(1)).subscribe((u) => {
+       this.id = u;
+    })
     this.procedureService.getProcedure(this.id).subscribe((result) => {
       this.procedureDescription = result.description;
 
@@ -64,12 +66,13 @@ export class ProceduredetailsComponent implements OnInit {
 
 
       }, error => { this.alertify.error(error + ' van mijn'); });
-    })
+    });
     this.goToDestination(this.destinationUrl);
   }
 
   goToDestination(d: string) {
-    switch (d) {
+
+     switch (d) {
 
       case 'avr': {
         // save this information to the BehaviorSubject, so the valve page can re-arrange itself
@@ -103,7 +106,8 @@ export class ProceduredetailsComponent implements OnInit {
       };
       default: { this.destinationUrl = d; break; }
     }
-   
+    this.alertify.show(this.destinationUrl);
+    
     this.router.navigate(['/procedureDetails', { outlets: { details: [this.destinationUrl, this.id] } }]);
 
   }
