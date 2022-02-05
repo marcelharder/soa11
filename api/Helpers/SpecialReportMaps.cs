@@ -382,7 +382,7 @@ namespace api.Helpers
             var selectedProcedure = proc;
             var current_hospital_id = selectedProcedure.hospital.ToString();
             var current_hospital = _hos.GetSpecificHospital(current_hospital_id);
-            var current_user = await _user.GetUserByIdAsync(proc.SelectedSurgeon);
+            var current_user = await _user.GetUser(proc.SelectedSurgeon);
 
             var dto = new ReportHeaderDTO();
 
@@ -405,7 +405,7 @@ namespace api.Helpers
             dto.physician = current_user.UserName.UppercaseFirst();
             help = await _emp.getSpecificEmployee(selectedProcedure.SelectedAnaesthesist);
             dto.anaesthesiologist = help.name.UppercaseFirst();
-            var user = await _user.GetUserByIdAsync(selectedProcedure.SelectedAssistant);
+            var user = await _user.GetUser(selectedProcedure.SelectedAssistant);
             if (user != null) { dto.assistant = user.UserName.UppercaseFirst(); } else { dto.assistant = "n/a"; }
             dto.surgeon_picture = current_user.PhotoUrl;
             dto.diagnosis = "";

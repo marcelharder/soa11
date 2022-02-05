@@ -82,6 +82,43 @@ import { GoogleChartsModule } from 'angular-google-charts';
 import { ValvedetailsComponent } from './procedures/valve/valvedetails/valvedetails.component';
 import { ValvesinoviComponent } from './procedures/valve/valvesinovi/valvesinovi.component';
 import { GraphService } from './_services/graph.service';
+import { ProcedureDetailsResolver } from './_resolvers/procedure-details.resolver';
+import { ChangesProcedureDetails } from './_guards/changes-procedureDetails.guard';
+import { EuroScoreDetailsResolver } from './_resolvers/euroScoreDetails.resolver';
+import { CPBDetailsResolver } from './_resolvers/CPB-details.resolver';
+import { AorticSurgeryResolver } from './_resolvers/aorticSurgery.resolver';
+import { CabgResolver } from './_resolvers/CABG-details.resolver';
+import { HospitalResolver } from './_resolvers/Hospital.resolver';
+import { PreviewCABGResolver } from './_resolvers/PreviewCABG.resolver';
+import { ValveResolver } from './_resolvers/Valve.resolver';
+import { ValveRepairResolver } from './_resolvers/ValveRepair.resolver';
+import { PostResolver } from './_resolvers/PostOp-details.resolver';
+import { PreviewReportResolver } from './_resolvers/PreviewReport.resolver';
+import { UserDetailsResolver } from './_resolvers/user-details.resolver';
+import { UserListResolver } from './_resolvers/user-list.resolver';
+import { AiosListResolver } from './_resolvers/aios-list.resolver';
+import { AioProcedureResolver } from './_resolvers/aioProcedure.resolver';
+import { AioCourseResolver } from './_resolvers/aioCourse.resolver';
+import { AioEpaResolver } from './_resolvers/aioEpa.resolver';
+import { HospitalListResolver } from './_resolvers/hospitalList.resolver';
+import { RefPyhsResolver } from './_resolvers/refPhys.resolver';
+import { MinInvResolver } from './_resolvers/MinInv.resolver';
+import { dischargeDetailsResolver } from './_resolvers/discharge.resolver';
+import { LtxResolver } from './_resolvers/Ltx.resolver';
+import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
+import { changesEuroscoreDetails } from './_guards/changes-euroscoreDetails.guard';
+import { changesCPBDetails } from './_guards/changes-cpbDetails.guard';
+import { changesCABGDetails } from './_guards/changes-cabgDetails.guard';
+import { changesPOSTOPDetails } from './_guards/changes-postopDetails.guard';
+import { changesPreViewReport } from './_guards/changes-previewReport.guard';
+import { changesValveDetails } from './_guards/changes-valveDetails.guard';
+import { changesValveRepairDetails } from './_guards/changes-valveRepair.guard';
+import { changesMinInv } from './_guards/changes-minInvDetails.guard';
+import { changesHospital } from './_guards/changes-Hospital.guard';
+import { changesLtxDetails } from './_guards/changes-ltxDetails.guard';
+import { changesAorticDetails } from './_guards/changes-aorticDetails.guard';
+import { changesDischarge } from './_guards/changes-Discharge.guard';
+import { DischargeComponent } from './discharge/discharge.component';
 
 @NgModule({
   declarations: [
@@ -142,6 +179,7 @@ import { GraphService } from './_services/graph.service';
     UploadphotoComponent,
     ValvedetailsComponent,
     ValvesinoviComponent,
+    DischargeComponent,
     
   ],
   imports: [
@@ -168,11 +206,49 @@ import { GraphService } from './_services/graph.service';
    RefPhysService,
    UserService,
    GraphService,
-   JwtHelperService,
+   JwtHelperService, 
+  //  resolvers
    ProcedureListResolver,
+   ProcedureDetailsResolver,
+   EuroScoreDetailsResolver,
+   CPBDetailsResolver,
+   AorticSurgeryResolver,
+   CabgResolver,
+   HospitalResolver,
+   PreviewCABGResolver,
+   ValveResolver,
+   ValveRepairResolver,
+   PostResolver,
+   PreviewReportResolver,
+   UserDetailsResolver,
+   UserListResolver,
+   AiosListResolver,
+   AioProcedureResolver,
+   AioCourseResolver,
+   AioEpaResolver,
+   HospitalListResolver,
    ProfileResolver,
+   RefPyhsResolver,
+   MinInvResolver,
+   dischargeDetailsResolver,
+   LtxResolver,
    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
-   {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}
+   {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
+   // guards
+   PreventUnsavedChanges,
+   ChangesProcedureDetails,
+   changesEuroscoreDetails,
+   changesCPBDetails,
+   changesCABGDetails,
+   changesPOSTOPDetails,
+   changesPreViewReport,
+   changesValveDetails,
+   changesValveRepairDetails,
+   changesMinInv,
+   changesHospital,
+   changesLtxDetails,
+   changesAorticDetails,
+   changesDischarge
   ],
   bootstrap: [AppComponent]
   

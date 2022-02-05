@@ -8,9 +8,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace api.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class ValveController : ControllerBase
+    
+    public class ValveController : BaseApiController
     {
 
         private IValveRepository _valve;

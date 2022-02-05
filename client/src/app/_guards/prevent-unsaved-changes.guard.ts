@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import { CanDeactivate } from '@angular/router';
-import { UserProfileComponent } from '../users/userProfile/userProfile.component';
+import { UserProfileComponent } from '../users/userprofile/userprofile.component';
 
 @Injectable()
 

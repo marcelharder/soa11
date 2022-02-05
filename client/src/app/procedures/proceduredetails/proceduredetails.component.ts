@@ -111,8 +111,6 @@ export class ProceduredetailsComponent implements OnInit {
     this.router.navigate(['/procedureDetails', { outlets: { details: [this.destinationUrl, this.id] } }]);
 
   }
-
-
   goDelete(template: TemplateRef<any>){ //ask if the user wants to delete this procedure
     this.modalRef = this.modalService.show(template);
    }
@@ -126,7 +124,6 @@ export class ProceduredetailsComponent implements OnInit {
       (error)=>{this.alertify.error(error)})
     this.modalRef?.hide();
   }
-  
   decline(): void {
     this.modalRef?.hide();
   }

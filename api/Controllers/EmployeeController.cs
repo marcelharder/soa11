@@ -59,14 +59,14 @@ namespace api.Controllers
         }
 
        
-        [Route("api/getSpecificEmployee/{id}", Name = "GetEmpById")]
+        [Route("getSpecificEmployee/{id}", Name = "GetEmpById")]
          [HttpGet]
         public async Task<IActionResult> getE(int id) { 
             var result = await _emp.getSpecificEmployee(id); 
             return Ok(_maps.mapToEmployeeForReturn(result)); }
 
         [HttpPut]
-        [Route("api/updateEmployee")]
+        [Route("updateEmployee")]
        public async Task<IActionResult> updateEmployee (EmployeeForUpdateDTO eup)
         {
             var ce = await _emp.getSpecificEmployee(eup.id);
@@ -75,7 +75,7 @@ namespace api.Controllers
         }
 
         [HttpDelete]
-        [Route("api/deleteEmployee/{id}")]
+        [Route("deleteEmployee/{id}")]
         public async Task<ActionResult> deleteEmployee(int id)
         {
             var p = await _emp.deleteEmployee(id);
@@ -83,7 +83,7 @@ namespace api.Controllers
         }
 
         [HttpGet]
-        [Route("api/addEmployee/{profession}")]
+        [Route("addEmployee/{profession}")]
         [Authorize]
         public async Task<ActionResult> addEmployee(string profession)
         {
@@ -107,7 +107,7 @@ namespace api.Controllers
             return BadRequest("Could not add Employee");
         }
 
-        [HttpPost("api/addEmployeePhoto/{id}")]
+        [HttpPost("addEmployeePhoto/{id}")]
         public async Task<IActionResult> AddPhotoForUser(int id, [FromForm]PhotoForCreationDto photoDto)
         {
             // if (id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value)) return Unauthorized();
