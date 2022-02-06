@@ -88,7 +88,7 @@ namespace api.Implementations
 
         public async Task<bool> GetUserLtk(int id)
         {
-            var user = await GetUser(id);
+           var user = await GetUser(id);
            return user.ltk;
         }
 

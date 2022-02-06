@@ -22,7 +22,7 @@ export class DropdownService {
 
         return this.http.get<dropItem[]>(this.baseUrl + 'DropDown/dropEmployee',{ params });
     }
-    isProcedureComplete(patientId: number){return this.http.get<string>(this.baseUrl + 'DropDown/isComplete/'+ patientId.toString(),{ responseType: 'text' as 'json' }); }
+    isProcedureComplete(patientId: number){return this.http.get<string>(this.baseUrl + 'General/isComplete/'+ patientId.toString(),{ responseType: 'text' as 'json' }); }
 
 
     //#region <!-- cpb -->
