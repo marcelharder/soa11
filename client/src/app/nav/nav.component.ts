@@ -26,6 +26,8 @@ export class NavComponent implements OnInit {
    }
   }
 
+  adminLoggedIn(){if(this.username === 'Admin'){return true;}}
+
   login(){this.accountService.login(this.model).subscribe((next)=>{
     
     this.accountService.currentUser$.pipe(take(1)).subscribe((u) => {this.username = u.username;})
