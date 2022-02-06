@@ -57,7 +57,7 @@ namespace api.Controllers
             var currentUser = await _manager.Users.SingleOrDefaultAsync(x => x.Id == currentUserId);
             var course = _spec.mapToCourse(cd, new Class_Course());
             currentUser.Courses.Add(course);
-            if (await _user.SaveAllAsync())
+            if (await _user.SaveAll())
             {
                 var ret = _spec.mapToCoursedto(course);
                 return CreatedAtRoute("GetCourse", new { id = course.CourseId }, ret);
@@ -106,7 +106,7 @@ namespace api.Controllers
 
             var epa = _spec.mapToEpa(epd, new Class_Epa());
             currentUser.Epa.Add(epa);
-            if (await _user.SaveAllAsync())
+            if (await _user.SaveAll())
             {
                 var ret = _spec.mapToepadto(epa);
                 return CreatedAtRoute("GetEpa", new { id = epa.EpaId }, ret);

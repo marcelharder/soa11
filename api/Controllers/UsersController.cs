@@ -87,10 +87,14 @@ namespace api.Controllers
         {
            return Ok( await _rep.GetSurgeonsByHospital(userParams));
         }
-        [HttpGet("getChefsByHospital")]
-        public async Task<IActionResult> GetChefsByHospital([FromQuery] UserParams userParams)
+        [HttpGet("getChefsByHospital/{centerId}")]
+        public async Task<IActionResult> GetChefsByHospital(int centerId)
         {
-            return Ok( await _rep.GetChefsByHospital(userParams));
+            var chef =  await _rep.GetChefsByHospital(centerId);
+            if(chef.hospital_id != 9999){
+            return Ok(_mapper.mapToUserForReturn(chef));
+            }
+            return BadRequest("No chef found in this hospital ...");
         }
 
         [HttpGet("addUser/{un}")]

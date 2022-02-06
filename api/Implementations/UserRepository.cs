@@ -3,29 +3,36 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using api.Data;
+using api.DTOs;
 using api.Entities;
 using api.Helpers;
 using api.Interfaces;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace api.Implementations
 {
     public class UserRepository : IUserRepository
     {
-       private RoleManager<IdentityRole> _roleManager;
+       private RoleManager<AppRole> _roleManager;
        private UserManager<AppUser> _userManager;
+      
 
        private DataContext _context;
 
        public string Role {get; set;}
        
 
-        public UserRepository(RoleManager<IdentityRole> roleManager, UserManager<AppUser> userManager, DataContext context)
+        public UserRepository(
+            RoleManager<AppRole> roleManager, 
+            UserManager<AppUser> userManager, 
+            DataContext context)
         {
             _roleManager = roleManager;
             _userManager = userManager;
             _context = context;
+          
         }
 
         public async Task<AppUser> GetUser(int id)
@@ -95,22 +102,17 @@ namespace api.Implementations
             return await PagedList<AppUser>.CreateAsync(users, userParams.PageNumber, userParams.PageSize);
         }
 
-        public async Task<PagedList<AppUser>> GetChefsByHospital(UserParams userParams)
-        {
-            Role = "5";
-            List<AppUser> t = new List<AppUser>();
-            var centerId = Convert.ToInt32(userParams.center_id);
-            IdentityRole role = await _roleManager.FindByIdAsync(Role);
-            
-            if (role != null) {
-            var userlist = _userManager.Users.Where(x => x.hospital_id == centerId).Where(x => x.active == true);
-            foreach (AppUser user in userlist){
-                if(user != null && await _userManager.IsInRoleAsync(user, role.Name)){
-                   t.Add(user);
-                }
+        public async Task<AppUser> GetChefsByHospital(int center_id)
+        {  
+            var selectedChef = new AppUser();
+            selectedChef.hospital_id = 9999;
+            var chefs = await _userManager.GetUsersInRoleAsync("Chef");
+            foreach(AppUser u in chefs){
+               if(u.hospital_id == center_id){
+                  selectedChef = u;
+               }
             }
-            }
-            return await PagedList<AppUser>.CreateAsync(t.AsQueryable(), userParams.PageNumber, userParams.PageSize);
+            return selectedChef;
         }
 
         public async Task<List<Class_Course>> GetCourses(int id)
