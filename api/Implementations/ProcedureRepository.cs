@@ -107,20 +107,8 @@ namespace api.Implementations
         public async Task<int> addProcedure(Class_Procedure cp)
         {
             cp.Description = await getProdedureDescription(cp.fdType);
-
             _context.Procedures.Add(cp);
-
-
-
-
-            if (await SaveAll())
-            {
-                return 1;
-            }
-            else
-            {
-                return 0;
-            }
+            if (await SaveAll()) { return 1; } else { return 0; }
         }
         public async Task<int> updateProcedure(Class_Procedure p)
         {
