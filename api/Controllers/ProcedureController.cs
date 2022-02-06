@@ -144,11 +144,8 @@ namespace api.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteProcedure(string id)
         {
-            var _id = Convert.ToInt32(id);
-            await _rep.checkAndDeleteCollateralTables(_id);
-            var p = await _rep.GetProcedure(_id);
-            var result = await _rep.DeleteAsync(p);
-            return Ok(result);
+           var _id = Convert.ToInt32(id);
+           return Ok(await _rep.DeleteAsync(_id));
         }
 
         private async Task<IActionResult> syncTimingAsync(int id, int timing, int SelectedUrgentTiming, int SelectedEmergencyTiming, int patientId) {

@@ -10,9 +10,9 @@ export class EmployeeService {
     baseUrl = environment.apiUrl;
     constructor(private http: HttpClient) { }
 
-    getEmployeeDetails(id: number) { return this.http.get<Employee>(this.baseUrl + 'getSpecificEmployee/' + id); }
-    addEmployee(profession: string) { return this.http.get<Employee>(this.baseUrl + 'addEmployee/' + profession); }
-    deleteEmployee(id: number) { return this.http.delete<number>(this.baseUrl + 'deleteEmployee/' + id); }
-    updateEmployee(pd: Employee) { return this.http.put<number>(this.baseUrl + 'updateEmployee', pd);}
+    getEmployeeDetails(id: number) { return this.http.get<Employee>(this.baseUrl + 'Employee/getSpecificEmployee/' + id); }
+    addEmployee(profession: string) { return this.http.get<Employee>(this.baseUrl + 'Employee/addEmployee/' + profession); }
+    deleteEmployee(id: number) { return this.http.delete<number>(this.baseUrl + 'Employee/deleteEmployee/' + id); }
+    updateEmployee(pd: Employee) { return this.http.put<number>(this.baseUrl + 'Employee/updateEmployee', pd);}
 
 }

@@ -59,9 +59,11 @@ namespace api.Implementations
 
         }
 
-        public async Task<int> DeleteAsync<T>(T entity) where T : class
+        public async Task<int> DeleteAsync(int id)
         {
-            _context.Entry(entity).State = EntityState.Deleted;
+            await checkAndDeleteCollateralTables(id);
+            var p = await GetProcedure(id);
+            _context.Procedures.Remove(p);
             if (await SaveAll()) { return 1; } else { return 0; }
         }
         public async Task<Class_Procedure> GetProcedure(int id)
@@ -129,7 +131,8 @@ namespace api.Implementations
         {
             return await _context.SaveChangesAsync() > 0;
         }
-        public async Task<int> checkAndDeleteCollateralTables(int id)
+
+        private async Task<int> checkAndDeleteCollateralTables(int id)
         {
             while (await _context.Previews.AnyAsync(u => u.procedure_id == id))
             {

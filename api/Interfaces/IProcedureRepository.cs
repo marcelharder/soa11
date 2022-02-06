@@ -17,8 +17,7 @@ namespace api.Interfaces
         Task<int> addProcedure(Class_Procedure p);
         Task<int> updateProcedure(Class_Procedure p);
         Task<bool> SaveAll();
-        Task<int> DeleteAsync<T>(T entity) where T : class;
-        Task<int> checkAndDeleteCollateralTables(int id);
+        Task<int> DeleteAsync(int id);
         Task<List<int>> getProceduresFromPatientId(string mrn);
         Task<ButtonPerProcedureSoortDTO> getButtonsAndActions(int soort);
         Task<string> getProdedureDescription(int soort);

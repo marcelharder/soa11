@@ -195,10 +195,10 @@ export class HospitalsComponent implements OnInit  {
   updatePhoto(photoUrl: string) { this.pd.imageUrl = photoUrl;}
   saveHospital() {
     this.hospitalService.saveHospital(this.pd).subscribe(() => {
-      this.router.navigate(["/configuration"]);
+      this.router.navigate(["/config"]);
     });
   }
-  cancel() {this.router.navigate(["/configuration"]);}
+  cancel() {this.router.navigate(["/config"]);}
 
   canDeactivate() {
     this.saveHospital();

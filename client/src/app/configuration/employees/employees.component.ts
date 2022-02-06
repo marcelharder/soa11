@@ -150,14 +150,14 @@ export class EmployeesComponent implements OnInit {
       this.employeeservice.deleteEmployee(this.emp.id).subscribe((next) => {
 
           this.alertify.show('Employee deleted ...');
-          this.router.navigate(['/configuration']);
+          this.router.navigate(['/config']);
       });
   }
   saveEmployee(activeState: boolean) {
       if (this.emp.activeState) { this.emp.active = 'True'; } else { this.emp.active = 'False'; }
       this.employeeservice.updateEmployee(this.emp).subscribe((next) => {
           this.alertify.show('Employee updated ...');
-          this.router.navigate(['/configuration']);
+          this.router.navigate(['/config']);
       });
   }
   updatePhoto(photoUrl: string) { this.emp.image = photoUrl; }
