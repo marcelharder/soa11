@@ -78,6 +78,8 @@ namespace api.Controllers
            var result = await _signIn.CheckPasswordSignInAsync(user, ufl.password, false);
            if(!result.Succeeded) return Unauthorized();
 
+           
+
            return new UserDto
             {
                 Username = user.UserName,

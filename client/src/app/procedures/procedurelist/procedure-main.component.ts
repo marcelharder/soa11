@@ -46,9 +46,15 @@ export class ProcedureMainComponent implements OnInit {
     this.auth.currentUser$.pipe(take(1)).subscribe((u) => {
       this.currentUserId = u.userId;
       this.userService.getUser(this.currentUserId).subscribe((next) => {
-        this.hos.getSpecificHospital(next.hospital_id).subscribe((d) => { this.selectedHospital = d.hospitalName });
+        this.hos.getSpecificHospital(next.hospital_id).subscribe((d) => {
+          this.selectedHospital = d.hospitalName;
+          this.auth.changeCurrentHospital(this.selectedHospital); // save the name of this hospital
+        });
       })
+      
+
     })
+    
  }
 
  openModal(template: TemplateRef<any>) {

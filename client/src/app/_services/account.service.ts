@@ -21,7 +21,7 @@ export class AccountService {
   currentSoortProcedure = this.soortProcedure.asObservable();
 
   HospitalName = new BehaviorSubject<string>('0');
-  currentHospitalName = this.soortProcedure.asObservable();
+  currentHospitalName = this.HospitalName.asObservable();
 
   dst = new BehaviorSubject<string>('0');
   currentDst = this.dst.asObservable();

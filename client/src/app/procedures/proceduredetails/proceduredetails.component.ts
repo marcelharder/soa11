@@ -16,9 +16,9 @@ import { ProcedureService } from 'src/app/_services/procedure.service';
 export class ProceduredetailsComponent implements OnInit {
   id=0;
   currentProcedureId = 0;
+  currentHospitalName = "";
   destinationUrl = 'detailsMain';
   procedureDescription = '';
-  currentHospitalName = '';
   modalRef: BsModalRef;
 
   cap: CandA;
@@ -45,6 +45,10 @@ export class ProceduredetailsComponent implements OnInit {
     private alertify: ToastrService) { }
 
   ngOnInit(): void {
+
+    this.auth.currentHospitalName.subscribe((next) => {
+      this.currentHospitalName = next; });
+    
     this.auth.currentProcedure$.pipe(take(1)).subscribe((u) => {
        this.id = u;
     })
