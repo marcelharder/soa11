@@ -38,7 +38,6 @@ export class ProcedureMainComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-
     this.route.data.subscribe(data => {
       this.procedures = data.procedure.result;
       this.pagination = data.procedure.pagination;
@@ -51,10 +50,7 @@ export class ProcedureMainComponent implements OnInit {
           this.auth.changeCurrentHospital(this.selectedHospital); // save the name of this hospital
         });
       })
-      
-
-    })
-    
+   })
  }
 
  openModal(template: TemplateRef<any>) {

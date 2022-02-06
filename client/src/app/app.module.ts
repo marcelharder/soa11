@@ -89,7 +89,6 @@ import { CPBDetailsResolver } from './_resolvers/CPB-details.resolver';
 import { AorticSurgeryResolver } from './_resolvers/aorticSurgery.resolver';
 import { CabgResolver } from './_resolvers/CABG-details.resolver';
 import { HospitalResolver } from './_resolvers/Hospital.resolver';
-import { PreviewCABGResolver } from './_resolvers/PreviewCABG.resolver';
 import { ValveResolver } from './_resolvers/Valve.resolver';
 import { ValveRepairResolver } from './_resolvers/ValveRepair.resolver';
 import { PostResolver } from './_resolvers/PostOp-details.resolver';
@@ -103,7 +102,6 @@ import { AioEpaResolver } from './_resolvers/aioEpa.resolver';
 import { HospitalListResolver } from './_resolvers/hospitalList.resolver';
 import { RefPyhsResolver } from './_resolvers/refPhys.resolver';
 import { MinInvResolver } from './_resolvers/MinInv.resolver';
-import { dischargeDetailsResolver } from './_resolvers/discharge.resolver';
 import { LtxResolver } from './_resolvers/Ltx.resolver';
 import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
 import { changesEuroscoreDetails } from './_guards/changes-euroscoreDetails.guard';
@@ -119,6 +117,10 @@ import { changesLtxDetails } from './_guards/changes-ltxDetails.guard';
 import { changesAorticDetails } from './_guards/changes-aorticDetails.guard';
 import { changesDischarge } from './_guards/changes-Discharge.guard';
 import { DischargeComponent } from './discharge/discharge.component';
+import { dischargeDetailsResolver } from './_resolvers/discharge.resolver';
+import { PreViewReportService } from './_services/pre-view-report.service';
+import { FinalReportService } from './_services/final-report.service';
+import { DischargeService } from './_services/discharge.service';
 
 @NgModule({
   declarations: [
@@ -205,7 +207,10 @@ import { DischargeComponent } from './discharge/discharge.component';
    {provide: JWT_OPTIONS, useValue: JWT_OPTIONS},
    RefPhysService,
    UserService,
+   PreViewReportService,
+   FinalReportService,
    GraphService,
+   DischargeService,
    JwtHelperService, 
   //  resolvers
    ProcedureListResolver,
@@ -215,7 +220,6 @@ import { DischargeComponent } from './discharge/discharge.component';
    AorticSurgeryResolver,
    CabgResolver,
    HospitalResolver,
-   PreviewCABGResolver,
    ValveResolver,
    ValveRepairResolver,
    PostResolver,

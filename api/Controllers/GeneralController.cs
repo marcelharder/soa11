@@ -57,14 +57,7 @@ namespace api.Controllers
             return Ok(p);
         }
 
-        [HttpGet]
-        [AllowAnonymous]
-        [Route("patientFromProcedureId/{id}")]
-        public async Task<ActionResult> GetFromProc(int id)
-        {
-            var p = await _rep.GetPatientFromProcedureId(id);
-            return Ok(p);
-        }
+       
         [HttpGet]
         [AllowAnonymous]
         [Route("proceduresFromPatientId/{mrn}")]

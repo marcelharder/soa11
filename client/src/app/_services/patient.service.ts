@@ -16,7 +16,7 @@ export class PatientService {
 
     getPatientFromId(id: number) { return this.http.get<Patient>(this.baseUrl + 'patient/' + id); }
 
-    getPatientFromProcedureId(id: number) { return this.http.get<Patient>(this.baseUrl + 'patientFromProcedureId/' + id ); }
+    getPatientFromProcedureId(id: number) { return this.http.get<Patient>(this.baseUrl + 'patient/patientFromProcedureId/' + id ); }
 
     getPatientinDatabase(mrn: string) { return this.http.get<string>(this.baseUrl + 'General/patient_in_database/' + mrn); }
 

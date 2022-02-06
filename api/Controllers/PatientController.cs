@@ -34,9 +34,6 @@ namespace api.Controllers
         public async Task<ActionResult> Get(int id)  { return Ok(await _rep.GetPatient(id)); }
         [HttpGet("patientFromMRN/{mrn}")]
         public async Task<ActionResult> GetFromMRN(string mrn) { return Ok(await _rep.GetPatientFromMRN(mrn)); }
-
-      
-
         [HttpGet]
         public async Task<IActionResult> Get([FromQuery] PatientParams p)
         {
@@ -75,6 +72,14 @@ namespace api.Controllers
             var result = await _rep.updatePatient(_special.mapFromPatientDTOToPatient(p, oldPatient));
 
             return Ok(result);
+        }
+    
+        [HttpGet]
+        [Route("patientFromProcedureId/{id}")]
+        public async Task<ActionResult> GetFromProc(int id)
+        {
+            var p = await _rep.GetPatientFromProcedureId(id);
+            return Ok(p);
         }
     }
 

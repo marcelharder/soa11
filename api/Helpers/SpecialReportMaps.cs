@@ -80,7 +80,7 @@ namespace api.Helpers
         {
             var result = "";
             var contentRoot = _env.ContentRootPath;
-            var filename = Path.Combine(contentRoot, "data/config/procedure.xml");
+            var filename = Path.Combine(contentRoot, "conf/procedure.xml");
             XDocument order = XDocument.Load(filename);
             IEnumerable<XElement> help = from d in order.Descendants("Code")
                                          where d.Element("ID").Value == fdType.ToString()
@@ -92,7 +92,7 @@ namespace api.Helpers
         {
             var result = "";
             var contentRoot = _env.ContentRootPath;
-            var filename = Path.Combine(contentRoot, "data/config/procedure.xml");
+            var filename = Path.Combine(contentRoot, "conf/procedure.xml");
             XDocument order = XDocument.Load(filename);
             IEnumerable<XElement> help = from d in order.Descendants("Code")
                                          where d.Element("ID").Value == soort.ToString()

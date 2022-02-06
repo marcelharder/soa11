@@ -48,6 +48,9 @@ import { MininvComponent } from './procedures/mininv/mininv.component';
 import { ValverepairComponent } from './procedures/valverepair/valverepair.component';
 import { PostopComponent } from './procedures/postop/postop.component';
 import { PreviewreportComponent } from './procedures/previewreport/previewreport.component';
+import { DischargeComponent } from './discharge/discharge.component';
+import { dischargeDetailsResolver } from './_resolvers/discharge.resolver';
+import { changesDischarge } from './_guards/changes-Discharge.guard';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -68,6 +71,7 @@ const routes: Routes = [
       {path: 'valverepair/:id', outlet: 'details', component: ValverepairComponent,resolve: { valve: ValveRepairResolver },canDeactivate: [changesValveRepairDetails]},
       {path: 'postop/:id', outlet: 'details', component: PostopComponent,resolve: { postop: PostResolver },canDeactivate: [changesPOSTOPDetails]},
       {path: 'mininv/:id', outlet: 'details', component: MininvComponent,resolve: { min: MinInvResolver },canDeactivate: [changesMinInv]},
+      {path: 'discharge/:id', outlet: 'details',component: DischargeComponent,resolve: { dis: dischargeDetailsResolver }, canDeactivate: [changesDischarge] },
       {path: 'previewReport/:id', outlet: 'details', component: PreviewreportComponent,resolve: { preView: PreviewReportResolver },canDeactivate: [changesPreViewReport]},
     ]
   },
