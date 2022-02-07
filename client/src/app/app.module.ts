@@ -8,11 +8,12 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import { NavComponent } from './nav/nav.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { BsDropdownModule} from 'ngx-bootstrap/dropdown';
 import { PaginationModule} from 'ngx-bootstrap/pagination';
 import { BsDatepickerModule} from 'ngx-bootstrap/datepicker';
+import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { UiSwitchModule } from 'ngx-ui-switch';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { FileUploadModule } from 'ng2-file-upload';
@@ -121,6 +122,9 @@ import { dischargeDetailsResolver } from './_resolvers/discharge.resolver';
 import { PreViewReportService } from './_services/pre-view-report.service';
 import { FinalReportService } from './_services/final-report.service';
 import { DischargeService } from './_services/discharge.service';
+import { PatientService } from './_services/patient.service';
+import { CommonModule } from '@angular/common';
+import { DropdownService } from './_services/dropdown.service';
 
 @NgModule({
   declarations: [
@@ -188,6 +192,7 @@ import { DischargeService } from './_services/discharge.service';
     FileUploadModule,
     TabsModule.forRoot(),
     UiSwitchModule,
+    ButtonsModule,
     PaginationModule,
     BrowserModule,
     AppRoutingModule,
@@ -207,7 +212,9 @@ import { DischargeService } from './_services/discharge.service';
    {provide: JWT_OPTIONS, useValue: JWT_OPTIONS},
    RefPhysService,
    UserService,
+   DropdownService,
    PreViewReportService,
+   PatientService,
    FinalReportService,
    GraphService,
    DischargeService,
