@@ -134,7 +134,6 @@ export class RefphysComponent implements OnInit {
     this.modalRef = this.modalService.show(template);
   }
   confirm(): void {
-    
     this.refService.deleteRefPhys(this.pd.Id).subscribe((next) => {
       if (next === 1) {
         this.alertify.success('deleted');
@@ -142,7 +141,7 @@ export class RefphysComponent implements OnInit {
         this.alertify.error('ref phys could not be deleted');
       }
       this.edit = '0';
-      this.router.navigate(['/configuration']);
+      this.router.navigate(['/config']);
     });
     this.modalRef?.hide();
   }
@@ -157,7 +156,7 @@ export class RefphysComponent implements OnInit {
     this.refService.updateRefPhys(this.pd).subscribe((next) => {
       this.alertify.success('saved');
       this.edit = '0';
-    });
+    }, error => this.alertify.error(error));
   }
   showState() {
     if (this.pd.country === '1') {

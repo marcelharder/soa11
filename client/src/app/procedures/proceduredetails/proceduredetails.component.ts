@@ -15,7 +15,7 @@ import { ProcedureService } from 'src/app/_services/procedure.service';
 })
 export class ProceduredetailsComponent implements OnInit {
   id=0;
-  currentProcedureId = 0;
+  
   currentHospitalName = "";
   destinationUrl = 'detailsMain';
   procedureDescription = '';
@@ -110,8 +110,6 @@ export class ProceduredetailsComponent implements OnInit {
       };
       default: { this.destinationUrl = d; break; }
     }
-    this.alertify.show(this.destinationUrl);
-    
     this.router.navigate(['/procedureDetails', { outlets: { details: [this.destinationUrl, this.id] } }]);
 
   }
@@ -119,7 +117,7 @@ export class ProceduredetailsComponent implements OnInit {
     this.modalRef = this.modalService.show(template);
    }
   confirm(): void {
-     this.procedureService.deleteProcedure(this.currentProcedureId).subscribe(
+     this.procedureService.deleteProcedure(this.id).subscribe(
       (next)=>{
         this.alertify.success('Procedure deleted');
         this.router.navigate(['/procedures']);

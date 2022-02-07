@@ -51,6 +51,12 @@ import { PreviewreportComponent } from './procedures/previewreport/previewreport
 import { DischargeComponent } from './discharge/discharge.component';
 import { dischargeDetailsResolver } from './_resolvers/discharge.resolver';
 import { changesDischarge } from './_guards/changes-Discharge.guard';
+import { RefphysComponent } from './configuration/refphys/refphys.component';
+import { HospitalsComponent } from './configuration/hospitals/hospitals.component';
+import { OpreportComponent } from './configuration/opreport/opreport.component';
+import { EmployeesComponent } from './configuration/employees/employees.component';
+import { HospitalResolver } from './_resolvers/Hospital.resolver';
+import { changesHospital } from './_guards/changes-Hospital.guard';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -79,13 +85,18 @@ const routes: Routes = [
     path: '',
     runGuardsAndResolvers: 'always',
     canActivate: [AuthGuard],
-    children:[{ path: 'users', component: UserlistComponent },
+    children:[
+    { path: 'users', component: UserlistComponent },
     { path: 'profile', component: UserProfileComponent, resolve: { user: ProfileResolver } },
     { path: 'statistics', component: StatisticsComponent },
     { path: 'procedures', component: ProcedureMainComponent, resolve: { procedure: ProcedureListResolver } },
     { path: 'addProcedure', component: AddprocedureComponent},
     { path: 'about', component: AboutComponent },
     { path: 'config', component: ConfigurationComponent },
+    { path: 'editEmployee', component: EmployeesComponent },
+    { path: 'editReport', component: OpreportComponent },
+    { path: 'editHospital/:id', component: HospitalsComponent, resolve: { hos: HospitalResolver },canDeactivate: [changesHospital]},
+    { path: 'editRefPhys', component: RefphysComponent },
     { path: 'not-found', component: NotFoundComponent },
     { path: 'server-error', component: ServerErrorComponent },]
   },
