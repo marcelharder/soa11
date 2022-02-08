@@ -1,0 +1,32 @@
+version: '3'
+services: 
+  db:
+    image: mariadb
+    restart: always
+    environment:
+     MYSQL_ROOT_PASSWORD: example
+    networks: 
+      - internal-container-network
+    volumes:
+      - mariadb-data:/var/lib/mysql
+  comservice:
+    image: comservice:v1
+    restart: always
+    networks: 
+     - internal-container-network  
+  onlinevalve_md:
+    image: inventory_md:v15
+    networks:
+     - internal-container-network
+    volumes:
+     - sqldata:/root/.aspnet/DataProtection-Keys
+    ports:
+     - 8045:80
+    depends_on: 
+     - db
+volumes:
+ mariadb-data:
+ sqldata:
+networks:
+ internal-container-network:
+  driver: bridge

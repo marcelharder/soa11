@@ -13,6 +13,7 @@ using api.Entities;
 using api.Interfaces;
 using api.Data;
 using api.DTOs;
+using Microsoft.AspNetCore.Identity;
 
 namespace api.Helpers
 {
@@ -21,7 +22,7 @@ namespace api.Helpers
     {
         private IHttpContextAccessor _http;
         private IMapper _map;
-
+        private UserManager<AppUser> _userManager;
 
         private IUserRepository _user;
         private IHospitalRepository _hos;
@@ -38,6 +39,7 @@ namespace api.Helpers
             IUserRepository user,
             IHospitalRepository hos,
             OperatieDrops drops,
+            UserManager<AppUser> userManager,
             IWebHostEnvironment env,
             DataContext context)
         {
@@ -49,6 +51,7 @@ namespace api.Helpers
             _hos = hos;
             _user = user;
             _emp = emp;
+            _userManager = userManager;
 
 
 
@@ -430,7 +433,7 @@ namespace api.Helpers
             ReportHeaderDTO currentHeader = await mapToReportHeaderAsync(cp);
             Class_Preview_Operative_report prev = await _context.Previews.FirstOrDefaultAsync(x => x.procedure_id == help.procedure_id);
             var loggedInUserId = getCurrentUserId();
-            var loggedinUser = await _context.Users.FirstOrDefaultAsync(x => x.Id == loggedInUserId);
+            var loggedinUser = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == loggedInUserId);
 
 
             var report_code = Convert.ToInt32(this.getReportCode(cp.fdType));

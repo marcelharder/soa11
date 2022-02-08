@@ -6,6 +6,7 @@ using api.DTOs;
 using api.Entities;
 using api.Helpers;
 using api.Interfaces;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace api.Implementations
@@ -14,15 +15,18 @@ namespace api.Implementations
     {
          private DataContext _context;
          private SpecialMaps _spec;
-        public AioRepo(DataContext context, SpecialMaps spec)
+
+         private UserManager<AppUser> _userManager;
+        public AioRepo(DataContext context, SpecialMaps spec, UserManager<AppUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
             _spec=spec;
         }
         public async Task<List<CourseDetailsDto>> getCourses(string id)
         {
             var li = new List<CourseDetailsDto>();
-            var l = await _context.Users.Include(a => a.Courses).FirstOrDefaultAsync(x => x.Id == Convert.ToInt32(id));
+            var l = await _userManager.Users.Include(a => a.Courses).FirstOrDefaultAsync(x => x.Id == Convert.ToInt32(id));
             foreach(Class_Course c in l.Courses){
                 li.Add(_spec.mapToCoursedto(c));
             }
@@ -43,7 +47,7 @@ namespace api.Implementations
         public async Task<List<EpaDetailsDto>> getEpas(string id)
         {
             var li = new List<EpaDetailsDto>();
-            var l = await _context.Users.Include(a => a.Epa).FirstOrDefaultAsync(x => x.Id == Convert.ToInt32(id));
+            var l = await _userManager.Users.Include(a => a.Epa).FirstOrDefaultAsync(x => x.Id == Convert.ToInt32(id));
             foreach(Class_Epa c in l.Epa){li.Add(_spec.mapToepadto(c)); }
             return li;
        }

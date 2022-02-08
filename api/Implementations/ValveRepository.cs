@@ -8,6 +8,7 @@ using api.Entities;
 using api.Helpers;
 using api.Interfaces;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace api.Implementations
@@ -15,12 +16,13 @@ namespace api.Implementations
     public class ValveRepository: IValveRepository
     {
         private DataContext _context;
-
+        private UserManager<AppUser> _usermanager;
         private SpecialMaps _special;
-        public ValveRepository(IWebHostEnvironment env, DataContext context, SpecialMaps special)
+        public ValveRepository(IWebHostEnvironment env, DataContext context, SpecialMaps special, UserManager<AppUser> usermanager)
         {
             _context = context;
             _special = special;
+            _usermanager = usermanager;
         }
 
         #region <!-- CRUD for valves associated with procedures-->
@@ -83,7 +85,7 @@ namespace api.Implementations
             var counter = 0;
 
             var currentUserId = _special.getCurrentUserId();
-            var currentUser = await _context.Users.FirstOrDefaultAsync(x => x.Id == currentUserId);
+            var currentUser = await _usermanager.Users.FirstOrDefaultAsync(x => x.Id == currentUserId);
             var currentHospitalId = currentUser.hospital_id.ToString().makeSureTwoChar();
 
             var selectedHospital = await _context.Hospitals
@@ -106,7 +108,7 @@ namespace api.Implementations
             var productCodes = new List<valveDTO>();
 
             var currentUserId = _special.getCurrentUserId();
-            var currentUser = await _context.Users.FirstOrDefaultAsync(x => x.Id == currentUserId);
+            var currentUser = await _usermanager.Users.FirstOrDefaultAsync(x => x.Id == currentUserId);
             var currentHospitalId = currentUser.hospital_id.ToString().makeSureTwoChar();
 
             var selectedHospital = await _context.Hospitals
@@ -129,7 +131,7 @@ namespace api.Implementations
         public async Task<valveDTO> createValveInHospital(valveDTO tes)
         {
             var currentUserId = _special.getCurrentUserId();
-            var currentUser = await _context.Users.FirstOrDefaultAsync(x => x.Id == currentUserId);
+            var currentUser = await _usermanager.Users.FirstOrDefaultAsync(x => x.Id == currentUserId);
             var currentHospitalId = currentUser.hospital_id.ToString().makeSureTwoChar();
 
 
@@ -166,7 +168,7 @@ namespace api.Implementations
         {
             valveDTO vd = new valveDTO();
             var currentUserId = _special.getCurrentUserId();
-            var currentUser = await _context.Users.FirstOrDefaultAsync(x => x.Id == currentUserId);
+            var currentUser = await _usermanager.Users.FirstOrDefaultAsync(x => x.Id == currentUserId);
             var currentHospitalId = currentUser.hospital_id.ToString().makeSureTwoChar();
 
             var selectedHospital = await _context.Hospitals
@@ -192,7 +194,7 @@ namespace api.Implementations
         public async Task<valveDTO> updateValveInHospital(valveDTO tes)
         {
             var currentUserId = _special.getCurrentUserId();
-            var currentUser = await _context.Users.FirstOrDefaultAsync(x => x.Id == currentUserId);
+            var currentUser = await _usermanager.Users.FirstOrDefaultAsync(x => x.Id == currentUserId);
             var currentHospitalId = currentUser.hospital_id.ToString().makeSureTwoChar();
 
             var selectedHospital = await _context.Hospitals
@@ -213,7 +215,7 @@ namespace api.Implementations
         {
             var deleteResult = 0;
             var currentUserId = _special.getCurrentUserId();
-            var currentUser = await _context.Users.FirstOrDefaultAsync(x => x.Id == currentUserId);
+            var currentUser = await _usermanager.Users.FirstOrDefaultAsync(x => x.Id == currentUserId);
             var currentHospitalId = currentUser.hospital_id.ToString().makeSureTwoChar();
 
             var selectedHospital = await _context.Hospitals

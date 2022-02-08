@@ -34,6 +34,7 @@ namespace api.Extensions
                 )
             );
             services.Configure<CloudinarySettings>(config.GetSection("CloudinarySettings"));
+            services.Configure<ComSettings>(config.GetSection("ComSettings"));
 
             /*          services.AddDbContext<DataContext>(options => options
                        .UseMySql(config.GetConnectionString("SQLConnection"),

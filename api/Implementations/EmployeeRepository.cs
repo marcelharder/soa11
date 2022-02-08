@@ -6,6 +6,7 @@ using api.Data;
 using api.Entities;
 using api.Helpers;
 using api.Interfaces;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace api.Implementations
@@ -16,9 +17,12 @@ namespace api.Implementations
 
         private SpecialMaps _sm;
 
-        public EmployeeRepository(DataContext context, SpecialMaps sm)
+        private UserManager<AppUser> _userManager;
+
+        public EmployeeRepository(DataContext context, SpecialMaps sm, UserManager<AppUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
             _sm = sm;
         }
 
@@ -37,7 +41,7 @@ namespace api.Implementations
                 {
                     // get the surgeons from the users
 
-                    var users = _context.Users.OrderByDescending(u => u.Id).AsQueryable();
+                    var users = _userManager.Users.OrderByDescending(u => u.Id).AsQueryable();
                     users = users.Where(x => x.hospital_id == selectedHospital);
                     //users = users.Where(j => j.Role == emp.job_id);
                     if (emp.activeState)

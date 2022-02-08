@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using api.Data;
 using api.Entities;
 using api.DTOs;
+using Microsoft.AspNetCore.Identity;
 
 namespace api.Helpers
 {
@@ -20,14 +21,21 @@ namespace api.Helpers
     {
         private IHttpContextAccessor _http;
         private IMapper _map;
+
+        private UserManager<AppUser> _userManager;
         private DataContext _context;
         private IWebHostEnvironment _env;
-        public SpecialMaps(IHttpContextAccessor http, IMapper map, IWebHostEnvironment env, DataContext context)
+        public SpecialMaps(IHttpContextAccessor http,
+        UserManager<AppUser> userManager, 
+        IMapper map, 
+        IWebHostEnvironment env, 
+        DataContext context)
         {
             _http = http;
             _map = map;
             _env = env;
             _context = context;
+            _userManager = userManager;
         }
         #region <!-- aorticsurgery -->
         public AoSurgeryForReturnDTO mapToAOSForReturn(Class_Aortic_Surgery p) { return _map.Map<Class_Aortic_Surgery, AoSurgeryForReturnDTO>(p); }
@@ -394,7 +402,7 @@ namespace api.Helpers
         public async Task<string> getCurrentHospitalIdAsync()
         {
             var help = "";
-            var currentUser = await _context.Users.FirstOrDefaultAsync(x => x.Id == getCurrentUserId());
+            var currentUser = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == getCurrentUserId());
             help = currentUser.hospital_id.ToString();
             return help;
         }

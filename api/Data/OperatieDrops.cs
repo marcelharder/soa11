@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using api.Entities;
 using api.Helpers;
+using Microsoft.AspNetCore.Identity;
 
 namespace api.Data
 {
@@ -17,11 +18,13 @@ namespace api.Data
         XElement _val;
         List<Class_Item> _help = new List<Class_Item>();
         private IWebHostEnvironment _env;
+        private UserManager<AppUser> _userManager;
         private DataContext _context;
 
-        public OperatieDrops(IWebHostEnvironment env, DataContext context)
+        public OperatieDrops(IWebHostEnvironment env, DataContext context, UserManager<AppUser> userManager)
         {
             _env = env;
+            _userManager = userManager;
             var content = _env.ContentRootPath;
             var filename = "conf/language_file.xml";
             var test = Path.Combine(content, filename);
@@ -1137,7 +1140,7 @@ namespace api.Data
         {
             var cl = new List<Class_Item>();
             Class_Item ci;
-            var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == userId);
+            var user = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == userId);
             var csv = user.worked_in;
             List<string> list_of_hospitals = csv.Split(',').ToList<string>();
 

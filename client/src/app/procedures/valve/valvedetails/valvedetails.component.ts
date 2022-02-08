@@ -149,9 +149,6 @@ export class ValvedetailsComponent implements OnInit  {
     this.modalRef?.hide();
   }
 
-
-
-
   selectThisValve(code: string) {
     // copy the hospitalValve to pd, get the specific valve details first
     this.valveSize = '0';

@@ -60,6 +60,8 @@ export class UserProfileComponent implements OnInit {
 
     updatePhoto(photoUrl: string) { this.user.photoUrl = photoUrl;}
 
+    updatePassword(){}
+
     updateUser() {
         this.userService.updateUser(this.user.userId, this.user).subscribe(next => {
             this.alertify.show('profile updated');

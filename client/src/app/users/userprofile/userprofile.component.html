@@ -37,7 +37,13 @@
   <div class="col-sm-8">
     <div class="tab-panel">
       <tabset class="member-tabset">
-        <tab heading="Profiel aanpassen">
+        <tab heading="Change password">
+          <form #passwordForm="ngForm" (ngSubmit)="updatePassword()" id="editPasswordForm">
+            <strong><span class="badge badge-default">Old password</span></strong>
+            <input type="password"/>
+          </form>
+        </tab>
+        <tab heading="Change profile">
           <form #editForm="ngForm" (ngSubmit)="updateUser()" id="editForm">
             <strong><span class="badge badge-default">Phone</span></strong>
             <input class="form-control"
