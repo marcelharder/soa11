@@ -25,7 +25,9 @@ export class ExistingconduitComponent implements OnInit  {
   showEditButton(){if(this.edit === 1){return true;}}
 
   editExistingConduit(){this.alertify.show("editing ...");}
+
   deleteExistingConduit(){
+    debugger;
     this.vs.deleteValve(this.pd.Id).subscribe((next)=>{
      this.markAsDeleted.emit("1");
     }, (error)=>{this.alertify.error(error);})

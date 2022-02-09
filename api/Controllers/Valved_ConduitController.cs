@@ -10,7 +10,7 @@ namespace api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class Valved_ConduitController : ControllerBase
+    public class Valved_ConduitController : BaseApiController
     {
        private IValveRepository _valve;
         private SpecialMaps _special;
@@ -58,6 +58,14 @@ namespace api.Controllers
             var x = await _valve.updateValve(_special.mapToClassValve(v, p));
             if (x == 1) { return Ok("Valved_Conduit updated"); }
             return BadRequest("Error updating valvedConduit ...");
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id){
+
+            var x = await _valve.deleteSpecificValve(id);
+            if (x == 1) { return Ok("Valved_Conduit deleted"); }
+            return BadRequest("Error deleting valvedConduit ...");
         }
         
 

@@ -1,3 +1,4 @@
+using System.Text.Json;
 using api.Extensions;
 using API.Errors;
 using Microsoft.AspNetCore.Builder;
@@ -27,7 +28,10 @@ namespace api
             services.AddApplicationServices(_config);
             services.AddIdentityServices(_config);
 
-            services.AddControllers();
+            services.AddControllers()
+            .AddJsonOptions(options =>{
+                options.JsonSerializerOptions.PropertyNamingPolicy = null;
+            });
             services.AddCors();
             
             services.AddSwaggerGen(c =>

@@ -25,7 +25,7 @@ export class ValveComponent implements OnInit {
     TYPE_EXP: 0, ProcedureType: 0, ProcedureAetiology: 0, MODEL: '', MODEL_EXP: '', SERIAL_IMP: '',
     SERIAL_EXP: '', RING_USED: '', REPAIR_TYPE: '', Memo: '', Combined: 0, procedure_id: 0
   };
-  hv: hospitalValve = { HospitalNo: 0, codeId: 0, valveTypeId: 0, Code: '', Description: '', Position: '', Size: 10, soort: 1, Type: '' };
+  hv: hospitalValve = { HospitalNo: 0, codeId: 0, valveTypeId: 0, code: '', description: '', position: '', size: 10, soort: 1, type: '' };
 
   currentHospitalNo = '';
   currentUserId = 0;
@@ -82,7 +82,7 @@ export class ValveComponent implements OnInit {
             this.auth.currentSoortProcedure.subscribe((res) => {
               h = res;
              switch (res) {
-               case "avr": this.hv.Position = 'Aortic';this.avr = 1;
+               case "avr": this.hv.position = 'Aortic';this.avr = 1;
  
                  const index = this.pd.findIndex(a => a.Implant_Position === 'Aortic');
                  if (index === -1) {  }
@@ -93,7 +93,7 @@ export class ValveComponent implements OnInit {
                       });
                    
                  }; break;
-               case "mvr": this.hv.Position = 'Mitral';this.mvr = 1;
+               case "mvr": this.hv.position = 'Mitral';this.mvr = 1;
                  const index_2 = this.pd.findIndex(a => a.Implant_Position === 'Mitral');
                  if (index_2 === -1) { }
                  else {
@@ -103,7 +103,7 @@ export class ValveComponent implements OnInit {
                       });
                    
                  }; break;
-               case "tvr": this.hv.Position = 'Tricuspid';this.tvr = 1;
+               case "tvr": this.hv.position = 'Tricuspid';this.tvr = 1;
                  const index_3 = this.pd.findIndex(a => a.Implant_Position === 'Tricuspid');
                  if (index_3 === -1) {  }
                  else {
@@ -119,9 +119,9 @@ export class ValveComponent implements OnInit {
             this.alertify.show("no valve found ....");
             this.auth.currentSoortProcedure.subscribe((next) => {
               h = next;
-              if (h === 'avr') {this.hv.Position = 'Aortic';this.avr = 1;}
-              if (h === 'mvr') {this.hv.Position = 'Mitral';this.mvr = 1;}
-              if (h === 'tvr') {this.hv.Position = 'Tricuspid';this.tvr = 1;}
+              if (h === 'avr') {this.hv.position = 'Aortic';this.avr = 1;}
+              if (h === 'mvr') {this.hv.position = 'Mitral';this.mvr = 1;}
+              if (h === 'tvr') {this.hv.position = 'Tricuspid';this.tvr = 1;}
             });
           }
        });

@@ -67,7 +67,8 @@ export class AorticComponent implements OnInit {
               this.hos.IsThisHospitalUsingOVI(index).subscribe((next) => { if (next) { this.oviHospital = 1; } })
           });
 
-    this.route.data.subscribe(data => { this.pd = data.aortic; });
+    this.route.data.subscribe(data => {
+         this.pd = data.aortic; });
 
     if (this.pd.operative_technique === '3') {
 

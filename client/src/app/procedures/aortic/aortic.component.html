@@ -146,14 +146,14 @@
   
         <div class="col-sm-4" *ngIf="!showOVI()">
           <div class="row" *ngIf="showAoDetails()">
-            <div class="col-sm-12" *ngIf="conduitFound()"><app-existingConduit
+            <div class="col-sm-12" *ngIf="conduitFound()"><app-existingconduit
               [pd]="procedureValve"
               (markAsDeleted)="existingValveStatus($event)"
-              ></app-existingConduit></div>
-            <div class="col-sm-12" *ngIf="!conduitFound()"><app-game-card 
+              ></app-existingconduit></div>
+            <div class="col-sm-12" *ngIf="!conduitFound()"><app-gamecard 
               [OAC]="optionsAvailableConduits" 
               (tell)="record_added($event)"
-              [currentHospital]="currentHospital"></app-game-card>
+              [currentHospital]="currentHospital"></app-gamecard>
             </div>
         </div>
   

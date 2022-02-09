@@ -34,13 +34,13 @@ export class GamecardComponent implements OnInit {
   hv: hospitalValve = {
     HospitalNo: 0,
     codeId: 0,
-    Code: "",
+    code: "",
     valveTypeId: 0,
-    Description: "",
-    Position: "Aortic",
-    Size: 0,
+    description: "",
+    position: "Aortic",
+    size: 0,
     soort: 1,
-    Type: "",
+    type: "",
   };
   pd: Valve = {
     Id: 0, Implant_Position: '', IMPLANT: '', EXPLANT: '', SIZE: '', TYPE: '', SIZE_EXP: '',
@@ -75,8 +75,8 @@ export class GamecardComponent implements OnInit {
     this.hv = this.OAC[index];
     // show card to enter details mn serial no and save this ring
     this.pd.SERIAL_IMP = '';
-    this.pd.MODEL = this.hv.Code;
-    this.pd.TYPE = this.hv.Type;
+    this.pd.MODEL = this.hv.code;
+    this.pd.TYPE = this.hv.type;
     this.vs.getValveCodeSizes(x).subscribe((next) => { this.optionConduitSizes = next; });
 
     this.cardClicked();
@@ -85,8 +85,8 @@ export class GamecardComponent implements OnInit {
   saveConduitDetails() {
 
 
-    this.pd.TYPE = this.hv.Type;
-    this.pd.MODEL = this.hv.Code;
+    this.pd.TYPE = this.hv.type;
+    this.pd.MODEL = this.hv.code;
     
     this.vs.saveValvedConduit(this.pd).subscribe((next) => {
       

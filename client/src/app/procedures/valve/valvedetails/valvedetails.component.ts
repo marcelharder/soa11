@@ -64,17 +64,17 @@ export class ValvedetailsComponent implements OnInit  {
   { if (this.panel1 === 1 || this.pd.Implant_Position !== '') 
     {
       this.vs.getSpecificHospitalValve(this.pd.MODEL).subscribe((next) => {
-         this.valveDescription = next.Description; });
+         this.valveDescription = next.description; });
       return true; 
     } 
 };
   showPanel_2() { if (this.panel2 === 1 || this.pd.Implant_Position === '') { return true; } };
   showPanel_3() { if (this.panel3 === 1) { return true; } };
   showEoaAdvice() {
-    if (this.hv.Position === 'Aortic') { if (this.ppmAdvice === 1) { return true; } } else { return false; }
+    if (this.hv.position === 'Aortic') { if (this.ppmAdvice === 1) { return true; } } else { return false; }
   }
   getModelsInHospital() {
-    this.vs.getHospitalValves(this.hv.Type, this.hv.Position).subscribe(
+    this.vs.getHospitalValves(this.hv.type, this.hv.position).subscribe(
       (next) => { this.hospitalValves = next }, (error) => { this.alertify.error(error) })
   }
 
@@ -94,7 +94,7 @@ export class ValvedetailsComponent implements OnInit  {
   }
 
   findEOA() {
-    if (this.hv.Position === 'Aortic') { // give only advice about aortic valves
+    if (this.hv.position === 'Aortic') { // give only advice about aortic valves
       let procedureId = 0;
       let patientId = 0;
       let height = 0;
@@ -130,9 +130,9 @@ export class ValvedetailsComponent implements OnInit  {
         nex.Combined = this.pd.Combined;
         nex.ProcedureType = this.pd.ProcedureType;
         nex.ProcedureAetiology = this.pd.ProcedureAetiology;
-        nex.MODEL = this.hv.Code;
-        nex.TYPE = this.hv.Type;
-        nex.Implant_Position = this.hv.Position;
+        nex.MODEL = this.hv.code;
+        nex.TYPE = this.hv.type;
+        nex.Implant_Position = this.hv.position;
         nex.SIZE = this.valveSize;
         this.vs.saveValve(nex).subscribe((response) => {
             this.vs.getValveFromSerial(this.pd.SERIAL_IMP, this.currentProcedureId).subscribe((nex)=>{
@@ -158,8 +158,8 @@ export class ValvedetailsComponent implements OnInit  {
     this.vs.getSpecificHospitalValve(code).subscribe(
       (next) => {
         this.hv = next;
-        this.valveDescription = next.Description;
-        this.typeDescription = next.Type;
+        this.valveDescription = next.description;
+        this.typeDescription = next.type;
 
         this.vs.getValveCodeSizes(next.valveTypeId).subscribe((nex) => { this.optionSizes = nex; });
       },

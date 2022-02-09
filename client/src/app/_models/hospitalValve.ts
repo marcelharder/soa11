@@ -3,10 +3,10 @@ export interface hospitalValve {
     codeId: number;
     valveTypeId: number,
     soort: number,
-    Position: string,
-    Size: number,
-    Code: string,
-    Type: string,
-    Description: string
+    position: string,
+    size: number,
+    code: string,
+    type: string,
+    description: string
 
 }

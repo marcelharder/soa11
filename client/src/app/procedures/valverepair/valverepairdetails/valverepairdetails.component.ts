@@ -34,13 +34,13 @@ export class ValverepairdetailsComponent implements OnInit {
   selectedRingType: hospitalValve = {
     HospitalNo: 0,
     codeId: 0,
-    Code: "",
+    code: "",
     valveTypeId: 0,
-    Description: "",
-    Position: "Aortic",
-    Size: 0,
+    description: "",
+    position: "Aortic",
+    size: 0,
     soort: 1,
-    Type: "",
+    type: "",
   };
   editCard = 0;
   itring = 0;
@@ -121,8 +121,8 @@ export class ValverepairdetailsComponent implements OnInit {
     this.editCard = 1;
     this.availableRings = 0;
     this.pd.SERIAL_IMP = '';
-    this.pd.MODEL = this.selectedRingType.Code;
-    this.pd.TYPE = this.selectedRingType.Type;
+    this.pd.MODEL = this.selectedRingType.code;
+    this.pd.TYPE = this.selectedRingType.type;
     this.vs.getValveCodeSizes(x).subscribe((next) => { this.optionMitralRingSizes = next; });
 
   }
@@ -131,8 +131,8 @@ export class ValverepairdetailsComponent implements OnInit {
     const index = this.optionsAvailableTricuspidRings.findIndex(a => a.valveTypeId === x);
     this.selectedRingType = this.optionsAvailableTricuspidRings[index];
     this.pd.SERIAL_IMP = '';
-    this.pd.MODEL = this.selectedRingType.Code;
-    this.pd.TYPE = this.selectedRingType.Type;
+    this.pd.MODEL = this.selectedRingType.code;
+    this.pd.TYPE = this.selectedRingType.type;
     this.vs.getValveCodeSizes(x).subscribe((next) => { this.optionTricuspidRingSizes = next; });
   }
   saveRing() { // send the changed valve to the parent
