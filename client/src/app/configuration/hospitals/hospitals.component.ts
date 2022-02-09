@@ -20,13 +20,11 @@ export class HospitalsComponent implements OnInit  {
   @ViewChild("hospitalForm") hospitalForm: NgForm;
   pd: Hospital;
   hv: hospitalValve = {
-    HospitalNo: 0,
     codeId: 0,
     code: "",
     valveTypeId: 0,
     description: "",
     position: "Aortic",
-    size: 0,
     soort: 1,
     type: "",
   };

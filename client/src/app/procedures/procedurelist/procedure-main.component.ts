@@ -43,7 +43,7 @@ export class ProcedureMainComponent implements OnInit {
       this.pagination = data.procedure.pagination;
     });
     this.auth.currentUser$.pipe(take(1)).subscribe((u) => {
-      this.currentUserId = u.userId;
+      this.currentUserId = u.UserId;
       this.userService.getUser(this.currentUserId).subscribe((next) => {
         this.hos.getSpecificHospital(next.hospital_id).subscribe((d) => {
           this.selectedHospital = d.hospitalName;

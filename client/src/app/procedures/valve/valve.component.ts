@@ -25,7 +25,15 @@ export class ValveComponent implements OnInit {
     TYPE_EXP: 0, ProcedureType: 0, ProcedureAetiology: 0, MODEL: '', MODEL_EXP: '', SERIAL_IMP: '',
     SERIAL_EXP: '', RING_USED: '', REPAIR_TYPE: '', Memo: '', Combined: 0, procedure_id: 0
   };
-  hv: hospitalValve = { HospitalNo: 0, codeId: 0, valveTypeId: 0, code: '', description: '', position: '', size: 10, soort: 1, type: '' };
+  hv: hospitalValve = {
+    codeId: 0,
+    code: "",
+    valveTypeId: 0,
+    description: "",
+    position: "Aortic",
+    soort: 1,
+    type: "",
+  };
 
   currentHospitalNo = '';
   currentUserId = 0;
@@ -63,7 +71,7 @@ export class ValveComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.auth.currentUser$.pipe(take(1)).subscribe((u) => {this.currentUserId = u.userId;})
+    this.auth.currentUser$.pipe(take(1)).subscribe((u) => {this.currentUserId = u.UserId;})
     let h = '';
     this.Valvedescription = '';
     this.userService

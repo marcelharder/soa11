@@ -3,10 +3,10 @@ import { Invoice } from './Invoice';
 
 
 export interface User {
-    userId: number;
+    UserId: number;
     hospital_id: number;
-    username: string;
-    token: string;
+    Username: string;
+    Token: string;
     role: string;
     knownAs: string;
     age: number;

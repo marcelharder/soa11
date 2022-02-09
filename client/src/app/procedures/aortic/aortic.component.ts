@@ -55,7 +55,7 @@ export class AorticComponent implements OnInit {
       private aorticService: AorticSurgeryService) { }
 
   ngOnInit() {
-    this.auth.currentUser$.pipe(take(1)).subscribe((u) => {this.currentUserId = u.userId;});
+    this.auth.currentUser$.pipe(take(1)).subscribe((u) => {this.currentUserId = u.UserId;});
     this.auth.currentProcedure$.pipe(take(1)).subscribe((u) => {this.currentProcedureId = u;})
        
     this.userService
@@ -168,7 +168,6 @@ export class AorticComponent implements OnInit {
 
   record_added(v: any) {// the game card added a record
       this.procedureValve = v;
-      debugger;
       this.Cf = 1; // show the newly added valve
   }
 

@@ -39,7 +39,7 @@ export class AddprocedureComponent implements OnInit {
     private auth: AccountService) { }
 
   ngOnInit(): void {
-    this.auth.currentUser$.pipe(take(1)).subscribe((u) => {this.currentUserId = u.userId;})
+    this.auth.currentUser$.pipe(take(1)).subscribe((u) => {this.currentUserId = u.UserId;})
   }
 
 

@@ -31,14 +31,13 @@ export class GamecardComponent implements OnInit {
   conduitDescription = '';
   optionConduitSizes: Array<valveSize> = [];
   currentProcedureId = 0;
+  currentHospitalName="";
   hv: hospitalValve = {
-    HospitalNo: 0,
     codeId: 0,
     code: "",
     valveTypeId: 0,
     description: "",
     position: "Aortic",
-    size: 0,
     soort: 1,
     type: "",
   };
@@ -55,7 +54,8 @@ export class GamecardComponent implements OnInit {
     private aorticService: AorticSurgeryService) { }
 
   ngOnInit() {
-    this.auth.currentProcedure$.pipe(take(1)).subscribe((u) => {this.currentProcedureId = u;})
+    this.auth.currentProcedure$.pipe(take(1)).subscribe((u) => {this.currentProcedureId = u;});
+    this.auth.currentHospitalName.subscribe(next => this.currentHospitalName = next);
 
   }
 
@@ -73,6 +73,7 @@ export class GamecardComponent implements OnInit {
     //So the conduitType is chosen, now add a hospitalValve from the conduit type
     const index = this.OAC.findIndex(a => a.valveTypeId === x);
     this.hv = this.OAC[index];
+    debugger;
     // show card to enter details mn serial no and save this ring
     this.pd.SERIAL_IMP = '';
     this.pd.MODEL = this.hv.code;

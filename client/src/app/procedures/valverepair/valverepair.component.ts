@@ -65,7 +65,7 @@ export class ValverepairComponent implements OnInit {
     private route: ActivatedRoute
   ) { }
   ngOnInit(): void {
-    this.auth.currentUser$.pipe(take(1)).subscribe((u) => {this.currentUserId = u.userId;})
+    this.auth.currentUser$.pipe(take(1)).subscribe((u) => {this.currentUserId = u.UserId;})
     this.userService
       .getUser(this.currentUserId)
       .subscribe((next) => {

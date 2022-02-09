@@ -13,7 +13,7 @@ import { AccountService } from '../_services/account.service';
 })
 export class NavComponent implements OnInit {
   model: any = {};
-  username: string = '';
+  UserName: string = '';
 
   constructor(
     public accountService: AccountService, 
@@ -21,20 +21,22 @@ export class NavComponent implements OnInit {
     private toastr: ToastrService) { }
 
   ngOnInit(): void {
-   if(this.username == ''){
-    this.accountService.currentUser$.pipe(take(1)).subscribe((u) => {this.username = u.username;})
+   if(this.UserName == ''){
+
+    this.accountService.currentUser$.pipe(take(1)).subscribe((u) => {this.UserName = u.Username;})
+
    }
   }
 
-  adminLoggedIn(){if(this.username === 'Admin'){return true;}}
+  adminLoggedIn(){if(this.UserName === 'Admin'){return true;}}
 
   login(){this.accountService.login(this.model).subscribe((next)=>{
     
-    this.accountService.currentUser$.pipe(take(1)).subscribe((u) => {this.username = u.username;})
+    this.accountService.currentUser$.pipe(take(1)).subscribe((u) => {this.UserName = u.Username;})
     console.log(next); })}
 
   logout(){ 
-    this.model.username = "";
+    this.model.UserName = "";
     this.model.password = "";
     this.accountService.logout();
     this.router.navigate(['/']) }

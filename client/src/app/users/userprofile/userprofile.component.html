@@ -71,7 +71,7 @@
           </form>
         </tab>
         <tab heading="Photo uploaden">
-            <app-photo-editor [userId]="user.userId" [refId]="0" [hospitalId]="0" (getMemberPhotoChange)="updatePhoto($event)"></app-photo-editor>
+            <app-photo-editor [userId]="user.UserId" [refId]="0" [hospitalId]="0" (getMemberPhotoChange)="updatePhoto($event)"></app-photo-editor>
           </tab>
         <tab heading="Hospitals">
           <app-worked-in [user]="user" (updateUserToParent)="updateFromWorkedIn($event)"></app-worked-in>

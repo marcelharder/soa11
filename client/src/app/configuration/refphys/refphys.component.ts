@@ -59,7 +59,7 @@ export class RefphysComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadDrops();
-    this.auth.currentUser$.pipe(take(1)).subscribe((u) => {this.currentUserId = u.userId;})
+    this.auth.currentUser$.pipe(take(1)).subscribe((u) => {this.currentUserId = u.UserId;})
     this.userservice
       .getUser(this.currentUserId)
       .subscribe((next) => {

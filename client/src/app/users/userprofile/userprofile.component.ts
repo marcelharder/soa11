@@ -63,7 +63,7 @@ export class UserProfileComponent implements OnInit {
     updatePassword(){}
 
     updateUser() {
-        this.userService.updateUser(this.user.userId, this.user).subscribe(next => {
+        this.userService.updateUser(this.user.UserId, this.user).subscribe(next => {
             this.alertify.show('profile updated');
             this.editForm.reset(this.user);
         }, error => { this.alertify.error(error); });
@@ -76,7 +76,7 @@ export class UserProfileComponent implements OnInit {
     }
 
     updateFromWorkedIn(us: User) {
-        this.userService.updateUser(this.user.userId, us).subscribe(next => {
+        this.userService.updateUser(this.user.UserId, us).subscribe(next => {
             // go to the procedures page
             this.router.navigate(['/procedures']);
         },

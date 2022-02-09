@@ -93,7 +93,7 @@ export class PreviewreportComponent implements OnInit {
     private preview: PreViewReportService) { }
 
   ngOnInit() {
-    this.auth.currentUser$.pipe(take(1)).subscribe((u) => {this.currentUserName = u.username;})
+    this.auth.currentUser$.pipe(take(1)).subscribe((u) => {this.currentUserName = u.Username;})
     this.route.data.subscribe(data => {
       this.prev = data.preView;
       this.procedureId = this.prev.procedure_id;

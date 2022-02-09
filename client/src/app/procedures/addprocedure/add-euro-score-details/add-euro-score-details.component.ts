@@ -64,7 +64,7 @@ export class AddEuroScoreDetailsComponent implements OnInit {
 
 
     ngOnInit() {
-      this.auth.currentUser$.pipe(take(1)).subscribe((u) => {this.currentUserId = u.userId;})
+      this.auth.currentUser$.pipe(take(1)).subscribe((u) => {this.currentUserId = u.UserId;})
       this.userservice.getUser(this.currentUserId).subscribe((next) => {
             this.currentUser = next;
             this.refphys.getRefPhys(this.currentUser.hospital_id).subscribe((nex) => {

@@ -35,7 +35,7 @@ export class WorkedInComponent implements OnInit {
         private router: Router) { }
 
     ngOnInit(): void {
-        this.drop.getHospitals(+this.user.userId).subscribe(response => {
+        this.drop.getHospitals(this.user.UserId).subscribe(response => {
             this.OptionActiveHospitals = response;
         }, (error) => { console.log(error); });
         // get all countries
@@ -57,7 +57,7 @@ export class WorkedInComponent implements OnInit {
                 });
             this.user.hospital_id = this.currentHospital; // change the current hospital of the current user
             // update the changed hospital for this user to the valve database application too
-            this.OviUpdate.name = this.user.username;
+            this.OviUpdate.name = this.user.Username;
             this.OviUpdate.role = this.user.role;
             this.OviUpdate.gender = this.user.gender;
             this.OviUpdate.email = this.user.email;

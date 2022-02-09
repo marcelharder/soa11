@@ -75,7 +75,7 @@ export class EmployeesComponent implements OnInit {
   ngOnInit(): void {
       this.edit = '0';
       this.loadDrops();
-      this.auth.currentUser$.pipe(take(1)).subscribe((u) => {this.currentUserId = u.userId;});
+      this.auth.currentUser$.pipe(take(1)).subscribe((u) => {this.currentUserId = u.UserId;});
       this.auth.currentHospitalName.subscribe((res) => { this.hospitalName = res; });
      
       

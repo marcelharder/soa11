@@ -1,12 +1,11 @@
 export interface hospitalValve {
-    HospitalNo: number,
     codeId: number;
-    valveTypeId: number,
-    soort: number,
-    position: string,
-    size: number,
     code: string,
+    soort: number,
+    valveTypeId: number,
+    description: string,
+    position: string,
     type: string,
-    description: string
+    
 
 }

@@ -50,8 +50,8 @@ export class DetailsmainComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.auth.currentUser$.pipe(take(1)).subscribe((u) => {this.currentUserId = u.userId;})
-    this.auth.currentUser$.pipe(take(1)).subscribe((u) => {this.currentUserName = u.username;})
+    this.auth.currentUser$.pipe(take(1)).subscribe((u) => {this.currentUserId = u.UserId;})
+    this.auth.currentUser$.pipe(take(1)).subscribe((u) => {this.currentUserName = u.Username;})
     this.route.data.subscribe((data) => {
        this.proc = data.procedureDetails;
        this.loadEmployeeDrops(this.proc.hospital.toString());

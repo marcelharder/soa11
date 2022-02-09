@@ -391,7 +391,7 @@ export class EuroscoredetailsComponent implements OnInit {
   saveEuroScore() {
       this.wl.log_score = this.calculate_euroscore();
       let currentUserId = 0;
-      this.auth.currentUser$.pipe(take(1)).subscribe((u) => {currentUserId = u.userId;})
+      this.auth.currentUser$.pipe(take(1)).subscribe((u) => {currentUserId = u.UserId;})
       this.patient.updatePatient(this.wl, currentUserId).subscribe((next) => { })
   }
 

@@ -30,7 +30,7 @@ export class StatisticsComponent implements OnInit {
         private alertify: ToastrService) { }
 
     ngOnInit() {
-        this.auth.currentUser$.pipe(take(1)).subscribe((u) => { this.currentUserId = u.userId; });
+        this.auth.currentUser$.pipe(take(1)).subscribe((u) => { this.currentUserId = u.UserId; });
 
         this.drop.getHospitals(this.currentUserId).subscribe(response => {
             this.hospitals = response;

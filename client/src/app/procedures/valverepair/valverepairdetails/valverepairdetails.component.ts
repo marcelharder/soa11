@@ -32,13 +32,11 @@ export class ValverepairdetailsComponent implements OnInit {
   tricuspidRingUsed = false;
 
   selectedRingType: hospitalValve = {
-    HospitalNo: 0,
     codeId: 0,
     code: "",
     valveTypeId: 0,
     description: "",
     position: "Aortic",
-    size: 0,
     soort: 1,
     type: "",
   };
@@ -62,7 +60,7 @@ export class ValverepairdetailsComponent implements OnInit {
 
   ngOnInit() {
     this.auth.currentHospitalName.subscribe((next)=>{this.currentHospital = next;});
-    this.auth.currentUser$.pipe(take(1)).subscribe((u) => {this.currentUserId = u.userId;})
+    this.auth.currentUser$.pipe(take(1)).subscribe((u) => {this.currentUserId = u.UserId;})
     
     this.vs.getHospitalValves("Annuloplasty_Ring", "Mitral").subscribe((next) => {
       this.optionsAvailableMitralRings = next;
