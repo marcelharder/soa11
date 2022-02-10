@@ -5,12 +5,12 @@ namespace api.DTOs
         public int hospitalNo { get; set; }
         public int codeId { get; set; }
         public int valveTypeId { get; set; }
-        public int Soort { get; set; }
-        public string Position { get; set; }
-        public int Size { get; set; }
-        public string Code { get; set; }
-        public string Type { get; set; }
-        public string Description { get; set; }
+        public int soort { get; set; }
+        public string implant_Position { get; set; }
+        public int size { get; set; }
+        public string code { get; set; }
+        public string type { get; set; }
+        public string description { get; set; }
               
     }
 }
