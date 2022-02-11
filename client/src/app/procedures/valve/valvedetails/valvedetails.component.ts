@@ -44,6 +44,10 @@ export class ValvedetailsComponent implements OnInit {
   panel2 = 0;
   panel3 = 0;
 
+  noPPM = false;
+  moderatePPM = false;
+  severePPM = false;
+
 
   ppmAdvice = 0;
   valveSize = "Choose";
@@ -115,9 +119,11 @@ export class ValvedetailsComponent implements OnInit {
         this.patient.getPatientFromId(patientId).subscribe((next) => {
           height = next.height;
           weight = next.weight;
-          debugger;
           this.vs.getPPM(this.pd.MODEL, this.valveSize, weight.toString(), height.toString()).subscribe((next) => {
             this.adviceText = "You can expect " + next.body + " PPM";
+            if(next.body === 'no'){this.noPPM = true; this.moderatePPM = false; this.severePPM = false;}
+            if(next.body === 'moderate'){this.noPPM = false; this.moderatePPM = true; this.severePPM = false;}
+            if(next.body === 'severe'){this.noPPM = false; this.moderatePPM = false; this.severePPM = true;}
           }, (error) => { this.adviceText = error; })
         })
       })
@@ -165,10 +171,13 @@ export class ValvedetailsComponent implements OnInit {
     this.modalRef?.hide();
   }
 
-  selectThisValve(code: string) {
+  selectThisValve(vtid: number, code: string, description) {
+    this.vs.getValveCodeSizes(vtid).subscribe((nex) => { this.optionSizes = nex; });
+    
     // copy the hospitalValve to pd, get the specific valve details first
-    this.valveSize = '0';
-    this.pd.SERIAL_IMP = "";
+   // this.valveSize = '0';
+   // this.pd.SERIAL_IMP = "";
+   // this.valveDescription = description;
     this.pd.MODEL = code;
     this.ppmAdvice = 0;
 
