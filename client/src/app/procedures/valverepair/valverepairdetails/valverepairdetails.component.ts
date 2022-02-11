@@ -32,11 +32,12 @@ export class ValverepairdetailsComponent implements OnInit {
   tricuspidRingUsed = false;
 
   selectedRingType: hospitalValve = {
+    hospitalNo: 0,
     codeId: 0,
     code: "",
     valveTypeId: 0,
     description: "",
-    position: "Aortic",
+    implant_Position: "Aortic",
     soort: 1,
     type: "",
   };

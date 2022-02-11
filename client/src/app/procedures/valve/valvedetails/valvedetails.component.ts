@@ -71,10 +71,10 @@ export class ValvedetailsComponent implements OnInit  {
   showPanel_2() { if (this.panel2 === 1 || this.pd.Implant_Position === '') { return true; } };
   showPanel_3() { if (this.panel3 === 1) { return true; } };
   showEoaAdvice() {
-    if (this.hv.position === 'Aortic') { if (this.ppmAdvice === 1) { return true; } } else { return false; }
+    if (this.hv.implant_Position === 'Aortic') { if (this.ppmAdvice === 1) { return true; } } else { return false; }
   }
   getModelsInHospital() {
-    this.vs.getHospitalValves(this.hv.type, this.hv.position).subscribe(
+    this.vs.getHospitalValves(this.hv.type, this.hv.implant_Position).subscribe(
       (next) => { this.hospitalValves = next }, (error) => { this.alertify.error(error) })
   }
 
@@ -94,7 +94,7 @@ export class ValvedetailsComponent implements OnInit  {
   }
 
   findEOA() {
-    if (this.hv.position === 'Aortic') { // give only advice about aortic valves
+    if (this.hv.implant_Position === 'Aortic') { // give only advice about aortic valves
       let procedureId = 0;
       let patientId = 0;
       let height = 0;
@@ -107,6 +107,7 @@ export class ValvedetailsComponent implements OnInit  {
           this.patient.getPatientFromId(patientId).subscribe((next) => {
             height = next.height;
             weight = next.weight;
+            debugger;
             this.vs.getPPM(this.pd.MODEL, this.valveSize, weight.toString(), height.toString()).subscribe((next) => {
               this.adviceText = "You can expect " + next.body + " PPM";
             }, (error) => { this.adviceText = error; })
@@ -132,7 +133,7 @@ export class ValvedetailsComponent implements OnInit  {
         nex.ProcedureAetiology = this.pd.ProcedureAetiology;
         nex.MODEL = this.hv.code;
         nex.TYPE = this.hv.type;
-        nex.Implant_Position = this.hv.position;
+        nex.Implant_Position = this.hv.implant_Position;
         nex.SIZE = this.valveSize;
         this.vs.saveValve(nex).subscribe((response) => {
             this.vs.getValveFromSerial(this.pd.SERIAL_IMP, this.currentProcedureId).subscribe((nex)=>{

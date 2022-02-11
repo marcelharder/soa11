@@ -24,9 +24,10 @@ export class HospitalsComponent implements OnInit  {
     code: "",
     valveTypeId: 0,
     description: "",
-    position: "Aortic",
+    implant_Position: "Aortic",
     soort: 1,
     type: "",
+    hospitalNo: 0
   };
   vt: valveType = {
     no: 0,
@@ -92,7 +93,7 @@ export class HospitalsComponent implements OnInit  {
   SearchValve() {
     this.addbutton = 1;
     this.vs
-      .getHospitalValves(this.hv.type, this.hv.position)
+      .getHospitalValves(this.hv.type, this.hv.implant_Position)
       .subscribe((next) => {
         this.hospitalValves = next;
       });
@@ -114,7 +115,7 @@ export class HospitalsComponent implements OnInit  {
   SearchHospitalValve() {
     this.onlineValves = [];
     // go out to online valve app and find the valveTypes[]
-    this.vs.searchHospitalValveOnline(this.hv.type, this.hv.position).subscribe((next) => { this.onlineValves = next; });
+    this.vs.searchHospitalValveOnline(this.hv.type, this.hv.implant_Position).subscribe((next) => { this.onlineValves = next; });
     this.alertify.show("find product now ...");
   }
   deleteDetails(code:string){
@@ -146,7 +147,7 @@ export class HospitalsComponent implements OnInit  {
         this.hv.code = this.vt.uk_code;
         this.hv.valveTypeId = this.vt.valveTypeId;
         this.hv.description = this.vt.description;
-        this.hv.position = this.vt.implant_position;
+        this.hv.implant_Position = this.vt.implant_position;
         this.hv.type = this.vt.type;
         // upload this valve to the current hospital
         this.vs.createSpecificHospitalValve(this.hv).subscribe(

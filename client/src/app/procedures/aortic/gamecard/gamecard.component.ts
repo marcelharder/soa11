@@ -37,9 +37,10 @@ export class GamecardComponent implements OnInit {
     code: "",
     valveTypeId: 0,
     description: "",
-    position: "Aortic",
+    implant_Position: "Aortic",
     soort: 1,
     type: "",
+    hospitalNo: 0
   };
   pd: Valve = {
     Id: 0, Implant_Position: '', IMPLANT: '', EXPLANT: '', SIZE: '', TYPE: '', SIZE_EXP: '',
@@ -73,7 +74,7 @@ export class GamecardComponent implements OnInit {
     //So the conduitType is chosen, now add a hospitalValve from the conduit type
     const index = this.OAC.findIndex(a => a.valveTypeId === x);
     this.hv = this.OAC[index];
-    debugger;
+    
     // show card to enter details mn serial no and save this ring
     this.pd.SERIAL_IMP = '';
     this.pd.MODEL = this.hv.code;
@@ -90,17 +91,16 @@ export class GamecardComponent implements OnInit {
     this.pd.MODEL = this.hv.code;
     
     this.vs.saveValvedConduit(this.pd).subscribe((next) => {
-      
       this.tell.emit(this.pd);
-       
-    
-    },
-      (error) => { this.alertify.error(error); }, () => {
-        this.alertify.show("Conduit uploaded ...");
+      },
+      (error) => { this.alertify.error(error); },
+      () => { this.alertify.show("Conduit uploaded ...");
       })
     this.cardClicked();
   }
   CancelConduitDetails(){
+    // remove this conduit in the database
+    this.vs.deleteValve(this.pd.Id).subscribe((next)=>{this.alertify.show(next)})
     this.pd.SERIAL_IMP = "";
     this.pd.SIZE = "";
     this.cardClicked();

@@ -55,7 +55,7 @@ export class ValveService {
         params = params.append('size', size);
         params = params.append('weight', weight);
         params = params.append('height', height);
-        return this.http.get<string>(this.baseUrl + 'ppm', { observe: 'response', params, responseType: 'text' as 'json' });
+        return this.http.get<string>(this.baseUrl + 'General/ppm', { observe: 'response', params, responseType: 'text' as 'json' });
     }
     searchHospitalValveOnline(type: string, position: string) {
         return this.http.get<dropItem[]>(this.baseUrl + 'General/products/' + type + "/" + position);

@@ -16,7 +16,7 @@ namespace api
         public Startup(IConfiguration config)
         {
             _config = config;
-           
+
         }
 
         public IConfiguration Configuration { get; }
@@ -24,24 +24,21 @@ namespace api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
-            
-
-              
             services.AddApplicationServices(_config);
             services.AddIdentityServices(_config);
 
             services.AddControllers()
-         .AddJsonOptions(options =>{
-                options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
-            }); 
+         .AddJsonOptions(options =>
+         {
+             options.JsonSerializerOptions.PropertyNamingPolicy = null;
+         });
             services.AddCors();
-            
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "api", Version = "v1" });
             });
-           
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,7 +46,7 @@ namespace api
         {
 
             app.UseMiddleware<ExceptionMiddleware>();
-            
+
             if (env.IsDevelopment())
             {
                 //app.UseDeveloperExceptionPage(); // is replaced by usemiddleware

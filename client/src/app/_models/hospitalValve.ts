@@ -4,8 +4,9 @@ export interface hospitalValve {
     soort: number,
     valveTypeId: number,
     description: string,
-    position: string,
+    implant_Position: string,
     type: string,
+    hospitalNo: number
     
 
 }
