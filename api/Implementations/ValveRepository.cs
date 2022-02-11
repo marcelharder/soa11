@@ -146,12 +146,12 @@ namespace api.Implementations
             else
             {
                 Class_Valve_Code valve = new Class_Valve_Code();
-                valve.code = tes.Code;
+                valve.code = tes.code;
                 valve.valveTypeId = tes.valveTypeId;
-                valve.position = tes.Position;
-                valve.description = tes.Description;
-                valve.soort = tes.Soort;
-                valve.type = tes.Type;
+                valve.position = tes.implant_Position;
+                valve.description = tes.description;
+                valve.soort = tes.soort;
+                valve.type = tes.type;
 
                 selectedHospital.valvecodes.Add(valve);
                 _context.Update(selectedHospital);
@@ -180,13 +180,13 @@ namespace api.Implementations
                 if (el.code == code)
                 {
                     vd.hospitalNo = currentUser.hospital_id;
-                    vd.Soort = el.soort;
+                    vd.soort = el.soort;
                     vd.codeId = el.codeId;
-                    vd.Code = el.code;
-                    vd.Type = el.type;
+                    vd.code = el.code;
+                    vd.type = el.type;
                     vd.valveTypeId = el.valveTypeId;
-                    vd.Position = el.position;
-                    vd.Description = el.description;
+                    vd.implant_Position = el.position;
+                    vd.description = el.description;
                 };
             };
             return vd;
@@ -201,13 +201,13 @@ namespace api.Implementations
                                      .Include(vs => vs.valvecodes)
                                      .FirstOrDefaultAsync(a => a.HospitalNo == currentHospitalId);
             var el = selectedHospital.valvecodes.Where(a => a.codeId == tes.codeId).ToList();
-            el[0].code = tes.Code;
-            el[0].type = tes.Type;
-            el[0].position = tes.Position;
-            el[0].description = tes.Description;
+            el[0].code = tes.code;
+            el[0].type = tes.type;
+            el[0].position = tes.implant_Position;
+            el[0].description = tes.description;
 
             _context.Update(selectedHospital);
-            if (await SaveAll()) { return await readValveInHospital(tes.Code); }
+            if (await SaveAll()) { return await readValveInHospital(tes.code); }
             return null;
 
         }
@@ -233,7 +233,7 @@ namespace api.Implementations
         {
             valveDTO vf = new valveDTO();
             vf = await readValveInHospital(code);
-            return vf.Description;
+            return vf.description;
         }
         public async Task<int> deleteSpecificValve(int id)
         {
