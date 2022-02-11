@@ -3,7 +3,7 @@
       <div class="card" *ngIf="showPanel_1()">
         <div class="card-header">
           <div class="d-flex">
-            <div class="p-2">Implanted {{hv.Implant_Position}} valve</div>
+            <div class="p-2">Implanted {{pd.Implant_Position}} valve</div>
             <div class="ml-auto p-2">
               <button class="badge badge-danger" (click)="deleteValve()">Delete</button>
             </div>
@@ -53,7 +53,7 @@
       <div class="row">
         <div class="col-sm-6">
           <div class="card" *ngIf="showPanel_2()">
-            <div class="card-header">Choose a {{hv.Implant_Position | lowercase}} valve from the valves in your hospital</div>
+            <div class="card-header">Choose a {{hv.implant_Position | lowercase}} valve from the valves in your hospital</div>
             <div class="card-body">
               <div class="row">
                 <div class="d-flex">
@@ -124,7 +124,7 @@
               </div>
               <div class="row">
                 <div class="col-sm-6"><span class="badge badge-secondary">Position:</span></div>
-                <div class="col-sm-6"><input type="text" class="form-control" [(ngModel)]="hv.Implant_Position" name="model" disabled></div>
+                <div class="col-sm-6"><input type="text" class="form-control" [(ngModel)]="hv.implant_Position" name="model" disabled></div>
               </div>
               <div class="row">
                 <div class="col-sm-6"><span class="badge badge-secondary">Code:</span></div>

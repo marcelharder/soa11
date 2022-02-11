@@ -182,7 +182,7 @@ export class ValveComponent implements OnInit {
     } else { this.optionsMitralProcedure = JSON.parse(localStorage.getItem('options_MitralProcedure')); }
   }
 
-  saveValve() { this.valveService.saveValve(this.procedureValve).subscribe((next) => { }); }
+  saveValve() { this.valveService.updateValve(this.procedureValve).subscribe((next) => { }); }
 
   canDeactivate() {
     this.saveValve();

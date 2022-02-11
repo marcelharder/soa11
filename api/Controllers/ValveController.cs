@@ -21,10 +21,8 @@ namespace api.Controllers
         }
 
         #region <!-- manage valves in procedures -->
-
-
        
-          [HttpGet("valvesFromProcedure/{id}")]
+        [HttpGet("valvesFromProcedure/{id}")]
         public async Task<IActionResult> getValvesfromProcedure(int id)
         {
             var p = new List<ValveForReturnDTO>();
@@ -40,7 +38,7 @@ namespace api.Controllers
         public async Task<IActionResult> Get(string serial, int procedure_id)
         {
             var p = await _valve.GetSpecificValve(serial, procedure_id);
-            return Ok(_special.mapToValveForReturn(p));
+            return Ok(p);
         }
         //create
         [HttpPost("{serial}/{procedure_id}")]
@@ -50,11 +48,12 @@ namespace api.Controllers
             return Ok(_special.mapToValveForReturn(x));
         }
         //update
-        [HttpPut]
+        [HttpPut("updateProcedureValve")]
         public async Task<IActionResult> Put(ValveForReturnDTO v)
         {
             var p = await _valve.GetSpecificValve(v.SERIAL_IMP, v.procedure_id);
-            var x = await _valve.updateValve(_special.mapToClassValve(v, p));
+
+            var x = await _valve.updateValve(_special.mapToClassValve(v,p));
             if (x == 1) { return Ok("Valve updated"); }
             return BadRequest("Error updating valve ...");
         }
@@ -98,8 +97,10 @@ namespace api.Controllers
         [HttpGet("readHospitalValve/{code}")]
         public async Task<IActionResult> GetMHR(string code)
         {
-            var result = await _valve.readValveInHospital(code);
-            return Ok(result);
+            if(code != null){var result = await _valve.readValveInHospital(code);
+            return Ok(result);}
+            return BadRequest("code undefined");
+            
         }
 
         [HttpPut("updateHospitalValve")]
@@ -112,8 +113,8 @@ namespace api.Controllers
         [HttpDelete("deleteHospitalValve/{code}")]
         public async Task<IActionResult> GetMHD(int code)
         {
-            var result = await _valve.deleteValveInHospital(code);
-            if (result == 1) { return Ok("item deleted ..."); }
+            if(code != 0){var result = await _valve.deleteValveInHospital(code);
+            if(result == 1) { return Ok("item deleted ..."); }}
             return BadRequest("item could not be deleted ...");
         }
         #endregion

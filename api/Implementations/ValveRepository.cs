@@ -18,7 +18,11 @@ namespace api.Implementations
         private DataContext _context;
         private UserManager<AppUser> _usermanager;
         private SpecialMaps _special;
-        public ValveRepository(IWebHostEnvironment env, DataContext context, SpecialMaps special, UserManager<AppUser> usermanager)
+        public ValveRepository(
+            IWebHostEnvironment env, 
+            DataContext context, 
+            SpecialMaps special, 
+            UserManager<AppUser> usermanager)
         {
             _context = context;
             _special = special;
@@ -37,10 +41,9 @@ namespace api.Implementations
         }
         public async Task<Class_Valve> GetSpecificValve(string serial, int procedure_id)
         {
-            var result = new Class_Valve();
-            if (await _context.Valves.AnyAsync(u => u.SERIAL_IMP == serial))
-            {
-                return await _context.Valves.FirstOrDefaultAsync(u => u.SERIAL_IMP == serial);
+            var result = await _context.Valves.FirstOrDefaultAsync(u => u.SERIAL_IMP == serial);
+            if(result != null){
+                return result;
             }
             return null;
         }

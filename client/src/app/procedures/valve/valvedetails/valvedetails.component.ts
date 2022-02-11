@@ -33,7 +33,12 @@ export class ValvedetailsComponent implements OnInit  {
   optionsTypes: Array<dropItem> = [];
   optionSizes: Array<valveSize> = [];
   serialNo = "";
-
+  new_valve: Valve = {
+    Id: 0,
+    Implant_Position: '', IMPLANT: '', EXPLANT: '', SIZE: '', TYPE: '', SIZE_EXP: '',
+    TYPE_EXP: 0, ProcedureType: 0, ProcedureAetiology: 0, MODEL: '', MODEL_EXP: '', SERIAL_IMP: '',
+    SERIAL_EXP: '', RING_USED: '', REPAIR_TYPE: '', Memo: '', Combined: 0, procedure_id: 0
+  };
 
   panel1 = 0;
   panel2 = 0;
@@ -128,25 +133,32 @@ export class ValvedetailsComponent implements OnInit  {
   confirm(): void {
     // save to the database
     this.vs.addValveInProcedure(this.pd.SERIAL_IMP, this.currentProcedureId).subscribe((nex) => {
-        nex.Combined = this.pd.Combined;
-        nex.ProcedureType = this.pd.ProcedureType;
-        nex.ProcedureAetiology = this.pd.ProcedureAetiology;
-        nex.MODEL = this.hv.code;
-        nex.TYPE = this.hv.type;
-        nex.Implant_Position = this.hv.implant_Position;
-        nex.SIZE = this.valveSize;
-        this.vs.saveValve(nex).subscribe((response) => {
-            this.vs.getValveFromSerial(this.pd.SERIAL_IMP, this.currentProcedureId).subscribe((nex)=>{
-            this.pd = nex;
-          });
-        this.panel1 = 1; this.panel2 = 0; this.panel3 = 0;
-        }, (error) => {this.alertify.error(error)})
+      this.new_valve = nex;
+      if(this.pd.Combined != 0){this.new_valve.Combined = this.pd.Combined;}
+      if(this.pd.ProcedureType != 0){this.new_valve.ProcedureType = this.pd.ProcedureType;}
+      if(this.pd.ProcedureAetiology != 0){this.new_valve.ProcedureAetiology = this.pd.ProcedureAetiology;}
+      this.new_valve.MODEL = this.hv.code;
+      this.new_valve.TYPE = this.hv.type;
+      this.new_valve.Implant_Position = this.hv.implant_Position;
+      this.new_valve.SIZE = this.valveSize;
       });
+      this.vs.updateValve(this.new_valve).subscribe((response: Valve) => {
+        this.pd = response;
+
+         /*  this.vs.getValveFromSerial(this.pd.SERIAL_IMP, this.currentProcedureId).subscribe((nex)=>{
+          this.pd = nex;
+        }); */
+      this.panel1 = 1; this.panel2 = 0; this.panel3 = 0;
+      }, (error) => {
+        this.alertify.error(error);
+      })
+
    
     this.modalRef?.hide();
   }
   
   decline(): void {
+    this.panel3 = 0;
     this.modalRef?.hide();
   }
 
@@ -155,6 +167,7 @@ export class ValvedetailsComponent implements OnInit  {
     this.valveSize = '0';
     this.pd.SERIAL_IMP = "";
     this.pd.MODEL = code;
+    this.ppmAdvice = 0;
 
     this.vs.getSpecificHospitalValve(code).subscribe(
       (next) => {
