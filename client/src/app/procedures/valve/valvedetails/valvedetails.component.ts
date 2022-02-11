@@ -141,26 +141,30 @@ export class ValvedetailsComponent implements OnInit {
   }
   confirm(): void {
     // save to the database
+    if(this.readyToImplant()){
     this.vs.addValveInProcedure(this.pd.SERIAL_IMP, this.currentProcedureId).subscribe((nex) => {
       this.new_valve = nex;
-      debugger;
-      if (this.pd.Combined != 0) { this.new_valve.Combined = this.pd.Combined; }
-      if (this.pd.ProcedureType != 0) { this.new_valve.ProcedureType = this.pd.ProcedureType; }
-      if (this.pd.ProcedureAetiology != 0) { this.new_valve.ProcedureAetiology = this.pd.ProcedureAetiology; }
+      this.new_valve.Combined = this.pd.Combined; 
+      this.new_valve.ProcedureType = this.pd.ProcedureType; 
+      this.new_valve.ProcedureAetiology = this.pd.ProcedureAetiology; 
       this.new_valve.MODEL = this.hv.code;
       this.new_valve.TYPE = this.hv.type;
       this.new_valve.Implant_Position = this.hv.implant_Position;
       this.new_valve.SIZE = this.valveSize;
     });
-    this.vs.updateValve(this.new_valve).subscribe((response) => {this.alertify.show(response);}, (error) => {
-      this.alertify.error(error);
-    }, ()=>{
-      debugger;
-      this.panel1 = 1;
-      this.panel2 = 0;
-      this.panel3 = 0;
-
-    })
+    
+      this.vs.updateValve(this.new_valve).subscribe((response) => {this.alertify.show(response);}, (error) => {
+        this.alertify.error(error);
+      }, ()=>{
+        debugger;
+        this.panel1 = 1;
+        this.panel2 = 0;
+        this.panel3 = 0;
+  
+      })
+    } else {this.alertify.error("Please complete procedure data ...")}
+    
+    
    
 
     this.modalRef?.hide();
@@ -177,7 +181,7 @@ export class ValvedetailsComponent implements OnInit {
     // copy the hospitalValve to pd, get the specific valve details first
    // this.valveSize = '0';
    // this.pd.SERIAL_IMP = "";
-   // this.valveDescription = description;
+    this.valveDescription = description;
     this.pd.MODEL = code;
     this.ppmAdvice = 0;
 
@@ -192,6 +196,13 @@ export class ValvedetailsComponent implements OnInit {
       (error) => { this.alertify.error(error) }) */
     this.panel1 = 0; this.panel2 = 1; this.panel3 = 1;
     this.alertify.show("select this valve ...");
+  }
+
+  readyToImplant(): boolean{
+    let help = false;
+
+
+    return help;
   }
 
 }
