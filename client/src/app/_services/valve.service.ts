@@ -32,7 +32,7 @@ export class ValveService {
     getValves(id: number) { return this.http.get<Valve[]>(this.baseUrl + 'Valve/valvesFromProcedure/' + id); }
     getValveFromSerial(serial: string, id: number)  { return this.http.get<Valve>(this.baseUrl + 'Valve/' + serial + '/' + id); }
     addValveInProcedure(serial: string, id: number) { return this.http.post<Valve>(this.baseUrl + 'Valve/' + serial + '/' + id, {}); }
-    updateValve(c: Valve) { return this.http.put<Valve>(this.baseUrl + 'Valve/updateProcedureValve', c, { responseType: 'text' as 'json' }); }
+    updateValve(c: Valve) { return this.http.put<string>(this.baseUrl + 'Valve/updateProcedureValve', c, { responseType: 'text' as 'json' }); }
   
     deleteValve(id: number){ return this.http.delete<string>(this.baseUrl + 'Valve/'+ id, { responseType: 'text' as 'json' });}
 

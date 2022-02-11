@@ -94,14 +94,14 @@ namespace api.Controllers
             return Ok(result);
         }
 
-        [HttpGet("readHospitalValve/{code}")]
+       /*  [HttpGet("readHospitalValve/{code}")]
         public async Task<IActionResult> GetMHR(string code)
         {
             if(code != null){var result = await _valve.readValveInHospital(code);
             return Ok(result);}
             return BadRequest("code undefined");
             
-        }
+        } */
 
         [HttpPut("updateHospitalValve")]
         public async Task<IActionResult> GetMHU(valveDTO code)
