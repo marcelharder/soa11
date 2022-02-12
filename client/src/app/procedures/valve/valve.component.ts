@@ -44,7 +44,7 @@ export class ValveComponent implements OnInit {
   tvr = 0;
 
   oviHospital = 0;
-  explanted = 0;
+  explanted = 1;
   markImplanted = 0;
 
   Valvedescription = '';
@@ -72,7 +72,7 @@ export class ValveComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.auth.currentUser$.pipe(take(1)).subscribe((u) => {this.currentUserId = u.UserId;})
+    this.auth.currentUser$.pipe(take(1)).subscribe((u) => { this.currentUserId = u.UserId; })
     let h = '';
     this.Valvedescription = '';
     this.userService
@@ -86,54 +86,55 @@ export class ValveComponent implements OnInit {
 
         this.route.data.subscribe((data) => {
           // gets a list of Valve[] 
-          if (data.valve.length > 0) { 
-            this.pd = data.valve;
+          if (data.valve.length > 0) {
+            this.procedureValve = data.valve[0];
+            debugger;
             this.auth.currentSoortProcedure.subscribe((res) => {
               h = res;
-             switch (res) {
-               case "avr": this.hv.implant_Position = 'Aortic';this.avr = 1;
- 
-                 const index = this.pd.findIndex(a => a.Implant_Position === 'Aortic');
-                 if (index === -1) {  }
-                 else {
-                   let procedure_id = this.pd[index].procedure_id;
-                   this.valveService.getValveFromSerial(this.pd[index].SERIAL_IMP, procedure_id).subscribe((next) => {
-                    this.procedureValve = next;
-                      });
-                   
-                 }; break;
-               case "mvr": this.hv.implant_Position = 'Mitral';this.mvr = 1;
-                 const index_2 = this.pd.findIndex(a => a.Implant_Position === 'Mitral');
-                 if (index_2 === -1) { }
-                 else {
-                  let procedure_id = this.pd[index_2].procedure_id;
-                   this.valveService.getValveFromSerial(this.pd[index_2].SERIAL_IMP, procedure_id).subscribe((next) => {
-                     this.procedureValve = next;
-                      });
-                   
-                 }; break;
-               case "tvr": this.hv.implant_Position = 'Tricuspid';this.tvr = 1;
-                 const index_3 = this.pd.findIndex(a => a.Implant_Position === 'Tricuspid');
-                 if (index_3 === -1) {  }
-                 else {
-                   let procedure_id = this.pd[index_3].procedure_id;
-                   this.valveService.getValveFromSerial(this.pd[index_3].SERIAL_IMP, procedure_id).subscribe((next) => {
-                     this.procedureValve = next;
-                      });
+              switch (res) {
+                case "avr": this.hv.implant_Position = 'Aortic'; this.avr = 1;
+
+                  const index = this.pd.findIndex(a => a.Implant_Position === 'Aortic');
+                  if (index === -1) { }
+                  else {
+                    let procedure_id = this.pd[index].procedure_id;
+                    this.valveService.getValveFromSerial(this.pd[index].SERIAL_IMP, procedure_id).subscribe((next) => {
+                      this.procedureValve = next;
+                    });
+
                   }; break;
-             }
+                case "mvr": this.hv.implant_Position = 'Mitral'; this.mvr = 1;
+                  const index_2 = this.pd.findIndex(a => a.Implant_Position === 'Mitral');
+                  if (index_2 === -1) { }
+                  else {
+                    let procedure_id = this.pd[index_2].procedure_id;
+                    this.valveService.getValveFromSerial(this.pd[index_2].SERIAL_IMP, procedure_id).subscribe((next) => {
+                      this.procedureValve = next;
+                    });
+
+                  }; break;
+                case "tvr": this.hv.implant_Position = 'Tricuspid'; this.tvr = 1;
+                  const index_3 = this.pd.findIndex(a => a.Implant_Position === 'Tricuspid');
+                  if (index_3 === -1) { }
+                  else {
+                    let procedure_id = this.pd[index_3].procedure_id;
+                    this.valveService.getValveFromSerial(this.pd[index_3].SERIAL_IMP, procedure_id).subscribe((next) => {
+                      this.procedureValve = next;
+                    });
+                  }; break;
+              }
             });
           } else {
             // er is geen valve gevonden voor deze patient
             this.alertify.show("no valve found ....");
             this.auth.currentSoortProcedure.subscribe((next) => {
               h = next;
-              if (h === 'avr') {this.hv.implant_Position = 'Aortic';this.avr = 1;}
-              if (h === 'mvr') {this.hv.implant_Position = 'Mitral';this.mvr = 1;}
-              if (h === 'tvr') {this.hv.implant_Position = 'Tricuspid';this.tvr = 1;}
+              if (h === 'avr') { this.hv.implant_Position = 'Aortic'; this.avr = 1; }
+              if (h === 'mvr') { this.hv.implant_Position = 'Mitral'; this.mvr = 1; }
+              if (h === 'tvr') { this.hv.implant_Position = 'Tricuspid'; this.tvr = 1; }
             });
           }
-       });
+        });
       });
     this.loadDrops();
   }
@@ -182,10 +183,13 @@ export class ValveComponent implements OnInit {
     } else { this.optionsMitralProcedure = JSON.parse(localStorage.getItem('options_MitralProcedure')); }
   }
 
-  saveValve() { this.valveService.updateValve(this.procedureValve).subscribe((next) => { }); }
+  
+
+
+  
 
   canDeactivate() {
-    this.saveValve();
+    //this.saveValve();
     this.alertify.show('saving Valve');
     return true;
   }

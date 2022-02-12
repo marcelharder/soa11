@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ToastrService } from './alertify.service';
 import { environment } from '../../environments/environment';
-import { AuthService } from './auth.service';
 import { Article } from '../_models/Article';
+import { AccountService } from './account.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +11,7 @@ import { Article } from '../_models/Article';
 export class PdfService {
 
 baseUrl = environment.apiUrl;
-constructor(private http: HttpClient, private alertify: ToastrService, private auth: AuthService) { }
+constructor(private http: HttpClient, private alertify: ToastrService, private auth: AccountService) { }
 
 getArticles() {
   return this.http.get<Article[]>(this.baseUrl + 'article');
