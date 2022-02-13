@@ -87,7 +87,6 @@ export class ValveComponent implements OnInit {
         this.route.data.subscribe((data) => {
           if (data.valve.length > 0) {
             this.pd = data.valve;
-            
            
             this.auth.currentSoortProcedure.subscribe((res) => {
               h = res;
