@@ -80,7 +80,7 @@ export class ValvedetailsComponent implements OnInit {
     this.currentProcedureId = this.pd.procedure_id;
     //this.auth.currentProcedure$.pipe(take(1)).subscribe((u) => { this.currentProcedureId = u; });
 
-     if(this.pd.Implant_Position === ''){ 
+     if(this.pd.Implant_Position === ""){ 
       debugger; 
       this.panel2 = 1;this.panel3 = 0, this.panel1 = 0 } else
       {

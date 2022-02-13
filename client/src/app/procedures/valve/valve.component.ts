@@ -85,10 +85,9 @@ export class ValveComponent implements OnInit {
 
 
         this.route.data.subscribe((data) => {
-          // gets a list of Valve[] 
           if (data.valve.length > 0) {
-            this.procedureValve = data.valve[0];
-            debugger;
+            
+           
             this.auth.currentSoortProcedure.subscribe((res) => {
               h = res;
               switch (res) {
