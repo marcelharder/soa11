@@ -49,6 +49,10 @@ namespace api.Implementations
         }
         public async Task<Class_Valve> addValve(string serial, int procedure_id)
         {
+            // check if this serial already exists, if it does then return that file
+
+            var test = await _context.Valves.AnyAsync(x => x.SERIAL_IMP == serial);
+            if(!test){
             var result = new Class_Valve();
             var selectedProcedure = await _context.Procedures.Include(c => c.ValvesUsed).FirstOrDefaultAsync(x => x.ProcedureId == procedure_id);
             var valve = new Class_Valve();
@@ -56,14 +60,15 @@ namespace api.Implementations
             valve.SERIAL_IMP = serial;
             valve.ProcedureId = procedure_id;
 
-
-
             selectedProcedure.ValvesUsed.Add(valve);
             _context.Update(selectedProcedure);
             if (await SaveAll())
             {
                 result = selectedProcedure.ValvesUsed.Where(a => a.SERIAL_IMP == serial).FirstOrDefault();
                 return result;
+            }
+            } else {
+                return await _context.Valves.FirstOrDefaultAsync(x => x.SERIAL_IMP == serial);
             }
             return null;
         }
