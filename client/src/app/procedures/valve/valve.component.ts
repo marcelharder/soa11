@@ -87,7 +87,7 @@ export class ValveComponent implements OnInit {
         this.route.data.subscribe((data) => {
           if (data.valve.length > 0) {
             this.pd = data.valve;
-           
+
             this.auth.currentSoortProcedure.subscribe((res) => {
               h = res;
               switch (res) {
@@ -121,6 +121,14 @@ export class ValveComponent implements OnInit {
                       this.procedureValve = next;
                     });
                   }; break;
+
+
+              };
+              // get the description of this valve
+              if (this.procedureValve.MODEL !== '') {
+                this.valveService.getValveDescription(this.procedureValve.MODEL).subscribe((next) => {
+                  this.Valvedescription = next;
+                }, (error) => { this.alertify.error(error) });
               }
             });
           } else {
@@ -134,6 +142,7 @@ export class ValveComponent implements OnInit {
             });
           }
         });
+
       });
     this.loadDrops();
   }
@@ -182,13 +191,13 @@ export class ValveComponent implements OnInit {
     } else { this.optionsMitralProcedure = JSON.parse(localStorage.getItem('options_MitralProcedure')); }
   }
 
-  
+  saveValve() { this.valveService.updateValve(this.procedureValve).subscribe((next) => { }) };
 
 
-  
+
 
   canDeactivate() {
-    //this.saveValve();
+    // this.saveValve();
     this.alertify.show('saving Valve');
     return true;
   }

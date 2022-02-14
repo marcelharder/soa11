@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, TemplateRef } from '@angular/core';
+import { AfterContentInit, AfterViewChecked, AfterViewInit, Component, EventEmitter, Input, OnInit, Output, TemplateRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
@@ -22,15 +22,15 @@ export class ValvedetailsComponent implements OnInit {
 
   @Input() hv: hospitalValve;
   @Input() pd: Valve;
-
+  @Input() valveDescription: string;
   @Input() hospitalId: string;
-  
+
   modalRef: BsModalRef;
   currentProcedureId = 0;
-  
+
 
   typeDescription = '';
-  valveDescription = '';
+  
   hospitalValves: Array<hospitalValve> = [];
   optionsTypes: Array<dropItem> = [];
   optionSizes: Array<valveSize> = [];
@@ -45,14 +45,14 @@ export class ValvedetailsComponent implements OnInit {
     no: 0,
     valveTypeId: 0,
     vendor_description: '',
-    vendor_code:  '',
-    model_code:  '',
-    implant_position:  '',
-    uk_code:  '',
-    us_code:  '',
-    image:  '',
-    description:  '',
-    type:  '',
+    vendor_code: '',
+    model_code: '',
+    implant_position: '',
+    uk_code: '',
+    us_code: '',
+    image: '',
+    description: '',
+    type: '',
   };
 
   panel1 = 0;
@@ -76,28 +76,22 @@ export class ValvedetailsComponent implements OnInit {
     private patient: PatientService,
     private vs: ValveService) { }
 
+  
+
   ngOnInit() {
-    this.currentProcedureId = this.pd.procedure_id;
-    //this.auth.currentProcedure$.pipe(take(1)).subscribe((u) => { this.currentProcedureId = u; });
-
-     if(this.pd.Implant_Position === ""){ 
-      debugger; 
-      this.panel2 = 1;this.panel3 = 0, this.panel1 = 0 } else
-      {
-        debugger;
-      this.panel2 = 0;this.panel3 = 0, this.panel1 = 1
-      }
-
+    this.auth.currentProcedure$.pipe(take(1)).subscribe((u) => { this.currentProcedureId = u; });
     this.loadDrops();
   }
 
 
-  loadDrops() { this.optionsTypes.push(
-              { value: 1, description: 'Biological' }, 
-              { value: 2, description: 'Mechanical' }); };
+  loadDrops() {
+    this.optionsTypes.push(
+      { value: 1, description: 'Biological' },
+      { value: 2, description: 'Mechanical' });
+  };
 
-  showPanel_1() { if (this.panel1 === 1) {return true; }};
-  showPanel_2() { if (this.panel2 === 1) { return true; } };
+  showPanel_1() { if (this.panel1 === 1 || this.pd.Implant_Position !== '') { return true; } };
+  showPanel_2() { if (this.panel2 === 1 || this.pd.Implant_Position === '') { return true; } };
   showPanel_3() { if (this.panel3 === 1) { return true; } };
 
   showEoaAdvice() {
@@ -110,6 +104,7 @@ export class ValvedetailsComponent implements OnInit {
   }
 
   deleteValve() {
+    debugger;
     this.vs.deleteValve(this.pd.Id).subscribe((next) => {
       // route to the valve page
       this.alertify.show(next);
@@ -156,16 +151,17 @@ export class ValvedetailsComponent implements OnInit {
 
   implantValve(template: TemplateRef<any>) {
     if (this.pd.SERIAL_IMP == "") {
-       this.alertify.warning("Please enter serial number of this valve ...") } else {
-        this.modalRef = this.modalService.show(template);
-       };
+      this.alertify.warning("Please enter serial number of this valve ...")
+    } else {
+      this.modalRef = this.modalService.show(template);
+    };
   }
 
   confirm(): void {
     // save to the database
-     this.vs.addValveInProcedure(this.pd.SERIAL_IMP, this.currentProcedureId).subscribe((nex) => {
-       
-       if (this.readyToImplant()) {
+    this.vs.addValveInProcedure(this.pd.SERIAL_IMP, this.currentProcedureId).subscribe((nex) => {
+
+      if (this.readyToImplant()) {
         this.new_valve = nex;
         this.new_valve.SERIAL_IMP = this.pd.SERIAL_IMP;
         this.new_valve.MODEL = this.new_valve_type.uk_code;
@@ -177,13 +173,16 @@ export class ValvedetailsComponent implements OnInit {
         this.new_valve.ProcedureType = this.pd.ProcedureType;
         this.new_valve.ProcedureAetiology = this.pd.ProcedureAetiology;
         this.new_valve.EXPLANT = this.pd.EXPLANT;
-        debugger;
+        this.pd.Implant_Position = this.new_valve.Implant_Position; // will hide panel2
+        this.pd.TYPE = this.new_valve_type.type;
+        this.pd.SIZE = this.valveSize;
+
         this.vs.updateValve(this.new_valve).subscribe((next) => {
           this.alertify.show(next);
-            }, (error) => { this.alertify.error(error); },
-               ()=>{ this.panel1 = 1; this.panel2 = 0; this.panel3 = 0; });
-        }
-     });
+        }, (error) => { this.alertify.error(error); },
+          () => { this.panel1 = 1; this.panel2 = 0; this.panel3 = 0; });
+      }
+    });
     this.modalRef?.hide();
   }
 
@@ -194,7 +193,7 @@ export class ValvedetailsComponent implements OnInit {
 
   selectThisValve(vtid: number) {
     // lookup the details of this type of prosthesis
-    this.vs.getSpecificValveType(vtid).subscribe((next)=>{
+    this.vs.getSpecificValveType(vtid).subscribe((next) => {
       this.new_valve_type = next;
       this.valveDescription = this.new_valve_type.description;
       this.pd.MODEL = this.new_valve_type.uk_code; // needed for EOA measurement
@@ -206,7 +205,7 @@ export class ValvedetailsComponent implements OnInit {
   }
 
   readyToImplant(): boolean {
-  
+
     if (this.pd.Combined === null || this.pd.Combined === 0) {
       this.alertify.error("Please indicate if this is a combined procedure");
       return false;
