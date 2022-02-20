@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, ReplaySubject } from 'rxjs';
+import { BehaviorSubject, Observable, ReplaySubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Procedure } from '../_models/Procedure';
@@ -44,4 +44,16 @@ export class AccountService {
   changeDst(sh: string) { this.dst.next(sh); }
 
   logout(){localStorage.removeItem('user'); this.currentUserSource.next(null);}
+
+  changePassword(u: User, pwd_02: string){
+    return this.http.put(this.baseUrl + 'account/changePassword/' + pwd_02, u).pipe(
+      map((response:User)=>{
+        const user = response;
+        if (user) {localStorage.setItem('user', JSON.stringify(user))};
+        this.currentUserSource.next(user);
+      })
+    );
+  }
+
+
 }

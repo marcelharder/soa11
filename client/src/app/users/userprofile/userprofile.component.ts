@@ -26,9 +26,10 @@ export class UserProfileComponent implements OnInit {
     countryDescription = '';
     optionCountries: Array<countryItem> = [];
     countryWhereUserLives = '';
-    password_01='';
-    password_02='';
-    password_03='';
+    password_01 = '';
+    password_02 = '';
+    password_03 = '';
+    CompliancePanel = 0;
 
     @HostListener('window:beforeunload', ['$event'])
     unloadNotification($event: any) { if (this.editForm.dirty) { $event.returnValue = true; } }
@@ -44,7 +45,7 @@ export class UserProfileComponent implements OnInit {
 
         this.auth.currentUser$.pipe(take(1)).subscribe((u) => { this.currentUserId = u.UserId; });
 
-        this.route.data.subscribe((data: {user: User}) => {
+        this.route.data.subscribe((data: { user: User }) => {
             this.user = data.user;
             this.loadDrops();
             // focus on the correct drops
@@ -67,12 +68,14 @@ export class UserProfileComponent implements OnInit {
 
     }
 
-    updatePhoto(photoUrl: string) { this.user.PhotoUrl = photoUrl;}
+    showCompliancePanel() { if (this.CompliancePanel === 1) { return true; } }
 
-    updatePassword(){}
+    updatePhoto(photoUrl: string) { this.user.PhotoUrl = photoUrl; }
+
+    updatePassword() { }
 
     updateUser() {
-       this.userService.updateUser(this.currentUserId, this.user).subscribe(next => {
+        this.userService.updateUser(this.currentUserId, this.user).subscribe(next => {
             this.alertify.show('profile updated');
             this.editForm.reset(this.user);
         }, error => { this.alertify.error(error); });
@@ -80,12 +83,12 @@ export class UserProfileComponent implements OnInit {
     }
 
     changeCountry() {
-       let help = this.optionCountries.find(z => z.value === this.user.country);
-       this.countryWhereUserLives = help.description;
+        let help = this.optionCountries.find(z => z.value === this.user.country);
+        this.countryWhereUserLives = help.description;
     }
 
     updateFromWorkedIn(us: User) {
-        
+
         this.userService.updateUser(this.user.UserId, us).subscribe(next => {
             // go to the procedures page
             this.router.navigate(['/procedures']);
@@ -93,11 +96,47 @@ export class UserProfileComponent implements OnInit {
             error => { this.alertify.error(error); });
     }
 
-   
 
-    changePasswordNow(){this.alertify.show('Password changed')}
 
-    cancel(){}
+    changePasswordNow() {
+        this.CompliancePanel = 0;
+        if (this.password_01 !== '') {
+            if (this.meetsComplexity(this.password_01)) {
+                if (this.password_02 !== this.password_03) {
+                    this.alertify.show('New password does not match !!');
+                }
+                else {
+                    if (this.meetsComplexity(this.password_02)) {
+                        this.alertify.show('New password is good!!');
+                        /* this.auth.changePassword(this.user, this.password_02).subscribe((next)=>{
+                            this.alertify.show('Password changed');
+                        }, error => this.alertify.error(error)); */
+                    } else {
+                        this.password_02 = '';
+                        this.password_03 = '';
+                        this.alertify.error('New password is not compliant');
+                        this.CompliancePanel = 1;
+                    }
+                }
+            } else {
+                this.alertify.error('Please enter the current password ...');
+            }
+        } else {
+            this.password_01 = '';
+            this.alertify.error('Password is not correct ...');
+        }
+    }
+
+    cancel() { }
+
+
+
+    meetsComplexity(te: string) {
+        let h = true;
+        let regexp = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z\d]).{8,}$');
+        h = regexp.test(te);
+        return h;
+    }
 
     canDeactivate() {
         this.updateUser();

@@ -61,7 +61,7 @@
 
               </div>
               <div class="row">
-                <div class="col-sm-5"><button class="btn btn-secondary btn-xs" onclick="changePasswordNow()">Change Password</button></div>
+                <div class="col-sm-5"><button class="btn btn-secondary btn-xs" (click)="changePasswordNow()">Change Password</button></div>
                 <div class="col-sm-5"></div>
                 <div class="col-sm-2"></div>
 
@@ -72,6 +72,20 @@
 
 
             </form>
+            <div class="row" *ngIf="showCompliancePanel()">
+              <div class="col-sm-6">
+                <div class="card mt-5">
+                  <div class="card-header"><h4>The minimum complexity of passwords in .net are:</h4></div>
+                  <div class="card-body">
+
+                  </div>
+                </div>
+
+
+                
+              </div>
+              <div class="col-sm-4"></div>
+            </div>
           </tab>
           <tab heading="Change profile">
             <form #editForm="ngForm" (ngSubmit)="updateUser()" id="editForm">
