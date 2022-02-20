@@ -32,8 +32,8 @@ namespace api.Helpers
 
 
 
-            CreateMap<AppUser, UserForReturnDto>().ForMember(dest => dest.country, opt => opt.Ignore());
-            CreateMap<UserForUpdateDto, AppUser>().ForMember(dest => dest.Country, opt => opt.Ignore());
+            CreateMap<AppUser, UserForReturnDto>();
+            CreateMap<UserForUpdateDto, AppUser>();
            
             CreateMap<Class_Hospital, HospitalForReturnDTO>();
             CreateMap<Class_Valve_Code, valveDTO>();

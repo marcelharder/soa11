@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { take } from 'rxjs/operators';
+import { countryItem } from 'src/app/_models/countryItem';
 import { dropItem } from 'src/app/_models/dropItem';
 import { RefPhysModel } from 'src/app/_models/RefPhysModel';
 import { User } from 'src/app/_models/User';
@@ -20,7 +21,7 @@ export class RefphysComponent implements OnInit {
   currentUserId = 0;
   refphysicians: Array<dropItem> = [];
   states: Array<dropItem> = [];
-  countries: Array<dropItem> = [];
+  countries: Array<countryItem> = [];
   optionsYN: Array<dropItem> = [];
   currentUser: User;
   selectedRef = 0;

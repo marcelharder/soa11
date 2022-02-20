@@ -3,7 +3,7 @@ import { Invoice } from './Invoice';
 
 
 export interface User {
-    UserId: number;
+    UserId: number; // this comes from localstorage uit de token so dont change
     hospital_id: number;
     Username: string;
     Token: string;

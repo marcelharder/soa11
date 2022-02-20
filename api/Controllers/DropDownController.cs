@@ -50,12 +50,12 @@ namespace api.Controllers
             return Ok(test);
         }
 
-        [Route("allHospitalOptionsPerCountry/{id}")]
+        [Route("allHospitalOptionsPerCountry/{country}")]
         [HttpGet]
-        public async Task<IActionResult> getHp(int id)
+        public async Task<IActionResult> getHp(string country)
         {
-            var countryCode = _sp.getCountryFromCode(id);
-            _result = await _copd.getAllHospitalsPerCountry(countryCode);
+            //var countryCode = _sp.getCountryFromCode(id);
+            _result = await _copd.getAllHospitalsPerCountry(country);
             return Ok(_result);
         }
 

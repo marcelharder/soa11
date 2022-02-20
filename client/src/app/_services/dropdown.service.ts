@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, JsonpClientBackend } from '@angular/common/http';
 import { dropItem } from '../_models/dropItem';
 import { environment } from '../../environments/environment';
+import { countryItem } from '../_models/countryItem';
 
 @Injectable({
     providedIn: 'root'
@@ -145,13 +146,13 @@ export class DropdownService {
     //#endregion
 
     //#region <!-- user edit -->
-    getAllCountries() { return this.http.get<dropItem[]>(this.baseUrl + 'DropDown/countriesDrops'); }
+    getAllCountries() { return this.http.get<countryItem[]>(this.baseUrl + 'DropDown/countriesDrops'); }
     getAllCities() { return this.http.get<dropItem[]>(this.baseUrl + 'DropDown/citiesDrops'); }
     getRoles() { return this.http.get<dropItem[]>(this.baseUrl + 'DropDown/roles'); }
     getCareerTopics(){return this.http.get<dropItem[]>(this.baseUrl + 'DropDown/career');}
     // tslint:disable-next-line: max-line-length
-    getAllHospitalsPerCountry(countryId: number) {
-         return this.http.get<dropItem[]>(this.baseUrl + 'DropDown/allHospitalOptionsPerCountry/' + countryId); }
+    getAllHospitalsPerCountry(country: string) {
+         return this.http.get<dropItem[]>(this.baseUrl + 'DropDown/allHospitalOptionsPerCountry/' + country); }
     //#endregion
 
      //#region <!-- aneurysm -->

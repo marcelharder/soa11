@@ -12,7 +12,7 @@ namespace api.Interfaces
         List<HospitalForReturnDTO> GetAllHospitals();       
         HospitalForReturnDTO GetSpecificHospital(string hospitalId);     
         List<HospitalForReturnDTO> GetAllHospitalsThisSurgeonWorkedIn(int id) ;
-        List<Class_Item> GetAllCountries();
+        List<Class_Country> GetAllCountries();
         List<Class_Item> GetAllCities();
         Task<int> updateHospital(Class_Hospital p);
         Task<int> addHospital(Class_Hospital p);

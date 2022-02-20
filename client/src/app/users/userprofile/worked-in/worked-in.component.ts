@@ -7,6 +7,8 @@ import { dropItem } from 'src/app/_models/dropItem';
 import { DropdownService } from 'src/app/_services/dropdown.service';
 import { ToastrService } from 'ngx-toastr';
 import { AccountService } from 'src/app/_services/account.service';
+import { countryItem } from 'src/app/_models/countryItem';
+import { take } from 'rxjs/operators';
 
 @Component({
     selector: 'app-worked-in',
@@ -19,11 +21,11 @@ export class WorkedInComponent implements OnInit {
     @Output() updateUserToParent = new EventEmitter<User>();
     selectedHospital = 0;
 
-    selectedCountry = 0;
+    selectedCountry = '';
     currentUserId = 0;
     currentHospital = 0;
     OptionActiveHospitals: Array<dropItem> = [];
-    OptionCountries: Array<dropItem> = [];
+    OptionCountries: Array<countryItem> = [];
     OptionHospitals: Array<dropItem> = [];
     OviUpdate: OviUpdate = { name: '', role: '', gender: '', email: '' }
 
@@ -35,13 +37,16 @@ export class WorkedInComponent implements OnInit {
         private router: Router) { }
 
     ngOnInit(): void {
-        this.drop.getHospitals(this.user.UserId).subscribe(response => {
+        // get the currentUser from account
+        this.Auth.currentUser$.pipe(take(1)).subscribe((u) => { this.currentUserId = u.UserId; });
+
+        this.drop.getHospitals(this.currentUserId).subscribe(response => {
             this.OptionActiveHospitals = response;
         }, (error) => { console.log(error); });
         // get all countries
         this.drop.getAllCountries().subscribe((next) => {
             this.OptionCountries = next;
-            this.selectedCountry = parseInt(this.user.country, 10);
+            this.selectedCountry = this.user.country;
             // get all hospitals per country
             this.drop.getAllHospitalsPerCountry(this.selectedCountry).subscribe((nex) => {
                 this.OptionHospitals = nex;

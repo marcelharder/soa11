@@ -90,18 +90,18 @@ namespace api.Implementations
             return lis;
         }
 
-        public List<Class_Item> GetAllCountries()
+        public List<Class_Country> GetAllCountries()
         {
-            var lis = new List<Class_Item>();
-            Class_Item dr;
+            var lis = new List<Class_Country>();
+            Class_Country dr;
             var contentRoot = _env.ContentRootPath;
             var filename = Path.Combine(contentRoot, "conf/countries.xml");
             XDocument order = XDocument.Load(filename);
             IEnumerable<XElement> help = from d in order.Descendants("Country") select d;
             foreach (XElement x in help) {
-                 dr = new Class_Item();
+                 dr = new Class_Country();
                  dr.description = x.Element("Description").Value; 
-                 dr.value = Convert.ToInt32(x.Element("ID").Value);
+                 dr.value = x.Element("ISO").Value;
                  lis.Add(dr); 
             }
             return lis;

@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { countryItem } from 'src/app/_models/countryItem';
 import { dropItem } from 'src/app/_models/dropItem';
 import { Hospital } from 'src/app/_models/Hospital';
 import { hospitalValve } from 'src/app/_models/hospitalValve';
@@ -44,7 +45,7 @@ export class HospitalsComponent implements OnInit  {
   };
 
   listCities: Array<dropItem> = [];
-  listCountries: Array<dropItem> = [];
+  listCountries: Array<countryItem> = [];
   valveTypes: Array<dropItem> = [];
   valvePositions: Array<dropItem> = [];
   onlineValves: Array<dropItem> = [];

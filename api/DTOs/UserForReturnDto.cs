@@ -25,8 +25,7 @@ namespace api.DTOs
         public string address { get; set; }
         public string iban { get; set; }
         public string mobile { get; set; }
-      
-        public int country { get; set; }
+        public string country { get; set; }
         public bool active { get; set; }
         public bool ltk { get; set; }
     }

@@ -9,6 +9,8 @@ import { DropdownService } from '../../_services/dropdown.service';
 import { dropItem } from '../../_models/dropItem';
 import { ToastrService } from 'ngx-toastr';
 import { AccountService } from 'src/app/_services/account.service';
+import { countryItem } from 'src/app/_models/countryItem';
+import { take } from 'rxjs/operators';
 
 
 @Component({
@@ -19,10 +21,14 @@ import { AccountService } from 'src/app/_services/account.service';
 export class UserProfileComponent implements OnInit {
     @ViewChild('editForm') editForm: NgForm;
     user: User;
+    currentUserId = 0;
     baseUrl = environment.apiUrl;
     countryDescription = '';
-    optionCountries: Array<dropItem> = [];
+    optionCountries: Array<countryItem> = [];
     countryWhereUserLives = '';
+    password_01='';
+    password_02='';
+    password_03='';
 
     @HostListener('window:beforeunload', ['$event'])
     unloadNotification($event: any) { if (this.editForm.dirty) { $event.returnValue = true; } }
@@ -35,6 +41,9 @@ export class UserProfileComponent implements OnInit {
         private auth: AccountService) { }
 
     ngOnInit() {
+
+        this.auth.currentUser$.pipe(take(1)).subscribe((u) => { this.currentUserId = u.UserId; });
+
         this.route.data.subscribe((data: {user: User}) => {
             this.user = data.user;
             this.loadDrops();
@@ -63,7 +72,7 @@ export class UserProfileComponent implements OnInit {
     updatePassword(){}
 
     updateUser() {
-        this.userService.updateUser(this.user.UserId, this.user).subscribe(next => {
+       this.userService.updateUser(this.currentUserId, this.user).subscribe(next => {
             this.alertify.show('profile updated');
             this.editForm.reset(this.user);
         }, error => { this.alertify.error(error); });
@@ -71,17 +80,22 @@ export class UserProfileComponent implements OnInit {
     }
 
     changeCountry() {
-        const help = this.optionCountries.find(z => z.value === +this.user.country);
-         this.countryWhereUserLives = help.description;
+       let help = this.optionCountries.find(z => z.value === this.user.country);
+       this.countryWhereUserLives = help.description;
     }
 
     updateFromWorkedIn(us: User) {
+        
         this.userService.updateUser(this.user.UserId, us).subscribe(next => {
             // go to the procedures page
             this.router.navigate(['/procedures']);
         },
             error => { this.alertify.error(error); });
     }
+
+   
+
+    changePasswordNow(){this.alertify.show('Password changed')}
 
     cancel(){}
 

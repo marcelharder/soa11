@@ -136,7 +136,7 @@ namespace api.Helpers
         public AppUser mapToUser(UserForUpdateDto help, AppUser h)
         {
             h = _map.Map<UserForUpdateDto, AppUser>(help, h);
-            h.Country = getCountryFromCode(help.country);
+            //h.Country = getCountryFromCode(help.country);
             return h;
         }
         #endregion
