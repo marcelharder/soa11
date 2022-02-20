@@ -13,7 +13,7 @@
   <div class="row">
     <div class="col-sm-4">
       <div class="card">
-        <img class="card-img-top img-thumbnail" src="{{ user.photoUrl || '../../../../../assets/user.jpg'}}"
+        <img class="card-img-top img-thumbnail" src="{{ user.PhotoUrl || '../../../../../assets/user.jpg'}}"
           alt="{{ user.knownAs }}" />
         <div class="card-body">
           <div>
@@ -91,7 +91,7 @@
             </form>
           </tab>
           <tab heading="Photo uploaden">
-            <app-photo-editor [userId]="user.UserId" [refId]="0" [hospitalId]="0"
+            <app-photo-editor [userId]="currentUserId" [refId]="0" [hospitalId]="0"
               (getMemberPhotoChange)="updatePhoto($event)"></app-photo-editor>
           </tab>
           <tab heading="Hospitals">

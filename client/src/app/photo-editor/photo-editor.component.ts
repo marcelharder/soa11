@@ -68,7 +68,7 @@ export class PhotoEditorComponent implements OnInit {
                 const res: any = JSON.parse(response);
 
                 if (this.hospitalId !== 0) { this.getMemberPhotoChange.emit(res.ImageUrl); }
-                if (this.userId !== 0) { this.getMemberPhotoChange.emit(res.photoUrl); }
+                if (this.userId !== 0) { this.getMemberPhotoChange.emit(res.PhotoUrl); }
                 if (this.refId !== 0) { this.getMemberPhotoChange.emit(res.image); }
             }
         };

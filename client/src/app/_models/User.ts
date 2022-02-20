@@ -14,7 +14,7 @@ export interface User {
     created: Date;
     image: string;
     lastActive: Date;
-    photoUrl: string;
+    PhotoUrl: string;
     city: string;
     mobile: string;
     email: string;

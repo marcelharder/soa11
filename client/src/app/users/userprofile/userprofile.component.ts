@@ -67,7 +67,7 @@ export class UserProfileComponent implements OnInit {
 
     }
 
-    updatePhoto(photoUrl: string) { this.user.photoUrl = photoUrl;}
+    updatePhoto(photoUrl: string) { this.user.PhotoUrl = photoUrl;}
 
     updatePassword(){}
 

@@ -12,7 +12,7 @@ namespace api.DTOs
         public string UserName { get; set; }
         public string role { get; set; }
         public string gender { get; set; }
-        public string photoUrl { get; set; }
+        public string PhotoUrl { get; set; }
         public DateTime dateOfBirth { get; set; }
         public DateTime created { get; set; }
         public DateTime lastActive { get; set; }
