@@ -91,7 +91,9 @@ namespace api.Controllers
         [HttpPut("changePassword/{newpassword}")]
         public async Task<ActionResult<UserDto>> CP(UserForLoginDto ufl, string newpassword)
         {
-            var user = new AppUser { UserName = ufl.UserName.ToLower() }; 
+            // find existing user by username
+            var user = await _manager.Users.SingleOrDefaultAsync(x => x.UserName == ufl.UserName.ToLower());
+         
             await _manager.ChangePasswordAsync(user, ufl.password, newpassword);
 
             return new UserDto
