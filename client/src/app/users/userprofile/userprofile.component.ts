@@ -21,7 +21,9 @@ import { take } from 'rxjs/operators';
 export class UserProfileComponent implements OnInit {
     @ViewChild('editForm') editForm: NgForm;
     user: User;
+    model: any = {};
     currentUserId = 0;
+    currentUserName = '';
     baseUrl = environment.apiUrl;
     countryDescription = '';
     optionCountries: Array<countryItem> = [];
@@ -43,7 +45,9 @@ export class UserProfileComponent implements OnInit {
 
     ngOnInit() {
 
-        this.auth.currentUser$.pipe(take(1)).subscribe((u) => { this.currentUserId = u.UserId; });
+        this.auth.currentUser$.pipe(take(1)).subscribe((u) => { 
+            this.currentUserName = u.Username;
+            this.currentUserId = u.UserId; });
 
         this.route.data.subscribe((data: { user: User }) => {
             this.user = data.user;
@@ -107,10 +111,11 @@ export class UserProfileComponent implements OnInit {
                 }
                 else {
                     if (this.meetsComplexity(this.password_02)) {
-                        this.alertify.show('New password is good!!');
-                        /* this.auth.changePassword(this.user, this.password_02).subscribe((next)=>{
+                        this.model.UserName = this.currentUserName;
+                        this.model.password = this.password_01;
+                         this.auth.changePassword(this.model, this.password_02).subscribe((next)=>{
                             this.alertify.show('Password changed');
-                        }, error => this.alertify.error(error)); */
+                        }, error => this.alertify.error(error)); 
                     } else {
                         this.password_02 = '';
                         this.password_03 = '';
@@ -130,10 +135,9 @@ export class UserProfileComponent implements OnInit {
     cancel() { }
 
 
-
     meetsComplexity(te: string) {
         let h = true;
-        let regexp = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z\d]).{8,}$');
+        let regexp = new RegExp("^((?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])|(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[^a-zA-Z0-9])|(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[^a-zA-Z0-9])|(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^a-zA-Z0-9])).{8,}$");
         h = regexp.test(te);
         return h;
     }
