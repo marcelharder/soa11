@@ -48,6 +48,7 @@ export class AccountService {
   changePassword(u: User, pwd_02: string){
     return this.http.put(this.baseUrl + 'account/changePassword/' + pwd_02, u).pipe(
       map((response:User)=>{
+        debugger;
         const user = response;
         if (user) {localStorage.setItem('user', JSON.stringify(user))};
         this.currentUserSource.next(user);

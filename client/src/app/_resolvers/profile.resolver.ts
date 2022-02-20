@@ -21,8 +21,7 @@ export class ProfileResolver implements Resolve<User> {
     resolve(route: ActivatedRouteSnapshot): Observable<User> {
         
         this.auth.currentUser$.pipe(take(1)).subscribe((u) => {
-            debugger;
-            this._currentUserId = u.UserId;});
+             this._currentUserId = u.UserId;});
         return this.userservice.getUser(this._currentUserId).pipe(catchError(error => {
             this.alertify.error('Problem retrieving your data');
             this.router.navigate(['/home']);

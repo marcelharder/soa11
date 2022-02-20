@@ -104,7 +104,6 @@ export class ValvedetailsComponent implements OnInit {
   }
 
   deleteValve() {
-    debugger;
     this.vs.deleteValve(this.pd.Id).subscribe((next) => {
       // route to the valve page
       this.alertify.show(next);
