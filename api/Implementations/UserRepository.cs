@@ -38,7 +38,7 @@ namespace api.Implementations
         public async Task<AppUser> GetUser(int id)
         {
             if (id != 0) {
-            var result = await _userManager.Users.Include(x => x.Courses).Include(y => y.Epa).FirstOrDefaultAsync(u => u.Id == id);
+            var result = await _userManager.Users.FirstOrDefaultAsync(u => u.Id == id);
             return result;
             }
             return null;

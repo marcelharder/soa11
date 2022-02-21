@@ -23,6 +23,7 @@ export class WorkedInComponent implements OnInit {
 
     selectedCountry = '';
     currentUserId = 0;
+    currentUserName = '';
     currentHospital = 0;
     OptionActiveHospitals: Array<dropItem> = [];
     OptionCountries: Array<countryItem> = [];
@@ -38,7 +39,10 @@ export class WorkedInComponent implements OnInit {
 
     ngOnInit(): void {
         // get the currentUser from account
-        this.Auth.currentUser$.pipe(take(1)).subscribe((u) => { this.currentUserId = u.UserId; });
+        this.Auth.currentUser$.pipe(take(1)).subscribe((u) => { 
+            this.currentUserId = u.UserId;
+            this.currentUserName= u.Username;
+         });
 
         this.drop.getHospitals(this.currentUserId).subscribe(response => {
             this.OptionActiveHospitals = response;
@@ -61,11 +65,6 @@ export class WorkedInComponent implements OnInit {
                     this.Auth.changeCurrentHospital(response.hospitalName);
                 });
             this.user.hospital_id = this.currentHospital; // change the current hospital of the current user
-            // update the changed hospital for this user to the valve database application too
-            this.OviUpdate.name = this.user.Username;
-            this.OviUpdate.role = this.user.role;
-            this.OviUpdate.gender = this.user.gender;
-            this.OviUpdate.email = this.user.email;
             // send the changed user up to the parent
             this.updateUserToParent.emit(this.user);
         }
@@ -77,7 +76,6 @@ export class WorkedInComponent implements OnInit {
                 this.selectedHospital = this.OptionHospitals[0].value;
             });
     }
-
     addToListOfHospitals() {
         const a: Array<number> = [];
         this.hos.getSpecificHospital(this.selectedHospital).subscribe((res) => {

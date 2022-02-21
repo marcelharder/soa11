@@ -67,13 +67,7 @@
                     Password</button></div>
                 <div class="col-sm-5"></div>
                 <div class="col-sm-2"></div>
-
               </div>
-
-
-
-
-
             </form>
             <div class="row" *ngIf="showCompliancePanel()">
               <div class="col-sm-6">
@@ -109,7 +103,7 @@
               </div>
             </form>
           </tab>
-          <tab heading="Photo uploaden">
+          <tab heading="Upload Photo">
             <app-photo-editor [userId]="currentUserId" [refId]="0" [hospitalId]="0"
               (getMemberPhotoChange)="updatePhoto($event)"></app-photo-editor>
           </tab>

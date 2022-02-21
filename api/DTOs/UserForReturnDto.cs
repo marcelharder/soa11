@@ -1,5 +1,6 @@
 using System;
-
+using System.Collections.Generic;
+using api.Entities;
 
 namespace api.DTOs
 {
@@ -16,7 +17,6 @@ namespace api.DTOs
         public DateTime dateOfBirth { get; set; }
         public DateTime created { get; set; }
         public DateTime lastActive { get; set; }
-      
         public string introduction { get; set; }
         public string lookingFor { get; set; }
         public string email {get; set;}
@@ -28,5 +28,6 @@ namespace api.DTOs
         public string country { get; set; }
         public bool active { get; set; }
         public bool ltk { get; set; }
+       
     }
 }

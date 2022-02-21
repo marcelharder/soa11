@@ -52,11 +52,8 @@ export class UserProfileComponent implements OnInit {
 
         this.route.data.subscribe((data: { user: User }) => {
             this.user = data.user;
-
-
             // focus on the correct drops
             this.changeCountry();// let the country name follow the change in country
-
         });
 
     }
@@ -76,14 +73,12 @@ export class UserProfileComponent implements OnInit {
 
     showCompliancePanel() { if (this.CompliancePanel === 1) { return true; } }
 
-    updatePhoto(photoUrl: string) {
-        debugger;
-        this.user.PhotoUrl = photoUrl; }
+    updatePhoto(photoUrl: string) { this.user.PhotoUrl = photoUrl; }
 
     updateUser() {
         this.userService.updateUser(this.currentUserId, this.user).subscribe(next => {
-            this.alertify.show('profile updated');
             this.editForm.reset(this.user);
+            this.router.navigate(['/procedures']);
         }, error => { this.alertify.error(error); });
 
     }
@@ -94,9 +89,7 @@ export class UserProfileComponent implements OnInit {
     }
 
     updateFromWorkedIn(us: User) {
-
-        this.userService.updateUser(this.user.UserId, us).subscribe(next => {
-            // go to the procedures page
+        this.userService.updateUser(this.currentUserId, us).subscribe(next => {
             this.router.navigate(['/procedures']);
         },
             error => { this.alertify.error(error); });

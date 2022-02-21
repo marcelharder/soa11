@@ -18,6 +18,12 @@
       <a class="nav-link" routerLink='/about' *ngIf="!adminLoggedIn()">About</a>
     </li>
   </ul>
+  <ul class="navbar-nav mr-auto" *ngIf="(accountService.currentUser$ |async) === null">
+    <li class="nav-item">
+      <a class="nav-link" routerLink='/about' *ngIf="!adminLoggedIn()">About</a>
+    </li>
+  </ul>
+
   <div class="ml-auto">
     <div class="dropdown" *ngIf="accountService.currentUser$ |async" dropdown>
       <a class="dropdown-toggle text-light" dropdownToggle>Welcome {{model.username | titlecase}}</a>
