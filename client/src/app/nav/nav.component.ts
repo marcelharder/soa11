@@ -6,6 +6,8 @@ import { take } from 'rxjs/operators';
 import { loginModel } from '../_models/loginModel';
 import { User } from '../_models/User';
 import { AccountService } from '../_services/account.service';
+import { HospitalService } from '../_services/hospital.service';
+import { UserService } from '../_services/user.service';
 
 @Component({
   selector: 'app-nav',
@@ -14,17 +16,17 @@ import { AccountService } from '../_services/account.service';
 })
 export class NavComponent implements OnInit {
   model: loginModel = {username:'',password:''};
+  currentUserId = 0;
 
   constructor(
     public accountService: AccountService, 
     private router: Router,
-    private toastr: ToastrService) { }
+    private hospitalService: HospitalService,
+    private userService: UserService) { }
 
   ngOnInit(): void {
    if(this.model.username == ''){
-
-    this.accountService.currentUser$.pipe(take(1)).subscribe((u) => {this.model.username = u.Username;})
-
+    this.accountService.currentUser$.pipe(take(1)).subscribe((u) => { this.model.username = u.Username;})
    }
   }
 
@@ -32,7 +34,18 @@ export class NavComponent implements OnInit {
 
   login(){this.accountService.login(this.model).subscribe((next)=>{
     
-    this.accountService.currentUser$.pipe(take(1)).subscribe((u) => {this.model.username = u.Username;})
+    this.accountService.currentUser$.pipe(take(1)).subscribe((u) => { 
+      this.currentUserId = u.UserId;
+      this.model.username = u.Username;})
+     // push the hospitalname to the behavior subject
+     this.userService.getUser(this.currentUserId).subscribe((next) => {
+      this.hospitalService.getSpecificHospital(next.hospital_id).subscribe((d) => {
+         this.accountService.changeCurrentHospital(d.hospitalName); // save the name of this hospital
+      });
+    })
+
+
+
     console.log(next); })}
 
   logout(){ 

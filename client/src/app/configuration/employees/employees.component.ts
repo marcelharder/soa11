@@ -77,9 +77,6 @@ export class EmployeesComponent implements OnInit {
       this.loadDrops();
       this.auth.currentUser$.pipe(take(1)).subscribe((u) => {this.currentUserId = u.UserId;});
       this.auth.currentHospitalName.subscribe((res) => { this.hospitalName = res; });
-     
-      
-      
       
       this.userservice.getUser(this.currentUserId).subscribe((response) => {
           this.user = response;
