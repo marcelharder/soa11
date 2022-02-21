@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, ReplaySubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { loginModel } from '../_models/loginModel';
 import { Procedure } from '../_models/Procedure';
 import { User } from '../_models/User';
 
@@ -28,7 +29,7 @@ export class AccountService {
 
   constructor(private http: HttpClient) { }
 
-  login(model: any){
+  login(model: loginModel){
     return this.http.post(this.baseUrl + 'account/login', model).pipe(
       map((response:User)=>{
         const user = response;
@@ -48,7 +49,6 @@ export class AccountService {
   changePassword(u: User, pwd_02: string){
     return this.http.put(this.baseUrl + 'account/changePassword/' + pwd_02, u).pipe(
       map((response:User)=>{
-        debugger;
         const user = response;
         if (user) {localStorage.setItem('user', JSON.stringify(user))};
         this.currentUserSource.next(user);

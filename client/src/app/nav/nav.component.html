@@ -20,7 +20,7 @@
   </ul>
   <div class="ml-auto">
     <div class="dropdown" *ngIf="accountService.currentUser$ |async" dropdown>
-      <a class="dropdown-toggle text-light" dropdownToggle>Welcome {{UserName | titlecase}}</a>
+      <a class="dropdown-toggle text-light" dropdownToggle>Welcome {{model.username | titlecase}}</a>
       <div class="dropdown-menu mt-3" *dropdownMenu>
         <a class="dropdown-item" routerLink='/profile' *ngIf="!adminLoggedIn()">Edit Profile</a>
         <div class="dropdown-divider"></div>

@@ -39,7 +39,7 @@
       <div class="tab-panel">
         <tabset class="member-tabset">
           <tab heading="Change password">
-            <form #passwordForm="ngForm" (ngSubmit)="updatePassword()" id="editPasswordForm">
+            <form #passwordForm="ngForm" id="editPasswordForm">
               <div class="row">
                 <div class="col-sm-5"><strong><span class="badge badge-default">Old password</span></strong></div>
                 <div class="col-sm-5"><input class="form-control" type="password" [(ngModel)]="password_01"

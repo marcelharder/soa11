@@ -3,6 +3,7 @@ import { ChildActivationStart, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
+import { loginModel } from '../_models/loginModel';
 import { User } from '../_models/User';
 import { AccountService } from '../_services/account.service';
 
@@ -12,8 +13,7 @@ import { AccountService } from '../_services/account.service';
   styleUrls: ['./nav.component.css']
 })
 export class NavComponent implements OnInit {
-  model: any = {};
-  UserName: string = '';
+  model: loginModel = {username:'',password:''};
 
   constructor(
     public accountService: AccountService, 
@@ -21,22 +21,22 @@ export class NavComponent implements OnInit {
     private toastr: ToastrService) { }
 
   ngOnInit(): void {
-   if(this.UserName == ''){
+   if(this.model.username == ''){
 
-    this.accountService.currentUser$.pipe(take(1)).subscribe((u) => {this.UserName = u.Username;})
+    this.accountService.currentUser$.pipe(take(1)).subscribe((u) => {this.model.username = u.Username;})
 
    }
   }
 
-  adminLoggedIn(){if(this.UserName === 'Admin'){return true;}}
+  adminLoggedIn(){if(this.model.username === 'Admin'){return true;}}
 
   login(){this.accountService.login(this.model).subscribe((next)=>{
     
-    this.accountService.currentUser$.pipe(take(1)).subscribe((u) => {this.UserName = u.Username;})
+    this.accountService.currentUser$.pipe(take(1)).subscribe((u) => {this.model.username = u.Username;})
     console.log(next); })}
 
   logout(){ 
-    this.model.UserName = "";
+    this.model.username = "";
     this.model.password = "";
     this.accountService.logout();
     this.router.navigate(['/']) }

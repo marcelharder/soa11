@@ -6,7 +6,6 @@ import { User } from '../../_models/User';
 import { UserService } from '../../_services/user.service';
 import { environment } from '../../../environments/environment';
 import { DropdownService } from '../../_services/dropdown.service';
-import { dropItem } from '../../_models/dropItem';
 import { ToastrService } from 'ngx-toastr';
 import { AccountService } from 'src/app/_services/account.service';
 import { countryItem } from 'src/app/_models/countryItem';
@@ -45,13 +44,16 @@ export class UserProfileComponent implements OnInit {
 
     ngOnInit() {
 
+        this.loadDrops();
+
         this.auth.currentUser$.pipe(take(1)).subscribe((u) => { 
             this.currentUserName = u.Username;
             this.currentUserId = u.UserId; });
 
         this.route.data.subscribe((data: { user: User }) => {
             this.user = data.user;
-            this.loadDrops();
+
+
             // focus on the correct drops
             this.changeCountry();// let the country name follow the change in country
 
@@ -74,9 +76,9 @@ export class UserProfileComponent implements OnInit {
 
     showCompliancePanel() { if (this.CompliancePanel === 1) { return true; } }
 
-    updatePhoto(photoUrl: string) { this.user.PhotoUrl = photoUrl; }
-
-    updatePassword() { }
+    updatePhoto(photoUrl: string) {
+        debugger;
+        this.user.PhotoUrl = photoUrl; }
 
     updateUser() {
         this.userService.updateUser(this.currentUserId, this.user).subscribe(next => {
@@ -114,7 +116,8 @@ export class UserProfileComponent implements OnInit {
                         this.model.UserName = this.currentUserName;
                         this.model.password = this.password_01;
                          this.auth.changePassword(this.model, this.password_02).subscribe((next)=>{
-                            this.alertify.show('Password changed');
+                            // redirect to main page
+                            this.router.navigate(['/procedures']);
                         }, error => this.alertify.error(error)); 
                     } else {
                         this.password_02 = '';
@@ -132,7 +135,7 @@ export class UserProfileComponent implements OnInit {
         }
     }
 
-    cancel() { }
+    cancel() {this.router.navigate(['/procedures']); }
 
 
     meetsComplexity(te: string) {

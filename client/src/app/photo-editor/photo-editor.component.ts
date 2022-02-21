@@ -14,6 +14,7 @@ export class PhotoEditorComponent implements OnInit {
     @Input() hospitalId: number;
     @Output() getMemberPhotoChange = new EventEmitter<string>();
     uploader: FileUploader;
+    token ='';
     hasBaseDropZoneOver = false;
     baseUrl = environment.apiUrl;
 
@@ -22,6 +23,9 @@ export class PhotoEditorComponent implements OnInit {
     ) { }
 
     ngOnInit() {
+    let help = JSON.parse(localStorage.getItem('user'));
+    this.token = help.Token;
+
         this.initializeUploader();
     }
 
@@ -49,7 +53,7 @@ export class PhotoEditorComponent implements OnInit {
 
         this.uploader = new FileUploader({
             url: test,
-            authToken: 'Bearer ' + localStorage.getItem('token'),
+            authToken: 'Bearer ' + this.token,
             isHTML5: true,
             allowedFileType: ['image'],
             removeAfterUpload: true,

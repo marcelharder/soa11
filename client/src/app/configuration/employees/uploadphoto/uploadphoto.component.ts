@@ -10,19 +10,22 @@ import { ToastrService } from 'ngx-toastr';
 export class UploadphotoComponent implements OnInit {
   @Input() targetUrl: string;
   @Output() getMemberPhotoChange = new EventEmitter<string>();
-
+  token = '';
   uploader: FileUploader;
+
   constructor(private alertify: ToastrService) {
 
   }
   ngOnInit() {
-      this.initializeUploader();
+    let help = JSON.parse(localStorage.getItem('user'));
+    this.token = help.Token;
+    this.initializeUploader();
   }
 
   initializeUploader() {
      this.uploader = new FileUploader({
           url: this.targetUrl,
-          authToken: 'Bearer ' + localStorage.getItem('token'),
+          authToken: 'Bearer ' + this.token,
           isHTML5: true,
           allowedFileType: ['image'],
           removeAfterUpload: true,
