@@ -125,6 +125,9 @@ import { DischargeService } from './_services/discharge.service';
 import { PatientService } from './_services/patient.service';
 import { CommonModule } from '@angular/common';
 import { DropdownService } from './_services/dropdown.service';
+import { AdminGuard } from './_guards/admin.guard';
+import { AuthGuard } from './_guards/auth.guard';
+import { HasRoleDirective } from './_directives/has-role.directive';
 
 @NgModule({
   declarations: [
@@ -186,6 +189,7 @@ import { DropdownService } from './_services/dropdown.service';
     ValvedetailsComponent,
     ValvesinoviComponent,
     DischargeComponent,
+    HasRoleDirective,
     
   ],
   imports: [
@@ -246,6 +250,8 @@ import { DropdownService } from './_services/dropdown.service';
    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
    // guards
+   AdminGuard,
+   AuthGuard,
    PreventUnsavedChanges,
    ChangesProcedureDetails,
    changesEuroscoreDetails,

@@ -3,24 +3,24 @@
   <a class="navbar-brand" href="#">Surgical Outcomes Application</a>
   <ul class="navbar-nav mr-auto" *ngIf="accountService.currentUser$ |async">
     <li class="nav-item">
-      <a class="nav-link" routerLink='/procedures' *ngIf="!adminLoggedIn()">Procedures</a>
+      <a class="nav-link" routerLink='/procedures' >Procedures</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" routerLink='/statistics' *ngIf="!adminLoggedIn()">Statistics</a>
+      <a class="nav-link" routerLink='/statistics' >Statistics</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" routerLink='/config' *ngIf="!adminLoggedIn()">Configuration</a>
+      <a class="nav-link" routerLink='/config' >Configuration</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" routerLink='/users' *ngIf="adminLoggedIn()">Users</a>
+      <a class="nav-link" routerLink='/users' *appHasRole='["Admin"]'>Users</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" routerLink='/about' *ngIf="!adminLoggedIn()">About</a>
+      <a class="nav-link" routerLink='/about' >About</a>
     </li>
   </ul>
   <ul class="navbar-nav mr-auto" *ngIf="(accountService.currentUser$ |async) === null">
     <li class="nav-item">
-      <a class="nav-link" routerLink='/about' *ngIf="!adminLoggedIn()">About</a>
+      <a class="nav-link" routerLink='/about' >About</a>
     </li>
   </ul>
 
@@ -28,7 +28,7 @@
     <div class="dropdown" *ngIf="accountService.currentUser$ |async" dropdown>
       <a class="dropdown-toggle text-light" dropdownToggle>Welcome {{model.username | titlecase}}</a>
       <div class="dropdown-menu mt-3" *dropdownMenu>
-        <a class="dropdown-item" routerLink='/profile' *ngIf="!adminLoggedIn()">Edit Profile</a>
+        <a class="dropdown-item" routerLink='/profile' *appHasRole='["Surgery"]'>Edit Profile</a>
         <div class="dropdown-divider"></div>
         <a class="dropdown-item" (click)="logout()">Logout</a>
       </div>

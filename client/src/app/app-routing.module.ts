@@ -57,6 +57,7 @@ import { OpreportComponent } from './configuration/opreport/opreport.component';
 import { EmployeesComponent } from './configuration/employees/employees.component';
 import { HospitalResolver } from './_resolvers/Hospital.resolver';
 import { changesHospital } from './_guards/changes-Hospital.guard';
+import { AdminGuard } from './_guards/admin.guard';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -86,7 +87,7 @@ const routes: Routes = [
     runGuardsAndResolvers: 'always',
     canActivate: [AuthGuard],
     children:[
-    { path: 'users', component: UserlistComponent },
+    { path: 'users', component: UserlistComponent, canActivate: [AdminGuard] },
     { path: 'profile', component: UserProfileComponent, resolve: { user: ProfileResolver } },
     { path: 'statistics', component: StatisticsComponent },
     { path: 'procedures', component: ProcedureMainComponent, resolve: { procedure: ProcedureListResolver } },
@@ -98,7 +99,9 @@ const routes: Routes = [
     { path: 'editHospital/:id', component: HospitalsComponent, resolve: { hos: HospitalResolver },canDeactivate: [changesHospital]},
     { path: 'editRefPhys', component: RefphysComponent },
     { path: 'not-found', component: NotFoundComponent },
-    { path: 'server-error', component: ServerErrorComponent },]
+    { path: 'server-error', component: ServerErrorComponent },
+  
+  ]
   },
   
  

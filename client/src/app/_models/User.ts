@@ -7,7 +7,7 @@ export interface User {
     hospital_id: number;
     Username: string;
     Token: string;
-    role: string;
+    roles: string[];
     knownAs: string;
     age: number;
     gender: string;
