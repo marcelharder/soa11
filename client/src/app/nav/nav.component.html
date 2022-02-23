@@ -3,13 +3,13 @@
   <a class="navbar-brand" href="#">Surgical Outcomes Application</a>
   <ul class="navbar-nav mr-auto" *ngIf="accountService.currentUser$ |async">
     <li class="nav-item">
-      <a class="nav-link" routerLink='/procedures' >Procedures</a>
+      <a class="nav-link" routerLink='/procedures' *appHasRole='["Surgery"]'>Procedures</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" routerLink='/statistics' >Statistics</a>
+      <a class="nav-link" routerLink='/statistics' *appHasRole='["Surgery"]' >Statistics</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" routerLink='/config' >Configuration</a>
+      <a class="nav-link" routerLink='/config' *appHasRole='["Surgery"]'>Configuration</a>
     </li>
     <li class="nav-item">
       <a class="nav-link" routerLink='/users' *appHasRole='["Admin"]'>Users</a>

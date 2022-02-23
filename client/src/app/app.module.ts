@@ -128,6 +128,8 @@ import { DropdownService } from './_services/dropdown.service';
 import { AdminGuard } from './_guards/admin.guard';
 import { AuthGuard } from './_guards/auth.guard';
 import { HasRoleDirective } from './_directives/has-role.directive';
+import { AppUserManagementComponent } from './admin/app-user-management/app-user-management.component';
+import { RolesModalComponent } from './_modals/roles-modal/roles-modal.component';
 
 @NgModule({
   declarations: [
@@ -190,6 +192,8 @@ import { HasRoleDirective } from './_directives/has-role.directive';
     ValvesinoviComponent,
     DischargeComponent,
     HasRoleDirective,
+    AppUserManagementComponent,
+    RolesModalComponent
     
   ],
   imports: [

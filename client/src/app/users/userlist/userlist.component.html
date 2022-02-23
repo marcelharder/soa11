@@ -1,16 +1,44 @@
 <div class="card m-5">
-    <div class="card-header"><h5><span class="badge badge-info">User Management</span></h5></div>
+    <div class="card-header"><h5><span class="badge badge-info">Admin Panel</span></h5></div>
     <div class="class-body">
         <div class="member-tabset">
             <tabset class="member-tabset">
                 <tab heading="User management" *appHasRole='["Admin"]'>
                     <div class="container">
-                        <app-user-management></app-user-management>
+                        <div class="row">
+                            <table class="table">
+                                <tr>
+                                    <th style="width: 30%;">Username</th>
+                                    <th style="width: 40%;">Active roles</th>
+                                    <th style="width: 15%;"></th>
+                                    <th style="width: 15%;"></th>
+                                </tr>
+                                <tr *ngFor="let user of users">
+                                  <td>
+                                      {{user.UserName}}
+                                  </td>
+                                  <td>
+                                    {{user.Roles}}
+                                </td>
+                                <td>
+                                    <button class="btn btn-info">Edit User</button>
+                                </td>
+                                <td>
+                                    <button class="btn btn-info">Delete User</button>
+                                </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </tab>
+                <tab heading="Role management" *appHasRole='["Admin"]'>
+                    <div class="container">
+                        <app-app-user-management></app-app-user-management>
                     </div>
                 </tab>
                 <tab heading="Photo management" *appHasRole='["Admin"]'>
                     <div class="container">
-                        <app-photo-management></app-photo-management>
+                       photos management
                     </div>
                 </tab>
             </tabset>
