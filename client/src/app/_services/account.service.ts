@@ -6,6 +6,7 @@ import { environment } from 'src/environments/environment';
 import { loginModel } from '../_models/loginModel';
 import { Procedure } from '../_models/Procedure';
 import { User } from '../_models/User';
+import { PresenceService } from './presence.service';
 
 @Injectable({
   providedIn: 'root'
@@ -27,16 +28,33 @@ export class AccountService {
   dst = new BehaviorSubject<string>('0');
   currentDst = this.dst.asObservable();
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private presence: PresenceService) { }
 
   login(model: loginModel){
     return this.http.post(this.baseUrl + 'account/login', model).pipe(
       map((response:User)=>{
         const user = response;
         this.setCurrentUser(user);
+        this.presence.createHubConnection(user);
       })
     );
   }
+
+
+   register(model: loginModel){
+     return this.http.post(this.baseUrl + 'account/register', model).pipe(
+       map((user: User)=>{
+         if (user) {
+          this.setCurrentUser(user);
+          this.presence.createHubConnection(user);
+         }
+       })
+     )
+   }
+
+
+
+
   setCurrentUser(user: User){
     user.roles=[];
     const roles = this.getDecodedToken(user.Token).role;
@@ -49,7 +67,11 @@ export class AccountService {
   changeCurrentHospital(sh: string){ this.HospitalName.next(sh);}
   changeDst(sh: string) { this.dst.next(sh); }
 
-  logout(){localStorage.removeItem('user'); this.currentUserSource.next(null);}
+  logout(){
+    localStorage.removeItem('user'); 
+    this.currentUserSource.next(null);
+    this.presence.stopHubConnection();
+  }
 
   changePassword(u: User, pwd_02: string){
     return this.http.put(this.baseUrl + 'account/changePassword/' + pwd_02, u).pipe(

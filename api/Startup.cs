@@ -1,5 +1,6 @@
 using System.Text.Json;
 using api.Extensions;
+using api.SignalR;
 using API.Errors;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -26,13 +27,9 @@ namespace api
         {
             services.AddApplicationServices(_config);
             services.AddIdentityServices(_config);
-
-            services.AddControllers()
-         .AddJsonOptions(options =>
-         {
-             options.JsonSerializerOptions.PropertyNamingPolicy = null;
-         });
+            services.AddControllers().AddJsonOptions(options => { options.JsonSerializerOptions.PropertyNamingPolicy = null; });
             services.AddCors();
+            services.AddSignalR();
 
             services.AddSwaggerGen(c =>
             {
@@ -58,7 +55,10 @@ namespace api
 
             app.UseRouting();
 
-            app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200"));
+            app.UseCors(x => x.AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowCredentials()
+            .WithOrigins("http://localhost:4200"));
             app.UseAuthentication();
             app.UseAuthorization();
 
@@ -68,6 +68,7 @@ namespace api
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<PresenceHub>("hubs/presence");
                 // endpoints.MapFallbackToController("Index", "Fallback");
             });
         }

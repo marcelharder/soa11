@@ -130,6 +130,7 @@ import { AuthGuard } from './_guards/auth.guard';
 import { HasRoleDirective } from './_directives/has-role.directive';
 import { AppUserManagementComponent } from './admin/app-user-management/app-user-management.component';
 import { RolesModalComponent } from './_modals/roles-modal/roles-modal.component';
+import { OnlineUsersComponent } from './users/online-users/online-users.component';
 
 @NgModule({
   declarations: [
@@ -193,7 +194,8 @@ import { RolesModalComponent } from './_modals/roles-modal/roles-modal.component
     DischargeComponent,
     HasRoleDirective,
     AppUserManagementComponent,
-    RolesModalComponent
+    RolesModalComponent,
+    OnlineUsersComponent
     
   ],
   imports: [
