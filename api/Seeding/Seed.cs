@@ -20,6 +20,8 @@ namespace api.Seeding
 
              var roles = new List<AppRole>{
                  new AppRole{Name = "Surgery"},
+                 new AppRole{Name = "Moderator"},
+                 new AppRole{Name = "Sponsor"},
                  new AppRole{Name = "Refcard"},
                  new AppRole{Name = "Admin"},
                  new AppRole{Name = "Cardiologist"},
