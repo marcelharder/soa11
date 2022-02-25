@@ -8,6 +8,7 @@ using api.DTOs;
 using api.Entities;
 using api.Helpers;
 using api.Interfaces;
+using api.Interfaces.signalR;
 using AutoMapper;
 using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
@@ -24,12 +25,14 @@ namespace api.Controllers
     {
 
         private IUserRepository _rep;
+        private IUserOnline _online;
         private readonly IOptions<CloudinarySettings> _cloudinaryConfig;
         private Cloudinary _cloudinary;
         private SpecialMaps _mapper;
       
 
         public UsersController(
+            IUserOnline online,
             IUserRepository rep, 
             SpecialMaps map, 
             DataContext context,
@@ -37,6 +40,7 @@ namespace api.Controllers
         {
             _rep = rep;
             _mapper = map;
+            _online = online;
             _cloudinaryConfig = cloudinaryConfig;
            
            
@@ -182,7 +186,10 @@ namespace api.Controllers
             return BadRequest("Deleting failed ...");
         }
 
-
+        [HttpGet("users-online")]
+        public async Task<IActionResult> getUsersOnline(){
+            return Ok(await _online.getOnlineUsers());
+        }
 
      
 

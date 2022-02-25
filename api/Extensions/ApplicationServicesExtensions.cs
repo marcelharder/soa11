@@ -14,6 +14,8 @@ using api.Interfaces.statistics;
 using api.Implementations.statistics;
 using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 using System;
+using api.Interfaces.signalR;
+using api.Implementations.signalR;
 
 namespace api.Extensions
 {
@@ -66,6 +68,7 @@ namespace api.Extensions
             services.AddScoped<IRefPhys, RefPhys>();
             services.AddScoped<ISuggestion, Suggestion>();
             services.AddScoped<IComposeFinalReport, ComposeFinalReport>();
+            services.AddScoped<IUserOnline, UserOnline>();
 
 
             services.AddScoped<IStatistics, Statistics>();
@@ -77,6 +80,7 @@ namespace api.Extensions
             services.AddScoped<SpecialMaps>();
             services.AddScoped<SpecialReportMaps>();
             services.AddScoped<LogUserActivity>();
+            
 
             services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
             return services;
