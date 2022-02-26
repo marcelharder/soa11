@@ -1,0 +1,39 @@
+<div class="card m-5">
+    <div class="card-header">
+        <h5><span class="badge badge-info">Userdetails</span></h5>
+    </div>
+    <div class="card-body">
+        <form #userdetailsForm="ngForm" id="edituserdetailsForm" (ngSubmit)="updateUserDetails()">
+            <div class="row">
+                <div class="col-sm-8"></div>
+                <div class="col-sm-4">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="card">
+                                <img class="card-img-top img-thumbnail" src="{{ user.PhotoUrl }}" alt="test" width="250"
+                                    height="350" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <button class="btn btn-primary">Change image</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="card-footer">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                    <button type="button" class="btn btn-danger" (click)='Cancel()'>Cancel</button>
+                    <button type="submit" class="btn btn-success" form="edituserdetailsForm">Update</button>
+                </div>
+            </div>
+            <div class="col-sm-6"></div>
+        </div>
+    </div>
+</div>

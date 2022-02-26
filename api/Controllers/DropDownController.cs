@@ -1,7 +1,9 @@
 
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using api.Data;
+using api.DTOs;
 using api.Entities;
 using api.Helpers;
 using api.Interfaces;
@@ -46,8 +48,18 @@ namespace api.Controllers
         [HttpGet]
         public IActionResult getHO()
         {
+            var help = new List<Class_Item>();
+            
             var test = _hos.GetAllHospitals(); 
-            return Ok(test);
+            foreach(HospitalForReturnDTO h in test){
+                var ci = new Class_Item();
+                ci.description = h.hospitalName;
+                ci.value = Convert.ToInt32(h.hospitalNo);
+                help.Add(ci);
+               
+            }
+
+            return Ok(help);
         }
 
         [Route("allHospitalOptionsPerCountry/{country}")]

@@ -131,6 +131,7 @@ import { HasRoleDirective } from './_directives/has-role.directive';
 import { AppUserManagementComponent } from './admin/app-user-management/app-user-management.component';
 import { RolesModalComponent } from './_modals/roles-modal/roles-modal.component';
 import { OnlineUsersComponent } from './users/online-users/online-users.component';
+import { UserdetailsComponent } from './users/userdetails/userdetails.component';
 
 @NgModule({
   declarations: [
@@ -195,7 +196,8 @@ import { OnlineUsersComponent } from './users/online-users/online-users.componen
     HasRoleDirective,
     AppUserManagementComponent,
     RolesModalComponent,
-    OnlineUsersComponent
+    OnlineUsersComponent,
+    UserdetailsComponent
     
   ],
   imports: [

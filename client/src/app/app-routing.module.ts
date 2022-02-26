@@ -59,6 +59,8 @@ import { HospitalResolver } from './_resolvers/Hospital.resolver';
 import { changesHospital } from './_guards/changes-Hospital.guard';
 import { AdminGuard } from './_guards/admin.guard';
 import { OnlineUsersComponent } from './users/online-users/online-users.component';
+import { UserdetailsComponent } from './users/userdetails/userdetails.component';
+import { UserDetailsResolver } from './_resolvers/user-details.resolver';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -89,6 +91,7 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     children:[
     { path: 'users', component: UserlistComponent, canActivate: [AdminGuard] },
+    { path: 'userdetails/:id', component: UserdetailsComponent, resolve: { ud: UserDetailsResolver}},
     { path: 'onlineUsers', component: OnlineUsersComponent, canActivate: [AdminGuard] },
     { path: 'profile', component: UserProfileComponent, resolve: { user: ProfileResolver } },
     { path: 'statistics', component: StatisticsComponent },

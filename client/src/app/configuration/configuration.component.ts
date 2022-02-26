@@ -44,6 +44,7 @@ export class ConfigurationComponent implements OnInit {
           this.router.navigate(['/editHospital',currentUser.hospital_id]);
      });
   }
+ 
 }
 
 

@@ -15,7 +15,7 @@
         public string tel { get; set; }
         public string fax { get; set; }
         public string email { get; set; }
-        public string send_email { get; set; }
-        public string active { get; set; }
+        public bool send_email { get; set; }
+        public bool active { get; set; }
     }
 }

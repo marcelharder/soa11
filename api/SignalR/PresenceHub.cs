@@ -21,7 +21,7 @@ namespace api.SignalR
         }
         public override async Task OnConnectedAsync()
         {
-            // find out if a onlineuser with the current name exists
+          /*   // find out if a onlineuser with the current name exists
             var user = await this._online.findUser(Context.User.Identity.Name);
             if (user != null)
             {
@@ -42,7 +42,7 @@ namespace api.SignalR
 
                 };
             }
-
+ */
 
             await Clients.Others.SendAsync("UserIsOnline", Context.User.Identity.Name);
 
@@ -50,7 +50,7 @@ namespace api.SignalR
 
         public override async Task OnDisconnectedAsync(Exception exception)
         {
-            var currentConnectionId = Context.ConnectionId;
+          /*   var currentConnectionId = Context.ConnectionId;
             var user = await this._online.findUser(Context.User.Identity.Name);
             if (user != null)
             {
@@ -61,7 +61,7 @@ namespace api.SignalR
                 {
                     if (await _online.DeleteAsync(user) == 1) { };
                 }
-            }
+            } */
 
             await Clients.Others.SendAsync("UserIsOffline", Context.User.Identity.Name);
             await base.OnDisconnectedAsync(exception);
