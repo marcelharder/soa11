@@ -4,6 +4,7 @@ import { BehaviorSubject, Observable, ReplaySubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { loginModel } from '../_models/loginModel';
+import { onlineUsers } from '../_models/onlineUsers';
 import { Procedure } from '../_models/Procedure';
 import { User } from '../_models/User';
 import { PresenceService } from './presence.service';
@@ -22,6 +23,7 @@ export class AccountService {
   soortProcedure = new BehaviorSubject<string>('0');
   currentSoortProcedure = this.soortProcedure.asObservable();
 
+  
   HospitalName = new BehaviorSubject<string>('0');
   currentHospitalName = this.HospitalName.asObservable();
 
@@ -62,6 +64,7 @@ export class AccountService {
     localStorage.setItem('user', JSON.stringify(user));
     this.currentUserSource.next(user);
   }
+  
   setCurrentProcedure(procedureId: number){this.currentProcedureSource.next(procedureId);}
   changeSoortOperatie(sh: string) { this.soortProcedure.next(sh); }
   changeCurrentHospital(sh: string){ this.HospitalName.next(sh);}

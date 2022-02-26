@@ -18,32 +18,26 @@ namespace api.Implementations.signalR
 
         public async Task<int> AddAsync(Class_User_Online cuo) 
         {
-            _context.onlineUsers.Add(cuo);
+            _context.online_users.Add(cuo);
             if (await SaveAll()) { return 1; }
             return 0;
         }
 
         public async Task<int> DeleteAsync(Class_User_Online cuo) 
         {
-             _context.onlineUsers.Remove(cuo);
+             _context.online_users.Remove(cuo);
             if (await SaveAll()) { return 1; }
             return 0;
         }
 
         public async Task<Class_User_Online> findUser(string name)
         {
-            return await _context.onlineUsers.FirstOrDefaultAsync(a => a.Name == name);
+            return await _context.online_users.FirstOrDefaultAsync(a => a.Name == name);
         }
 
-        public async Task<List<string>> getOnlineUsers()
+        public async Task<List<Class_User_Online>> getOnlineUsers()
         {
-            var list_of_names = new List<string>();
-            var all_online_users = await _context.onlineUsers.ToListAsync();
-            
-            foreach(Class_User_Online cuo in all_online_users){
-                list_of_names.Add(cuo.Name);
-            }
-            return list_of_names;
+            return  await _context.online_users.ToListAsync();
         }
 
         public Task<bool> SaveAll()
@@ -53,7 +47,7 @@ namespace api.Implementations.signalR
 
         public async Task<int> UpdateAsync(Class_User_Online cuo) 
         {
-            _context.onlineUsers.Update(cuo);
+            _context.online_users.Update(cuo);
             if (await SaveAll()) { return 1; }
             return 0;
         }

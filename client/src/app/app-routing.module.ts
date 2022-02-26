@@ -61,6 +61,7 @@ import { AdminGuard } from './_guards/admin.guard';
 import { OnlineUsersComponent } from './users/online-users/online-users.component';
 import { UserdetailsComponent } from './users/userdetails/userdetails.component';
 import { UserDetailsResolver } from './_resolvers/user-details.resolver';
+import { OnlineUserResolver } from './_resolvers/OnlineUser.resolver ';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -92,7 +93,7 @@ const routes: Routes = [
     children:[
     { path: 'users', component: UserlistComponent, canActivate: [AdminGuard] },
     { path: 'userdetails/:id', component: UserdetailsComponent, resolve: { ud: UserDetailsResolver}},
-    { path: 'onlineUsers', component: OnlineUsersComponent, canActivate: [AdminGuard] },
+    { path: 'onlineUsers', component: OnlineUsersComponent, resolve: { olu: OnlineUserResolver }, canActivate: [AdminGuard] },
     { path: 'profile', component: UserProfileComponent, resolve: { user: ProfileResolver } },
     { path: 'statistics', component: StatisticsComponent },
     { path: 'procedures', component: ProcedureMainComponent, resolve: { procedure: ProcedureListResolver } },

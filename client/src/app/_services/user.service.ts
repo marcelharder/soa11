@@ -5,6 +5,7 @@ import { PaginatedResult } from '../_models/pagination';
 import { map } from 'rxjs/operators';
 import { User } from '../_models/User';
 import { environment } from '../../environments/environment';
+import { onlineUsers } from '../_models/onlineUsers';
 
 @Injectable({
   providedIn: 'root',
@@ -167,6 +168,9 @@ export class UserService {
   updateUser(id: number, user: User) {return this.http.put(this.baseUrl + 'users/' + id, user);  }
   getLtk(id: number){return this.http.get<boolean>(this.baseUrl + 'users/ltk/' + id);}
   deleteUser(id: number) {return this.http.delete(this.baseUrl + 'users/' + id,{ responseType: 'text' as 'json' });  }
-  addUser(naam: string) {return this.http.get<User>(this.baseUrl + 'users/' + 'addUser/' + naam,{ responseType: 'text' as 'json' });
-  }
+  addUser(naam: string) {return this.http.get<User>(this.baseUrl + 'users/' + 'addUser/' + naam,{ responseType: 'text' as 'json' }); }
+  getOnlineUsers(){return this.http.get<onlineUsers[]>(this.baseUrl + 'users/users-online');}
+
+
+
 }

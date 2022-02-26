@@ -38,7 +38,7 @@ namespace api.Data
         public DbSet<Class_LTX> LTXs { get; set; }
         public DbSet<Class_Epa> Epaas {get; set;}
         public DbSet<Class_Course> Courses {get; set;}
-        public DbSet<Class_User_Online> onlineUsers {get; set;}
+        public DbSet<Class_User_Online> online_users {get; set;}
 
 
 

@@ -132,6 +132,7 @@ import { AppUserManagementComponent } from './admin/app-user-management/app-user
 import { RolesModalComponent } from './_modals/roles-modal/roles-modal.component';
 import { OnlineUsersComponent } from './users/online-users/online-users.component';
 import { UserdetailsComponent } from './users/userdetails/userdetails.component';
+import { OnlineUserResolver } from './_resolvers/OnlineUser.resolver ';
 
 @NgModule({
   declarations: [
@@ -255,6 +256,7 @@ import { UserdetailsComponent } from './users/userdetails/userdetails.component'
    MinInvResolver,
    dischargeDetailsResolver,
    LtxResolver,
+   OnlineUserResolver,
    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
    // guards
