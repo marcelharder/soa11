@@ -1,7 +1,7 @@
 <div class="card m-5">
     <div class="card-header"><h5><span class="badge badge-info">Admin Panel</span></h5></div>
     <div class="class-body">
-        <div class="row">
+        <div class="row" *ngIf="!showEdit() && !showAdd()">
             <div class="col-sm-8">
                 <div class="member-tabset">
                     <tabset class="member-tabset">
@@ -34,8 +34,8 @@
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                                            <button type="button" class="btn btn-danger">Cancel</button>
-                                            <button type="button" class="btn btn-success">Add</button>
+                                            <button type="button" class="btn btn-danger" (click)="Cancel()">Cancel</button>
+                                            <button type="button" class="btn btn-success"  (click)="AddUser()">Add</button>
                                           </div>
                                     </div>
                                     <div class="col-sm-6"></div>
@@ -66,10 +66,12 @@
             </select>
         </div>
         </div>
-
-
-
-        
+        <div *ngIf="showEdit()">
+            <app-userdetails [user]='user' (fromUserEdit)="returnFromUserEdit($event)"></app-userdetails>
+        </div>
+        <div *ngIf="showAdd()">
+            <app-add-user (fromUserAdd)="returnFromAddUser($event)"></app-add-user>
+        </div>
     </div>
     <div class="card-footer"></div>
 </div>

@@ -1,0 +1,28 @@
+<div class="card m-5">
+    <div class="card-header">
+        <h5><span class="badge badge-info">Add User</span></h5>
+    </div>
+    <div class="card-body">
+        <form  #registerForm="ngForm" id="registerForm" (ngSubmit)="registerNewUser()">
+        <div class="row">
+            <div class="clss-sm-6"><h5><span class="badge badge-secondary">New Username: </span></h5></div>
+            <div class="clss-sm-6"><input type=text [(ngModel)]="lm.username" class="form-model" ></div>
+        </div>
+        <div class="row">
+            <div class="clss-sm-6"><h5><span class="badge badge-secondary">New Password: </span></h5></div>
+            <div class="clss-sm-6"><input type=password [(ngModel)]="lm.password" class="form-model" ></div>
+        </div>
+       </form>
+    </div>
+    <div class="card-footer">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                    <button type="button" class="btn btn-danger" (click)='Cancel()'>Cancel</button>
+                    <button type="submit" class="btn btn-success" form="registerForm">Add User</button>
+                </div>
+            </div>
+            <div class="col-sm-6"></div>
+        </div> 
+    </div>
+</div>

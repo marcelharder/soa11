@@ -133,6 +133,7 @@ import { RolesModalComponent } from './_modals/roles-modal/roles-modal.component
 import { OnlineUsersComponent } from './users/online-users/online-users.component';
 import { UserdetailsComponent } from './users/userdetails/userdetails.component';
 import { OnlineUserResolver } from './_resolvers/OnlineUser.resolver ';
+import { AddUserComponent } from './users/add-user/add-user.component';
 
 @NgModule({
   declarations: [
@@ -198,7 +199,8 @@ import { OnlineUserResolver } from './_resolvers/OnlineUser.resolver ';
     AppUserManagementComponent,
     RolesModalComponent,
     OnlineUsersComponent,
-    UserdetailsComponent
+    UserdetailsComponent,
+    AddUserComponent
     
   ],
   imports: [

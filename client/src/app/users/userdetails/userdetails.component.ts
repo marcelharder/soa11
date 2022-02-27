@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/app/_models/User';
 
@@ -8,17 +8,18 @@ import { User } from 'src/app/_models/User';
   styleUrls: ['./userdetails.component.css']
 })
 export class UserdetailsComponent implements OnInit {
-  user: User;
+  @Output() fromUserEdit = new EventEmitter<User>();
+  @Input() user: User;
+  
   constructor(private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
-    this.route.data.subscribe((data: { ud: User }) => {
-      this.user = data.ud;
-     
-  });
+  
   }
 
-  updateUserDetails(){}
+  updateUserDetails(){
+    this.fromUserEdit.emit(this.user);
+  }
 
   Cancel(){this.router.navigate(['users'])};
 
