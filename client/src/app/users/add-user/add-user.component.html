@@ -2,15 +2,15 @@
     <div class="card-header">
         <h5><span class="badge badge-info">Add User</span></h5>
     </div>
-    <div class="card-body">
+    <div class="card-body" style="background-color: antiquewhite;">
         <form  #registerForm="ngForm" id="registerForm" (ngSubmit)="registerNewUser()">
         <div class="row">
             <div class="clss-sm-6"><h5><span class="badge badge-secondary">New Username: </span></h5></div>
-            <div class="clss-sm-6"><input type=text [(ngModel)]="lm.username" class="form-model" ></div>
+            <div class="clss-sm-6 ml-2"><input type=text [(ngModel)]="lm.username" class="form-model" name="username"></div>
         </div>
-        <div class="row">
+        <div class="row mt-2 mb-2">
             <div class="clss-sm-6"><h5><span class="badge badge-secondary">New Password: </span></h5></div>
-            <div class="clss-sm-6"><input type=password [(ngModel)]="lm.password" class="form-model" ></div>
+            <div class="clss-sm-6 ml-2"><input type=password [(ngModel)]="lm.password" class="form-model" name="password"></div>
         </div>
        </form>
     </div>

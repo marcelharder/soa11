@@ -137,11 +137,11 @@ namespace api.Controllers
         {
             if (id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value)) return Unauthorized();
 
-            var user = await _rep.GetUser(id);
+            var user = await _rep.GetUser(up.Id);
             var userupdated = _mapper.mapToUser(up, user);
             _rep.Update(userupdated);
             if (await _rep.SaveAll()) return NoContent();
-            throw new Exception($"Updating user {id} failed on save");
+            throw new Exception($"Updating user {up.Id} failed on save");
 
         }
 

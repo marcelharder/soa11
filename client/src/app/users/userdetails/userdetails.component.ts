@@ -9,6 +9,7 @@ import { User } from 'src/app/_models/User';
 })
 export class UserdetailsComponent implements OnInit {
   @Output() fromUserEdit = new EventEmitter<User>();
+  @Output() cancelThis = new EventEmitter<number>();
   @Input() user: User;
   
   constructor(private route: ActivatedRoute, private router: Router) { }
@@ -21,6 +22,6 @@ export class UserdetailsComponent implements OnInit {
     this.fromUserEdit.emit(this.user);
   }
 
-  Cancel(){this.router.navigate(['users'])};
+  Cancel(){this.cancelThis.emit(1)};
 
 }

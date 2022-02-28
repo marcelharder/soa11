@@ -89,9 +89,12 @@ export class UserlistComponent implements OnInit {
 
   Cancel() { this.router.navigate(['users']) }
 
-  AddUser() { this.editFlag = 0; this.addFlag = 1; }
+  AddUser() {
+    debugger;
+    this.editFlag = 0; this.addFlag = 1; }
 
   returnFromAddUser(newUserId: number){
+    debugger;
     this.userService.getUser(newUserId).subscribe((next)=>{
 
       this.user = next;
@@ -100,6 +103,9 @@ export class UserlistComponent implements OnInit {
     }, (error)=> {this.alertify.error(error)});
     this.editFlag = 1; this.addFlag = 0;
   }
+
+  cancelAdd(){this.editFlag = 0; this.addFlag = 0;};
+  cancelEdit(){this.editFlag = 0; this.addFlag = 0;};
 
   showEdit() { if (this.editFlag === 1) return true; }
   showAdd() { if (this.addFlag === 1) return true; }
