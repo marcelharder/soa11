@@ -7,6 +7,7 @@ import { dropItem } from 'src/app/_models/dropItem';
 import { User } from 'src/app/_models/User';
 import { AccountService } from 'src/app/_services/account.service';
 import { DropdownService } from 'src/app/_services/dropdown.service';
+import { HospitalService } from 'src/app/_services/hospital.service';
 import { UserService } from 'src/app/_services/user.service';
 
 @Component({
@@ -15,18 +16,28 @@ import { UserService } from 'src/app/_services/user.service';
   styleUrls: ['./userlist.component.css']
 })
 export class UserlistComponent implements OnInit {
-  user: User;
+  user: Partial<User> = {
+    UserId: 0, 
+    PhotoUrl: '', 
+    hospital_id:0,
+    gender:'',
+    country:'',
+    city:'',
+    active: true,
+    ltk: false};
   users: Array<User> = [];
   allUsers: Array<User> = [];
   position = "";
   currentUserId = 0;
   currentHospital = 0;
+  
   hospitals: Array<dropItem> = [];
   value?: string = 'User management';
   editFlag = 0;
   addFlag = 0;
   constructor(
     private userService: UserService,
+    private hospitalService: HospitalService,
     private alertify: ToastrService,
     private drop: DropdownService,
     private router: Router,
@@ -90,8 +101,7 @@ export class UserlistComponent implements OnInit {
   Cancel() { this.router.navigate(['users']) }
 
   AddUser() {
-    debugger;
-    this.editFlag = 0; this.addFlag = 1; }
+     this.editFlag = 0; this.addFlag = 1; }
 
   returnFromAddUser(newUserId: number){
     debugger;
@@ -99,6 +109,7 @@ export class UserlistComponent implements OnInit {
 
       this.user = next;
       this.user.hospital_id = this.currentHospital;
+     
         
     }, (error)=> {this.alertify.error(error)});
     this.editFlag = 1; this.addFlag = 0;

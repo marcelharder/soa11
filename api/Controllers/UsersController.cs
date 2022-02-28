@@ -138,6 +138,9 @@ namespace api.Controllers
             if (id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value)) return Unauthorized();
 
             var user = await _rep.GetUser(up.Id);
+            if(user.Country == null){
+                // get the country from the hospital_id
+            }
             var userupdated = _mapper.mapToUser(up, user);
             _rep.Update(userupdated);
             if (await _rep.SaveAll()) return NoContent();
