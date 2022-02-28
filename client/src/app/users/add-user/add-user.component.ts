@@ -50,8 +50,9 @@ export class AddUserComponent implements OnInit {
     let helpLength = false;
    
     // check for one digit
-    let containsDigit = new RegExp('.*\d.*');
+    let containsDigit = new RegExp('\\d');
     helpDigit = containsDigit.test(test.password);
+    debugger;
     if (!helpDigit) { this.alertify.error("Password should contain digit") };
 
     // check for one Uppercase
