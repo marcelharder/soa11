@@ -33,8 +33,6 @@ export class NavComponent implements OnInit {
    }
   }
 
- 
-
   login(){this.accountService.login(this.model).subscribe((next)=>{
     
     this.accountService.currentUser$.pipe(take(1)).subscribe((u) => { 
@@ -42,7 +40,7 @@ export class NavComponent implements OnInit {
       this.model.username = u.Username;
       this.currentRoles = u.roles;
     })
-     // push the hospitalname to the behavior subject, if the loggedin person is not admin
+     // push the hospitalname to the behavior subject, if the loggedin person is not admin, want hospital_id of the admin  = 0
      if(!this.currentRoles.includes('Admin')){
       this.userService.getUser(this.currentUserId).subscribe((next) => {
         this.hospitalService.getSpecificHospital(next.hospital_id).subscribe((d) => {
@@ -51,12 +49,7 @@ export class NavComponent implements OnInit {
       })
 
      }
-      
-    
-
-
-
-    console.log(next); })}
+     console.log(next); })}
 
   logout(){ 
     this.model.username = "";

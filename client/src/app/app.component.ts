@@ -28,8 +28,7 @@ export class AppComponent implements OnInit {
     if (user) {
       this.accountService.setCurrentUser(user);
       this.presence.createHubConnection(user);
-
-    }
+    }else{this.accountService.setCurrentUser(null)}
     
   }
 

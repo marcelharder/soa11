@@ -124,6 +124,8 @@ export class PreviewreportComponent implements OnInit {
   }
 
   composeAndSendMailMessage() {
+
+   
       this.refEmail = '1';
        this.procedureservice.getRefPhysEmailHash(this.proc.procedureId)
       .subscribe((next) => {
@@ -137,6 +139,7 @@ export class PreviewreportComponent implements OnInit {
         this.email.phone = this.ref.tel,
         this.email.soort = '1';
         this.email.hash = next;
+        debugger;
         this.email.body = 'Dear dr. '+ this.ref.name + ' your patient named ' +
                            this.reportHeader.patient_name + ' was diagnosed with ' +
                            this.reportHeader.diagnosis + ' , we performed a ' +
@@ -261,27 +264,7 @@ export class PreviewreportComponent implements OnInit {
 
 
   canDeactivate() {
-
-   /*  // make a confirm toast
-    this.alertify.warning("<br /><button type='button' value='yes'>Yes</button><button type='button'  value='no' >No</button>",'Are you sure you want to delete this item?',
-    {
-        allowHtml: true,
-        onclick: function (toast) {
-          value = toast.target.value
-          if (value == 'yes') {
-            console.log(toast.target.value, 'carai')  
-          }
-        }
-    
-    })
-
-
-
-
-    this.alertify.confirm('Sure you want to go ?', () => {
-      this.preViewForm.reset();
-      return true;
-    }); */
+  
     return true;
   }
 
