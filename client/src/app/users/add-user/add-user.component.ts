@@ -27,7 +27,7 @@ export class AddUserComponent implements OnInit {
     if (this.checkUserNameIsEmail(this.lm)) {
       if (this.readytobeSentUp(this.lm)) {
         this.auth.register(this.lm).subscribe((next) => {
-          this.auth.currentUser$.pipe(take(1)).subscribe((u) => { this.newUserId = u.UserId; });
+          this.auth.newlyRegisteredUser$.pipe(take(1)).subscribe((u) => { this.newUserId = u.UserId; });
           this.fromUserAdd.emit(this.newUserId);
         }, (error) => { this.alertify.error(error) });
       }
@@ -52,7 +52,7 @@ export class AddUserComponent implements OnInit {
     // check for one digit
     let containsDigit = new RegExp('\\d');
     helpDigit = containsDigit.test(test.password);
-    debugger;
+    
     if (!helpDigit) { this.alertify.error("Password should contain digit") };
 
     // check for one Uppercase

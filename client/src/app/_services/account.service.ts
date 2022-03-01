@@ -16,8 +16,11 @@ export class AccountService {
   baseUrl = environment.apiUrl;
   private currentUserSource = new ReplaySubject<User>(1);
   private currentProcedureSource = new ReplaySubject<number>(1);
+  private newRegisteredUserSource = new ReplaySubject<User>(1);
 
   currentUser$ = this.currentUserSource.asObservable();
+  newlyRegisteredUser$ = this.newRegisteredUserSource.asObservable();
+  
   currentProcedure$ = this.currentProcedureSource.asObservable();
 
   soortProcedure = new BehaviorSubject<string>('0');
@@ -47,7 +50,10 @@ export class AccountService {
      return this.http.post(this.baseUrl + 'account/register', model).pipe(
        map((user: User)=>{
          if (user) {
-          this.currentUserSource.next(user);
+          user.roles=[];
+          const roles = this.getDecodedToken(user.Token).role;
+          Array.isArray(roles) ? user.roles = roles : user.roles.push(roles);
+          this.newRegisteredUserSource.next(user);
          }
        })
      )

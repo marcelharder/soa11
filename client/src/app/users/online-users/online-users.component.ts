@@ -15,15 +15,11 @@ export class OnlineUsersComponent implements OnInit {
 
   ngOnInit(): void {
     this.pres.onlineUserList$.subscribe((next)=>{
-      debugger;
+     
       this.users_online = next});
 
 
-   /*  this.route.data.subscribe((data: { olu: onlineUsers[] }) => {
-      debugger;
-      this.users_online = data.olu;
-     
-  }); */
+  
 
   }
 

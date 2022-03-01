@@ -135,7 +135,7 @@ namespace api.Controllers
         [HttpPut("{id}")]
         public async Task<ActionResult> UpdateUser(UserForUpdateDto up, int id)
         {
-            if (id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value)) return Unauthorized();
+           // if (id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value)) return Unauthorized();
 
             var user = await _rep.GetUser(up.Id);
             if(user.Country == null){

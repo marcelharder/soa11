@@ -53,32 +53,20 @@ export class UserlistComponent implements OnInit {
     this.loadDrops();
     this.getUsers();
   }
-
+  loadDrops() {}
   getUsers() {
     this.userService.getUsers().subscribe(next => {
-
-      this.allUsers = next.result;
+       this.allUsers = next.result;
       this.users = this.allUsers.filter(a => a.hospital_id == this.currentHospital);
-
-
-
-    })
+    }, error=>{this.alertify.error(error)})
   }
 
-  onSelect(data: TabDirective): void {
-    this.value = data.heading;
-  }
+  onSelect(data: TabDirective): void {this.value = data.heading; }
 
   showHospitalDrop() { if (this.value === 'User management') { return true } }
-
-  loadDrops() {
-
-  }
   getPosition(ltk: boolean) { if (ltk) { return "Surgeon" } else { return "Resident" } }
 
-  selectUserPerHospital() {
-    this.users = this.allUsers.filter(a => a.hospital_id == this.currentHospital);
-  }
+  selectUserPerHospital() {this.users = this.allUsers.filter(a => a.hospital_id == this.currentHospital);}
 
   editUser(id: number) {
     this.userService.getUser(id).subscribe((next)=>{
@@ -90,29 +78,21 @@ export class UserlistComponent implements OnInit {
   returnFromUserEdit(ret: User){
     this.userService.updateUser(this.currentUserId, ret).subscribe(
       (next)=>{
-        this.getUsers();
         this.editFlag = 0; this.addFlag = 0;
+        this.getUsers();
       }, 
-      (error)=>{this.alertify.error(error)})
+      (error)=>{
+        this.alertify.error(error)})
   }
 
-  deleteUser(id: number) { }
-
-  Cancel() { this.router.navigate(['users']) }
-
-  AddUser() {
-     this.editFlag = 0; this.addFlag = 1; }
+  AddUser() {this.editFlag = 0; this.addFlag = 1; }
 
   returnFromAddUser(newUserId: number){
-    debugger;
     this.userService.getUser(newUserId).subscribe((next)=>{
-
       this.user = next;
       this.user.hospital_id = this.currentHospital;
-     
-        
+      this.editFlag = 1; this.addFlag = 0;
     }, (error)=> {this.alertify.error(error)});
-    this.editFlag = 1; this.addFlag = 0;
   }
 
   cancelAdd(){this.editFlag = 0; this.addFlag = 0;};
@@ -121,7 +101,8 @@ export class UserlistComponent implements OnInit {
   showEdit() { if (this.editFlag === 1) return true; }
   showAdd() { if (this.addFlag === 1) return true; }
 
-
+  deleteUser(id: number) { }
+  Cancel() { this.router.navigate(['users']) }
 }
 
 
