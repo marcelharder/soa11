@@ -101,7 +101,13 @@ export class UserlistComponent implements OnInit {
   showEdit() { if (this.editFlag === 1) return true; }
   showAdd() { if (this.addFlag === 1) return true; }
 
-  deleteUser(id: number) { }
+  deleteUser(id: number) {
+    this.userService.deleteUser(id).subscribe((next)=>{
+      this.alertify.show("User removed ..");
+      this.getUsers();
+    
+    })
+   }
   Cancel() { this.router.navigate(['users']) }
 }
 

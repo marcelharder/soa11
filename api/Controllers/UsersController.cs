@@ -20,6 +20,7 @@ namespace api.Controllers
 {
   
     [ServiceFilter(typeof(LogUserActivity))] // this records the last user activity
+    
    
     public class UsersController : BaseApiController
     {
@@ -179,10 +180,10 @@ namespace api.Controllers
             return BadRequest("Could not add the photo ...");
         }
 
+        [Authorize(Policy = "RequireAdminRole")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser(int id)
         {
-            if (id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value)) return Unauthorized();
             var user = await _rep.GetUser(id);
             _rep.Delete(user);
             if (await _rep.SaveAll()) return Ok("User deleted ...");
