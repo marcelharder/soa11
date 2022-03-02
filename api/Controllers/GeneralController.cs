@@ -127,7 +127,27 @@ namespace api.Controllers
             }
             return Ok(result);
         }
-#endregion
+        #endregion
+        #region <!-- SMS stuff -->
+        [HttpPost]
+        [AllowAnonymous]
+        [Route("sendSMS")]
+        public async Task<IActionResult> postSMSAsync(smsDTO em)
+        {
+            var comaddress = _com.Value.smsURL;
+            string result = "";
+            var jsonString = JsonSerializer.Serialize(em);
+            var payLoad = new StringContent(jsonString, Encoding.UTF8, "application/json");
+            using (var httpClient = new HttpClient())
+            {
+                using (var response = await httpClient.PostAsync(comaddress, payLoad))
+                {
+                    result = await response.Content.ReadAsStringAsync();
+                }
+            }
+            return Ok(result);
+        }
+        #endregion
 
         #region <!-- valve stuff -->
       
@@ -209,84 +229,7 @@ namespace api.Controllers
 
 #endregion
 
-        /*  [HttpGet]
-         [AllowAnonymous]
-         [Route("api/loadHospitals/{id}")]
-         public  async Task<IActionResult> Get(int id) // get the hospitals where this surgeon worked
-         {
-             var result = new List<string>();
-             var userFromRepo = _repo.GetUser(id);
-             var hospitalString = userFromRepo.Result.worked_in; // bv. "12,34,6"
-             List<int> help = hospitalString.Split(',').Select(s=>int.Parse(s)).ToList(); // now I have a list of integers
-             foreach(int x in help){
-                 var h = await _sp.getHospital(x);
-                 result.Add(h.HospitalName);}
-             return Ok(result);
-         }
-
-          // get all hospitals this surgeon worked in
-         [HttpGet("api/hospital_worked_in/{id}")]
-         [AllowAnonymous]
-         public IActionResult GetHospitalsThisSurgeonWorkedIn(int id){
-             var result = _hos.GetAllHospitalsThisSurgeonWorkedIn(id);
-             return Ok(result);
-         }
-
-         [HttpGet]
-         [AllowAnonymous]
-         [Route("api/loadButtonActions/{id}")]
-         public IActionResult GetButtons(int id){
-             var result = _sp.getButtonsActions(id);
-             return Ok(result);
-         }
-
-         [HttpGet]
-         [AllowAnonymous]
-         [Route("api/loadReportCode/{id}")]
-         public IActionResult GetRC(int id){// get the correct report code for this procedure type, used in preview reports
-             var result = _sp.getReportCode(id);
-             return Ok(result);
-         }
-
-         [HttpGet]
-         [AllowAnonymous]
-         [Route("api/patientFromMRN/{id}")]
-         public async Task<ActionResult> GetMRN(string id)
-         { 
-             var p = await _rep.GetPatientFromMRN(id);
-             return Ok(p);
-         }
-
-
-
-         [HttpGet("api/cabgDescriptions/{id}")]
-         [AllowAnonymous]
-         public async Task<Class_CABG> Gettest01Async(int id)
-         {
-             var selectedCABG = await _cabg.GetSpecificCABG(id);
-             return await _sp.translateToDescriptions(selectedCABG);
-         }
-
-         [HttpGet("api/valveDescriptionFromModel/{model}.{format}"), FormatFilter]
-         [AllowAnonymous]
-         public async Task<IActionResult> Gettest02Async(string model)
-         {
-             var result = await _valve.getValveDescriptionFromModel(model);
-             return Ok(result);
-         }
-
-         [Route("api/procedureIdFromPatientId/{patientId}/{userId}")]
-         public async Task<IActionResult> getiets(int patientId, int userId) {
-             if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value)) return Unauthorized();
-             var result = await _proc.getProcedureIdFromPatientId(patientId, userId);
-             return Ok(result);
-         }
-
-         [Route("api/operatedElseWhere/{patientId}/{userId}")]
-         public async Task<IActionResult> getookiets(int patientId, int userId) {
-             var result = await _proc.getOperatedElseWhere(patientId, userId);
-             return Ok(result);
-         } */
+             
 
     }
 }

@@ -6,6 +6,7 @@ export interface EmailModel {
     body: string,
     phone: string,
     surgeon: string,
+    cardiologist: string,
     surgeon_image: string,
     soort: string,
     hash: string

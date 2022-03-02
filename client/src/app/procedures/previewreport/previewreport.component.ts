@@ -67,7 +67,7 @@ export class PreviewreportComponent implements OnInit {
   valveDetails: Valve;
   // tslint:disable-next-line:max-line-length
   ref: RefPhysModel = { Id: 0, hospital_id: 0, name: '', image: '', address: '', street: '', postcode: '', city: '', state: '', country: '', tel: '', fax: '', email: '', send_email: false, active: false };
-  email: EmailModel = { id: 0, from: '', to: '', subject: '', body: '', surgeon: '', phone: '',surgeon_image: '', soort: '', hash: '' };
+  email: EmailModel = { id: 0, from: '', to: '', subject: '', body: '', surgeon: '', phone: '',surgeon_image: '', soort: '', hash: '' ,cardiologist:''};
   MitralValveDetails = { Model: '', Serial: '', Size: '' };
   AorticValveDetails = { Model: '', Serial: '', Size: '' };
 
@@ -134,6 +134,7 @@ export class PreviewreportComponent implements OnInit {
         this.email.from = 'info@cardiacsoftwaredevelopers.com';
         this.email.subject = 'Procedure notification';
         this.email.surgeon = this.currentUserName;
+        this.email.cardiologist = this.ref.name;
         this.email.surgeon_image = this.reportHeader.surgeon_picture;
         this.email.to = this.ref.email;
         this.email.phone = this.ref.tel,

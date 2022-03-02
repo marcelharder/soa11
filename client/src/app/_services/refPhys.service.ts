@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { RefPhysModel } from '../_models/RefPhysModel';
 import { dropItem } from '../_models/dropItem';
 import { EmailModel } from '../_models/EmailModel';
+import { SMSModel } from '../_models/SMSModel';
 
 @Injectable()
 export class RefPhysService {
@@ -24,6 +25,10 @@ export class RefPhysService {
     sendEmail(e: EmailModel) // Use the config service to send email
     {
         return this.http.post<string>(this.baseUrl + 'General/sendEmail', e,{ responseType: 'text' as 'json' });
+    }
+    sendSMS(e: SMSModel) // Use the config service to send email
+    {
+        return this.http.post<string>(this.baseUrl + 'General/sendSMS', e,{ responseType: 'text' as 'json' });
     }
 
 
