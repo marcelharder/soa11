@@ -23,7 +23,7 @@ export class RefPhysService {
 
     sendEmail(e: EmailModel) // Use the config service to send email
     {
-        return this.http.post<string>(this.baseUrl + 'sendEmail', e,{ responseType: 'text' as 'json' });
+        return this.http.post<string>(this.baseUrl + 'General/sendEmail', e,{ responseType: 'text' as 'json' });
     }
 
 

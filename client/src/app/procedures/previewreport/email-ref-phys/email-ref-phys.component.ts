@@ -29,10 +29,13 @@ export class EmailRefPhysComponent implements OnInit {
   Send(){
     //send the email to the email service
     this.refPhys.sendEmail(this.email).subscribe((nex) => {
+      debugger;
       this.alertify.show(nex);
       this.sendCancel.emit('1');
     },
-    (error)=>{this.alertify.error('Sending email failed ...' + error);});
+    (error)=>{
+      debugger;
+      this.alertify.error('Sending email failed ...' + error);});
   }
 
 }
