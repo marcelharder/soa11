@@ -10,7 +10,7 @@ services:
     volumes:
       - mariadb-data:/var/lib/mysql
   comservice:
-    image: comservice:v1
+    image: comservice:v2
     restart: always
     networks: 
      - internal-container-network  

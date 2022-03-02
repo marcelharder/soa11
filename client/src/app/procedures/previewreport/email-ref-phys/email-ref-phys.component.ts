@@ -100,7 +100,6 @@ export class EmailRefPhysComponent implements OnInit {
 
 
     if (this.sms.Phone !== '' && this.sms.Body !== '') {
-
       this.refPhys.sendSMS(this.sms).subscribe((nex) => {
         this.alertify.show(nex);
         this.sendCancel.emit('1');
