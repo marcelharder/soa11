@@ -134,6 +134,9 @@ import { OnlineUsersComponent } from './users/online-users/online-users.componen
 import { UserdetailsComponent } from './users/userdetails/userdetails.component';
 import { OnlineUserResolver } from './_resolvers/OnlineUser.resolver ';
 import { AddUserComponent } from './users/add-user/add-user.component';
+import { AddhospitalComponent } from './admin/addhospital/addhospital.component';
+import { EdithospitalComponent } from './admin/edithospital/edithospital.component';
+import { ListhospitalsComponent } from './admin/listhospitals/listhospitals.component';
 
 @NgModule({
   declarations: [
@@ -200,7 +203,10 @@ import { AddUserComponent } from './users/add-user/add-user.component';
     RolesModalComponent,
     OnlineUsersComponent,
     UserdetailsComponent,
-    AddUserComponent
+    AddUserComponent,
+    AddhospitalComponent,
+    EdithospitalComponent,
+    ListhospitalsComponent
     
   ],
   imports: [

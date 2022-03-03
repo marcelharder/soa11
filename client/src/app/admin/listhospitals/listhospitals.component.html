@@ -1,0 +1,44 @@
+<div class="card m-5">
+    <div class="card-header">
+        <h5><span class="badge badge-info">List of hospitals</span></h5>
+    </div>
+    <div class="card-body">
+        <div class="container">
+            <div class="row">
+                <table class="table">
+                    <tr>
+                        <th style="width: 30%;">Name</th>
+                        <th style="width: 40%;">Country</th>
+                        <th style="width: 15%;"></th>
+                        <th style="width: 15%;"></th>
+                    </tr>
+                    <tr *ngFor="let hos of hospitals">
+                      <td class="fa-fa-person">
+                          {{hos.UserName}}
+                      </td>
+                      <td>
+                        {{hos.name}}
+                    </td>
+                    <td>
+                        <button class="btn btn-info" (click)="editHospital(hos.Id)">Edit Hospital</button>
+                    </td>
+                    <td>
+                        <button class="btn btn-info" (click)="deleteHospital(hos.Id)">Delete Hospital</button>
+                    </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                        <button type="button" class="btn btn-danger" (click)="Cancel()">Cancel</button>
+                        <button type="button" class="btn btn-success"  (click)="addHospital()">Add</button>
+                      </div>
+                </div>
+                <div class="col-sm-6"></div>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer"></div>
+</div>
+
