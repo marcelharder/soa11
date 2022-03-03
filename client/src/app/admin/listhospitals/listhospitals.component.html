@@ -20,6 +20,7 @@
     </div>
     <div class="card-body">
         <div class="container">
+            <div *ngIf="showList()">
             <div class="row">
                 <table class="table">
                     <tr>
@@ -36,10 +37,10 @@
                         {{hos.hospitalName}}
                     </td>
                     <td>
-                        <button class="btn btn-info" (click)="editHospital(hos.hospitalname)">Edit Hospital</button>
+                        <button class="btn btn-info" (click)="editHospital(hos.hospitalNo)">Edit Hospital</button>
                     </td>
                     <td>
-                        <button class="btn btn-info" (click)="deleteHospital(hos.Id)">Delete Hospital</button>
+                        <button class="btn btn-info" (click)="deleteHospital(hos.hospitalNo)">Delete Hospital</button>
                     </td>
                     </tr>
                 </table>
@@ -54,8 +55,9 @@
                 <div class="col-sm-6"></div>
             </div>
         </div>
-        <div *ngIf="showAdd()" ><app-addhospital (pushResult)="backFromAdd($event)" ></app-addhospital></div>
-        <div *ngIf="showEdit()"><app-edithospital [hospital]="selectedHospital" (pushHospital)="backFromEdit($event)"></app-edithospital></div>
+        </div>
+        <div *ngIf="showAdd()" ><app-addhospital [selectedCountry]="selectedCountry" (pushResult)="receiveSelectedCountry($event)"  (cancelThis)="backFromAdd($event)"></app-addhospital></div>
+        <div *ngIf="showEdit()"><app-edithospital [pd]="selectedHospital" (cancelThis)="backFromEdit($event)"></app-edithospital></div>
     </div>
     <div class="card-footer"></div>
 </div>

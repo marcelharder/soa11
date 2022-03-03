@@ -39,10 +39,10 @@ export class WorkedInComponent implements OnInit {
 
     ngOnInit(): void {
         // get the currentUser from account
-        this.Auth.currentUser$.pipe(take(1)).subscribe((u) => { 
+        this.Auth.currentUser$.pipe(take(1)).subscribe((u) => {
             this.currentUserId = u.UserId;
-            this.currentUserName= u.Username;
-         });
+            this.currentUserName = u.Username;
+        });
 
         this.drop.getHospitals(this.currentUserId).subscribe(response => {
             this.OptionActiveHospitals = response;

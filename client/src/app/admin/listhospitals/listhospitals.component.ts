@@ -20,7 +20,10 @@ export class ListhospitalsComponent implements OnInit {
   addFlag = 0;
   listFlag = 1;
 
-  constructor(private hospitalService: HospitalService, private router: Router, private alertify: ToastrService) { }
+  constructor(
+    private hospitalService: HospitalService, 
+    private router: Router, 
+    private alertify: ToastrService) { }
 
   ngOnInit(): void {
     this.loadDrops();
@@ -44,29 +47,50 @@ export class ListhospitalsComponent implements OnInit {
 
   showAdd(){if(this.addFlag === 1){return true;}}
   showEdit(){if(this.editFlag === 1){return true;}}
+  showList(){if(this.listFlag === 1){return true;}}
 
   Cancel() { this.router.navigate(['/']) }
 
   addHospital() {
     this.addFlag = 1;
     this.editFlag = 0;
+    this.listFlag = 0;
    }
-
-   backFromAdd(ret: any){}
-
+   editHospital(ret: string) {
+    this.hospitalService.getSpecificHospital(+ret).subscribe((next)=>{ 
+      debugger;
+      this.selectedHospital = next});
+    this.addFlag = 0;
+    this.listFlag = 0;
+    this.editFlag = 1;
+  }
   deleteHospital(ret: string) {
     this.addFlag = 0;
     this.editFlag = 0;
-    this.hospitalService.deleteHospital(ret).subscribe((next)=>{this.alertify.show("Hospital removed ...")})
+    this.listFlag = 1;
+    this.hospitalService.deleteHospital(ret).subscribe((next)=>{this.alertify.show("Hospital removed ...")});
+    this.filterCountry();
   }
 
-  editHospital() {
+   backFromAdd(ret: any){
     this.addFlag = 0;
-    this.editFlag = 1;
+    this.listFlag = 1;
+    this.editFlag = 0;
+   }
+
+   backFromEdit(ret: any){
+    this.addFlag = 0;
+    this.listFlag = 1;
+    this.editFlag = 0;
   }
 
-  backFromEdit(ret: any){}
-
+  receiveSelectedCountry(ret: number){
+    this.selectedCountry = ret;
+    this.filterCountry();
+    this.addFlag = 0;
+    this.listFlag = 1;
+    this.editFlag = 0;
+  }
 
 
 }

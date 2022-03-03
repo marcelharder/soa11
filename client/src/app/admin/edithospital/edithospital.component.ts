@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Hospital } from 'src/app/_models/Hospital';
+import { HospitalService } from 'src/app/_services/hospital.service';
 
 @Component({
   selector: 'app-edithospital',
@@ -6,10 +8,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./edithospital.component.css']
 })
 export class EdithospitalComponent implements OnInit {
+  @Input() pd?: Hospital;
+  @Output() cancelThis = new EventEmitter<number>();
 
-  constructor() { }
+  constructor(private hospitalservice: HospitalService) { }
 
   ngOnInit(): void {
+  }
+
+  Cancel() { this.cancelThis.emit(1); }
+  Save(){
+  this.hospitalservice.saveHospital(this.pd).subscribe((next)=>{
+    this.cancelThis.emit(1);
+  })
   }
 
 }
