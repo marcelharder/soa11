@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import { dropItem } from 'src/app/_models/dropItem';
 import { Hospital } from 'src/app/_models/Hospital';
 import { DropdownService } from 'src/app/_services/dropdown.service';
 import { HospitalService } from 'src/app/_services/hospital.service';
@@ -12,7 +13,7 @@ import { HospitalService } from 'src/app/_services/hospital.service';
 export class AddhospitalComponent implements OnInit {
   @Output() pushResult = new EventEmitter<number>();
   @Output() cancelThis = new EventEmitter<number>();
-  @Input() selectedCountry = 0;
+  @Input() selectedCountry: number;
 
   pd: Hospital = {
     hospitalName: '',
@@ -35,6 +36,8 @@ export class AddhospitalComponent implements OnInit {
     OpReportDetails9: ''
   };
 
+  
+
   constructor(private hospitalService: HospitalService, 
     private alertify: ToastrService,
     private drop: DropdownService) { }
@@ -42,13 +45,22 @@ export class AddhospitalComponent implements OnInit {
   ngOnInit(): void {
   
   }
+
+ 
   
-  translateCountryInISO(test: number){}
+  translateCountryNumberInISO(test: number){
+
+  }
 
   Save(){
-   this.hospitalService.addHospital(this.selectedCountry, +this.pd.hospitalNo).subscribe((next)=>{
+    this.hospitalService.addHospital(this.selectedCountry, +this.pd.hospitalNo).subscribe((next)=>{
     // get the rest from the entered data and update the hospital
-    next = this.pd;
+    next.hospitalName = this.pd.hospitalName;
+    next.hospitalNo = this.pd.hospitalNo;
+    next.address = this.pd.address;
+    next.telephone = this.pd.telephone;
+    next.selected_hospital_name = this.pd.selected_hospital_name;
+
     this.hospitalService.saveHospital(next).subscribe(()=>{
     this.pushResult.emit(this.selectedCountry);
     })

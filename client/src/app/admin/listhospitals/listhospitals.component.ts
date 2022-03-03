@@ -27,8 +27,7 @@ export class ListhospitalsComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadDrops();
-    this.hospitalService.allHospitals().subscribe((next)=>{
-      this.hospitals = next;})
+   this.filterCountry();
   }
 
   loadDrops(){

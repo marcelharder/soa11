@@ -22,5 +22,6 @@ export class EdithospitalComponent implements OnInit {
     this.cancelThis.emit(1);
   })
   }
+  updatePhoto(photoUrl: string) { this.pd.imageUrl = photoUrl;}
 
 }

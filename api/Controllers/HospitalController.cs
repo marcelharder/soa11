@@ -74,7 +74,7 @@ namespace api.Controllers
         public IActionResult GetHospital(int id)
         {
             var result = _hos.GetSpecificHospital(id.ToString().makeSureTwoChar());
-            result.country = _map.getCountryNameFromISO(result.country);
+            // result.country = _map.getCountryNameFromISO(result.country);
             return Ok(result);
         }
 
@@ -89,6 +89,7 @@ namespace api.Controllers
         public async Task<IActionResult> PutHospitalAsync([FromBody] HospitalForReturnDTO hr)
         {
             var h = await _hos.getClassHospital(hr.hospitalNo);
+            
             Class_Hospital ch = _map.mapToHospital(hr, h);
             return Ok(await _hos.updateHospital(ch));
         }

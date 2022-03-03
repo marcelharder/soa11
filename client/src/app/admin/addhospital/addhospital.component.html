@@ -19,6 +19,15 @@
                         </div>
                         <div class="row">
                           <div class="col-sm-4">
+                              <h4><span class="badge badge-secondary">City:</span></h4>
+                          </div>
+                          <div class="col-sm-8">
+                              <input type="text" [(ngModel)]="pd.city" name="city" class="form-control"
+                                   />
+                          </div>
+                      </div>
+                        <div class="row">
+                          <div class="col-sm-4">
                               <h4><span class="badge badge-secondary">Code:</span></h4>
                           </div>
                           <div class="col-sm-8">
@@ -37,10 +46,10 @@
                         </div>
                         <div class="row">
                             <div class="col-sm-4">
-                                <h4><span class="badge badge-secondary">Country:</span></h4>
+                                <h4><span class="badge badge-secondary">Alias:</span></h4>
                             </div>
                             <div class="col-sm-8">
-                                <input type="text" [(ngModel)]="pd.country" name="country" class="form-control"
+                                <input type="text" [(ngModel)]="pd.selected_hospital_name" name="country" class="form-control"
                                      />
                             </div>
                         </div>
@@ -120,7 +129,7 @@
             <div class="col-sm-6">
                 <div class="btn-group" role="group" aria-label="Basic mixed styles example">
                     <button type="button" class="btn btn-danger" (click)='Cancel()'>Cancel</button>
-                    <button type="submit" class="btn btn-success" (click)="Save()">Add User</button>
+                    <button type="submit" class="btn btn-success" (click)="Save()">Add</button>
                 </div>
             </div>
             <div class="col-sm-6"></div>

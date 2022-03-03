@@ -4,7 +4,7 @@
     </div>
     <div class="card-body">
         <div class="row">
-            <div class="col-sm-6">
+            <div class="col-sm-4">
                 <div class="card">
                     <div class="card-header">General details</div>
                     <div class="card-body">
@@ -47,7 +47,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-6">
+            <div class="col-sm-4">
                 <div class="card">
                     <div class="card-header">Reporting details</div>
                      <div class="card-body">
@@ -104,6 +104,15 @@
                     </div>
                 </div>
             </div>
+            <div class="col-sm-4">
+              <div class="card">
+                <img class="card-img-top img-thumbnail" src="{{ pd.imageUrl }}" alt="test"  />
+              </div>
+              <div class="footer mt-2">
+                <app-photo-editor [hospitalId]="pd.hospitalNo" [userId]="0" [refId]="0" (getMemberPhotoChange)="updatePhoto($event)">
+                </app-photo-editor>
+              </div>
+            </div>
         </div>
     </div>
     <div class="card-footer">
@@ -111,7 +120,7 @@
             <div class="col-sm-6">
                 <div class="btn-group" role="group" aria-label="Basic mixed styles example">
                     <button type="button" class="btn btn-danger" (click)='Cancel()'>Cancel</button>
-                    <button type="submit" class="btn btn-success" (click)="Save()">Update User</button>
+                    <button type="submit" class="btn btn-success" (click)="Save()">Update</button>
                 </div>
             </div>
             <div class="col-sm-6"></div>
