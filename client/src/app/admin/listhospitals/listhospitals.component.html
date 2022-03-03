@@ -1,26 +1,42 @@
 <div class="card m-5">
     <div class="card-header">
-        <h5><span class="badge badge-info">List of hospitals</span></h5>
+        <div class="row">
+            <div class="col-sm-6"> <h5><span class="badge badge-info">List of hospitals</span></h5></div>
+            <div class="col-sm-6">
+                <div>
+                    <div class="row">
+                        <div class="col-sm-4"><h5><span class="badge badge-secondary">Select by country</span></h5></div>
+                        <div class="col-sm-4"><select [(ngModel)]="selectedCountry" name="test1" class="form-control">
+                            <option *ngFor="let an of listOfCountries" [value]=an.value>{{ an.description }}</option>
+                          </select>
+                        </div>
+                        <div class="col-sm-4"><button class="btn bth-primary btn-xs" (click)="filterCountry()">Go</button></div>
+                    </div>
+                </div>
+                
+                </div>
+        </div>
+       
     </div>
     <div class="card-body">
         <div class="container">
             <div class="row">
                 <table class="table">
                     <tr>
-                        <th style="width: 30%;">Name</th>
-                        <th style="width: 40%;">Country</th>
+                        <th style="width: 30%;">Id</th>
+                        <th style="width: 40%;">Name</th>
                         <th style="width: 15%;"></th>
                         <th style="width: 15%;"></th>
                     </tr>
                     <tr *ngFor="let hos of hospitals">
                       <td class="fa-fa-person">
-                          {{hos.UserName}}
+                          {{hos.hospitalNo}}
                       </td>
                       <td>
-                        {{hos.name}}
+                        {{hos.hospitalName}}
                     </td>
                     <td>
-                        <button class="btn btn-info" (click)="editHospital(hos.Id)">Edit Hospital</button>
+                        <button class="btn btn-info" (click)="editHospital(hos.hospitalname)">Edit Hospital</button>
                     </td>
                     <td>
                         <button class="btn btn-info" (click)="deleteHospital(hos.Id)">Delete Hospital</button>
@@ -38,6 +54,8 @@
                 <div class="col-sm-6"></div>
             </div>
         </div>
+        <div *ngIf="showAdd()" ><app-addhospital (pushResult)="backFromAdd($event)" ></app-addhospital></div>
+        <div *ngIf="showEdit()"><app-edithospital [hospital]="selectedHospital" (pushHospital)="backFromEdit($event)"></app-edithospital></div>
     </div>
     <div class="card-footer"></div>
 </div>
