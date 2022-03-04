@@ -26,7 +26,10 @@ export class UserdetailsComponent implements OnInit {
   this.loadDrops();
   }
 
-  updateUserDetails(){ this.fromUserEdit.emit(this.user);}
+  updateUserDetails(){ 
+    this.user.worked_in = this.user.hospital_id.toString();
+    this.fromUserEdit.emit(this.user);
+  }
 
   Cancel(){this.cancelThis.emit(1)};
 
