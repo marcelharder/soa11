@@ -1,13 +1,11 @@
-<div class="row">
+<div class="row"  [hidden]="showDetailsPanel()">
     <div class="d-flex p-2 bd-highlight">
-      <div class="p-2 bd-highlight">
-        <h4>Identification #:</h4>
-      </div>
+      <div class="p-2 bd-highlight"> <h5>Identification</h5></div>
       <div class="p-2 bd-highlight"><input type=text class=form-control name=mrn [(ngModel)]="mrn" /></div>
       <div class="p-2 bd-highlight"><button (click)=openModal(template) class="btn btn-xxs btn-secondary">?</button></div>
-      <div class="p-2 bd-highlight">
-        
-        <button class="btn btn-warning" (click)=showDetails(patienttemplate)>Find patient details</button>
+      <div class="p-2 bd-highlight"><button class="btn btn-warning" (click)=showDetails(patienttemplate)><h6>Find patient details</h6>
+      </button>
+
         <ng-template #patienttemplate>
           <div class="modal-body text-center">
             <p>This patient is not in the database, you want to add the details now ?</p>

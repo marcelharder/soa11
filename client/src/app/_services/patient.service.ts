@@ -25,7 +25,7 @@ export class PatientService {
     updatePatient(p: Patient, id: number) { return this.http.put<Patient>(this.baseUrl + 'patient/' + id, p); }
 
     // tslint:disable-next-line:max-line-length
-    getProceduresFromPatientId(mrn: string) { return this.http.get<number[]>(this.baseUrl + 'proceduresFromPatientId/' + mrn); }
+    getProceduresFromPatientId(mrn: string) { return this.http.get<number[]>(this.baseUrl + 'General/proceduresFromPatientId/' + mrn); }
 
     operatedElsewhere(patientId: number, userId: number) { return this.http.get<number>(this.baseUrl + 'operatedElseWhere/' + patientId + '/' + userId); }
 }
