@@ -64,7 +64,9 @@ namespace api.Implementations
             var updatedPatient = _maps.mapFromDischargeForUpdate_1(p,patient);
             
             var updatedPostop = _maps.mapFromDischargeForUpdate_2(p, postop);
+            
             var result_1 = await _ipo.updatePostOp(updatedPostop);
+
             var result_2 = await _pat.updatePatient(updatedPatient);
             return result_1;
         }

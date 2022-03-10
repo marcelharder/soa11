@@ -59,13 +59,14 @@ namespace api.Implementations
         }
         public async Task<int> updatePostOp(Class_PostOp p)
         {
+            var res = 0;
             _context.Update(p);
-            if (await _context.SaveChangesAsync() > 0)
-            {
-                _context.Update(await updateVLADAsync());
-                if (await _context.SaveChangesAsync() > 0) { return 1; }
+            if (await _context.SaveChangesAsync() > 0){ res = 1; }
+            if(res == 1){
+                 _context.Update(await updateVLADAsync());
+                if (await _context.SaveChangesAsync() > 0) { res = 1; }
             }
-            return 2;
+            return res;
         }
         private async Task<ClassTableVlad> updateVLADAsync()
         {

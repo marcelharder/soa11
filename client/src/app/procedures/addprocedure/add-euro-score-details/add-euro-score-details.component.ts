@@ -80,7 +80,7 @@ export class AddEuroScoreDetailsComponent implements OnInit {
             mrn: '',
             age: 65,
             gender: '0',
-            creat: 50,
+            creat_number: 50,
             weight: 70,
             height: 172,
         }
@@ -155,7 +155,7 @@ export class AddEuroScoreDetailsComponent implements OnInit {
         let error = '';
         if (this.checkAge(this.patient.age)) {
             if (this.patient.gender !== '0') {
-                if (this.patient.creat > 0) {
+                if (this.patient.creat_number > 0) {
                     if (this.patient.height > 0) {
                         if (this.patient.weight > 0) { error = 'Alles compleet'; } else { error = 'Please enter weight'; }
                     } else { error = 'Please enter height'; }
