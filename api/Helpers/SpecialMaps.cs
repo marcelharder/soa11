@@ -328,20 +328,11 @@ namespace api.Helpers
         {
             if (await _context.Procedures.AnyAsync(x => x.PatientId == id))
             {
-                //var reportCode = "";
                 var selectedProcedure = await _context.Procedures.FirstOrDefaultAsync(x => x.PatientId == id);
-                /* var contentRoot = _env.ContentRootPath;
-                var filename = Path.Combine(contentRoot, "data/config/procedure.xml");
-                XDocument order = XDocument.Load(filename);
-                IEnumerable<XElement> help = from d in order.Descendants("Code")
-                                             where d.Element("ID").Value == selectedProcedure.fdType.ToString()
-                                             select d;
-                foreach (XElement x in help) { reportCode = x.Element("report_code").Value; } */
+               
                 var selectedpatient = await _context.Patients.FirstOrDefaultAsync(x => x.PatientId == id);
-                if (!this.getEligibleForEuroscoreCalculation(selectedProcedure.fdType)) // there is no need to ask for the log_score, bv rethoracotomy for bleeding
-                {
-                    return "N/A";
-                }
+                if (!this.getEligibleForEuroscoreCalculation(selectedProcedure.fdType)) 
+                 {return "N/A";}// there is no need to ask for the log_score, bv rethoracotomy for bleeding
                 else
                 {
                     if (String.IsNullOrEmpty(selectedpatient.log_score)) { return "No"; }
@@ -569,19 +560,7 @@ namespace api.Helpers
             return help;
         }
 
-        /*   internal string getValveTypeDescription(string input)
-         {
-             var result = "";
-
-             var contentRoot = _env.ContentRootPath;
-             var filename = Path.Combine(contentRoot, "data/config/language_file.xml");
-             XDocument order = XDocument.Load(filename);
-             IEnumerable<XElement> help = from d in order.Descendants("valve_type").Elements("items")
-                                          where d.Element("value").Value == input
-                                          select d;
-             foreach (XElement v in help) { result = v.Element("description").Value; }
-             return result;
-         } */
+        
 
         #endregion
     }

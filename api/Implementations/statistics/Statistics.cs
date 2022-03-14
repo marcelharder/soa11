@@ -33,11 +33,6 @@ namespace api.Implementations.statistics
             double _cum_log_score = 0;
             int _dead = 0;
 
-            /*    var procedures = _context.Procedures.AsQueryable();
-               procedures = procedures.Where(s => s.SelectedSurgeon == _special.getCurrentUserId()); // filter on the current loggedin surgeon
-               if(hospitalId != 0){
-               procedures = procedures.Where(s => s.hospital == id);// filter on the requested hospital
-    */
             var procedures = new List<Class_Procedure>();
             var elibleProcedures = new List<Class_Procedure>();
             if (hospitalId != 0)
@@ -66,15 +61,12 @@ namespace api.Implementations.statistics
                     if (_log_score != 0.0)
                     {
                         if (await calculate_bonus_malusAsync(_dead, p.ProcedureId))
-                        {
-                            _point_log_score = _log_score / 100;
-                            _cum_log_score = _cum_log_score + _point_log_score;
-                        }
+                        { _point_log_score = _log_score / 100;} // get credit for not killing the patient
                         else
-                        {
-                            _point_log_score = (_log_score - 100) / 100;
-                            _cum_log_score = _cum_log_score + _point_log_score;
+                        { _point_log_score = (_log_score - 100) / 100; // surgical death
                         };
+                        _cum_log_score = _cum_log_score + _point_log_score;
+
                         yas.Add(Math.Round(_cum_log_score, 2));
                         xas.Add(aantal_results.ToString());
                         aantal_results = aantal_results + 1;

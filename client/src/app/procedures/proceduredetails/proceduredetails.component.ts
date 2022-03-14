@@ -6,6 +6,7 @@ import { take } from 'rxjs/operators';
 import { CandA } from 'src/app/_models/CandA';
 import { ProcedureDetails } from 'src/app/_models/procedureDetails';
 import { AccountService } from 'src/app/_services/account.service';
+import { PatientService } from 'src/app/_services/patient.service';
 import { ProcedureService } from 'src/app/_services/procedure.service';
 
 @Component({
@@ -14,8 +15,12 @@ import { ProcedureService } from 'src/app/_services/procedure.service';
   styleUrls: ['./proceduredetails.component.css']
 })
 export class ProceduredetailsComponent implements OnInit {
-  id=0;
-  
+  id = 0;
+  currentPatientId = 0;
+  dischargeFlag = 0;
+  foundProcedures: Array<number> = [];
+  procedures: Array<ProcedureDetails> = [];
+
   currentHospitalName = "";
   destinationUrl = 'detailsMain';
   procedureDescription = '';
@@ -27,7 +32,7 @@ export class ProceduredetailsComponent implements OnInit {
   button_4 = 'button 4'; button_5 = 'button 5'; button_6 = 'button 6';
   button_7 = ''; button_8 = '';
 
-  
+
   action_1 = '/about'; action_2 = '/home'; action_3 = '/users';
   action_4 = '/about'; action_5 = '/home'; action_6 = '/users';
   action_7 = ''; action_8 = '';
@@ -40,6 +45,7 @@ export class ProceduredetailsComponent implements OnInit {
   constructor(
     private router: Router,
     private procedureService: ProcedureService,
+    private patientService: PatientService,
     private modalService: BsModalService,
     private auth: AccountService,
     private alertify: ToastrService) { }
@@ -47,15 +53,18 @@ export class ProceduredetailsComponent implements OnInit {
   ngOnInit(): void {
 
     this.auth.currentHospitalName.subscribe((next) => {
-      this.currentHospitalName = next; 
-     
-    
+      this.currentHospitalName = next;
+
+
     });
-    
+
     this.auth.currentProcedure$.pipe(take(1)).subscribe((u) => {
-       this.id = u;
+      this.id = u;
+
     })
     this.procedureService.getProcedure(this.id).subscribe((result) => {
+      this.currentPatientId = result.patientId;
+      this.shouldDischargeButtonBeShown(this.currentPatientId);
       this.procedureDescription = result.description;
 
       this.procedureService.getButtonsAndCaptions(result.fdType).subscribe(response => {
@@ -77,9 +86,43 @@ export class ProceduredetailsComponent implements OnInit {
     this.goToDestination(this.destinationUrl);
   }
 
+  shouldDischargeButtonBeShown(id: number) {
+    // the idea here is that if there are multiple procedures for this patient only the first procedure has a discharge button
+    let MRN = '';
+    this.patientService.getPatientFromId(id).subscribe((next) => {
+      MRN = next.mrn;
+      this.patientService.getProceduresFromPatientId(MRN).subscribe((next) => {
+        this.foundProcedures = next;
+        if (this.foundProcedures.length === 1) { this.dischargeFlag = 1; };
+        if (this.foundProcedures.length > 1) {
+          this.procedures = [];
+          for (let i = 0; i < this.foundProcedures.length; i++) {
+            this.procedureService.getProcedure(this.foundProcedures[i]).subscribe((next) => {
+              this.procedures.push(next);
+              // only the first procedure in the list should enable the discharge buttom
+              if (this.id === this.procedures[0].procedureId) { this.dischargeFlag = 1; }
+            })
+          }
+        }
+
+
+
+
+
+
+
+
+      })
+    })
+
+
+  }
+
+  showDischarge() { if (this.dischargeFlag === 1) { return true; } }
+
   goToDestination(d: string) {
 
-     switch (d) {
+    switch (d) {
 
       case 'avr': {
         // save this information to the BehaviorSubject, so the valve page can re-arrange itself
@@ -116,21 +159,21 @@ export class ProceduredetailsComponent implements OnInit {
     this.router.navigate(['/procedureDetails', { outlets: { details: [this.destinationUrl, this.id] } }]);
 
   }
-  goDelete(template: TemplateRef<any>){ //ask if the user wants to delete this procedure
+  goDelete(template: TemplateRef<any>) { //ask if the user wants to delete this procedure
     this.modalRef = this.modalService.show(template);
-   }
+  }
   confirm(): void {
-     this.procedureService.deleteProcedure(this.id).subscribe(
-      (next)=>{
+    this.procedureService.deleteProcedure(this.id).subscribe(
+      (next) => {
         this.alertify.success('Procedure deleted');
         this.router.navigate(['/procedures']);
 
       },
-      (error)=>{this.alertify.error(error)})
+      (error) => { this.alertify.error(error) })
     this.modalRef?.hide();
   }
   decline(): void {
     this.modalRef?.hide();
   }
- 
+
 }
