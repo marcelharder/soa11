@@ -128,7 +128,7 @@ export class DischargeComponent implements OnInit {
 
   isDead() { if (this.pd.dead.toString() === '2') { return true; } else { return false; } }
 
-  zeroTheDeadData() {
+  zeroTheDeadData(): void {
     this.pd.dead_location = '0';
     this.pd.dead_cause = '0';
     this.pd.dead_date = new Date(0);
@@ -139,6 +139,7 @@ export class DischargeComponent implements OnInit {
     this.pd.discharge_activities = '0';
     this.pd.discharge_diagnosis = 0;
     this.pd.discharge_date = new Date(0);
+    this.pd.full_description = "";
   }
 
   setCurrentDateToDischarge() {
@@ -149,19 +150,9 @@ export class DischargeComponent implements OnInit {
   }
 
   deadChanged() {
-    if (this.isDead) {
-      this.pd.discharge_activities = "";
-      this.pd.discharge_date = new Date();
-      this.pd.discharge_diagnosis = 0;
-      this.pd.discharged_to = "";
-      this.pd.full_description = "";
-    }
-    else {
-      this.alertify.error('not dead now'); 
-    }
-    this.pd.dead_cause = "";
-    this.pd.dead_date = new Date();
-    this.pd.dead_location = "";
+    if (this.pd.dead.toString() === '2'){this.zeroTheAliveData(); this.alertify.show("pat is dead");}
+    if (this.pd.dead.toString() === '1'){this.zeroTheDeadData(); this.alertify.show("pat is alive");}
+   
 
   }
 

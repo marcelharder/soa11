@@ -31,7 +31,10 @@ export class ConfigurationComponent implements OnInit {
       private user: UserService) { }
 
   ngOnInit(): void {
-      this.auth.currentUser$.pipe(take(1)).subscribe((u) => {this.currentUserId = u.UserId;})
+      this.auth.currentUser$.pipe(take(1)).subscribe((u) => {this.currentUserId = u.UserId;});
+
+
+
       this.hospitalPhoto = 'https://res.cloudinary.com/marcelcloud/image/upload/v1567770782/Hospitals/kfafh.jpg';
       this.usersPhoto = 'https://res.cloudinary.com/marcelcloud/image/upload/v1560755000/rf9mgoftqqsdyndoaxqv.jpg';
       this.employeePhoto = 'https://res.cloudinary.com/marcelcloud/image/upload/v1569914898/employees/nurse-employee.jpg';

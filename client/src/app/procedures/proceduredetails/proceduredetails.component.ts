@@ -47,7 +47,10 @@ export class ProceduredetailsComponent implements OnInit {
   ngOnInit(): void {
 
     this.auth.currentHospitalName.subscribe((next) => {
-      this.currentHospitalName = next; });
+      this.currentHospitalName = next; 
+     
+    
+    });
     
     this.auth.currentProcedure$.pipe(take(1)).subscribe((u) => {
        this.id = u;

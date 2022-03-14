@@ -14,7 +14,7 @@ export class VladComponent implements OnInit {
   columnNames = [];
   width = 1000;
   height = 500;
-  options = { hAxis: { title: 'Age groups' }, vAxis: { title: 'Age(years)' },};
+  options = { hAxis: { title: '# of patients' }, vAxis: { title: 'Lifes saved ->' },};
 
   constructor() { }
 
@@ -24,7 +24,7 @@ export class VladComponent implements OnInit {
     var help: Array<any> = [];
     for (i = num; i < this.gm.dataXas.length; i++) { help.push([this.gm.dataXas[i], this.gm.dataYas[i]]); }
     this.data = help;
-   this.title = this.gm.caption;
+    this.title = this.gm.caption;
   }
 
 }
