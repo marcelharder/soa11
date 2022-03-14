@@ -31,8 +31,7 @@ export class DischargeComponent implements OnInit {
     private disch: DischargeService,
     private drops: DropdownService,
     private router: Router,
-    private alertify: ToastrService
-  ) {}
+    private alertify: ToastrService) { }
 
   ngOnInit(): void {
     this.loadDrops();
@@ -127,13 +126,7 @@ export class DischargeComponent implements OnInit {
     }
   }
 
-  isDead() {
-    if (this.pd.dead.toString() === '2') {
-      return true;
-    } else {
-      return false;
-    }
-  }
+  isDead() { if (this.pd.dead.toString() === '2') { return true; } else { return false; } }
 
   zeroTheDeadData() {
     this.pd.dead_location = '0';
@@ -155,8 +148,22 @@ export class DischargeComponent implements OnInit {
     this.pd.dead_date = new Date();
   }
 
+  deadChanged() {
+    if (this.isDead) {
+      this.pd.discharge_activities = "";
+      this.pd.discharge_date = new Date();
+      this.pd.discharge_diagnosis = 0;
+      this.pd.discharged_to = "";
+      this.pd.full_description = "";
+    } else {
+      this.pd.dead_cause = "";
+      this.pd.dead_date = new Date();
+      this.pd.dead_location = "";
+    }
+  }
+
   saveDischarge() {
-    const d = new Date();
+    /*  const d = new Date();
     const n = d.getTimezoneOffset() * 60 * 1000;
 
     if (this.isDead()) {
@@ -165,9 +172,9 @@ export class DischargeComponent implements OnInit {
     } else {
       this.pd.discharge_date = new Date(this.pd.discharge_date.getTime() - n);
       this.zeroTheDeadData();
-    }
+    } */
 
-    this.disch.saveDischarge(this.pd).subscribe((next) => {});
+    this.disch.saveDischarge(this.pd).subscribe((next) => { });
   }
 
   canDeactivate() {

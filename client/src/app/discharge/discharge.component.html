@@ -7,7 +7,7 @@
           <div class="row mt-2">
             <div class="col-sm-6"><h4><span class="badge badge-secondary">Died after this procedure:</span></h4></div>
             <div class="col-sm-6">
-              <select [(ngModel)]="pd.dead" name="lifeStatus" class="form-control">
+              <select [(ngModel)]="pd.dead" name="lifeStatus" class="form-control" (change)="deadChanged()">
                 <option *ngFor="let an of optionsDead" [value]=an.value>{{ an.description }}</option>
               </select>
             </div>

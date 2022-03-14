@@ -1,11 +1,12 @@
 ﻿using System.Threading.Tasks;
 using api.DTOs;
 using api.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace api.Controllers
 {
-  
+  [Authorize]
     public class DischargeController : BaseApiController
     {
         private IDischarge _dis;
