@@ -89,7 +89,7 @@ namespace api.Implementations.statistics
         private async Task<bool> calculate_bonus_malusAsync(int dead, int Id)
         {
             var help = true;
-            if (dead == 2) { if (await IsSurgicalDeathAsync(Id)) { help = false; } else { help = true; } };
+            if (dead == 2) { help = await IsSurgicalDeathAsync(Id);}
             return help;
         }
         private async Task<bool> IsDischargedAsync(int Id)
@@ -131,8 +131,10 @@ namespace api.Implementations.statistics
                 help = true;
             };
 
-            if ((selectedPostOP.DISCHARGE_DATE.Date - javascriptStart.Date).Days > 0) // patient was dicharged so no surgical death
-            { help = false; }
+            if (selectedPostOP.activities_discharge != null || selectedPostOP.activities_discharge != "") // patient was dicharged so no surgical death
+            { 
+                help = false;
+            }
             return help;
         }
         private async Task<double> getLogScoreAsync(int patientId)

@@ -155,11 +155,14 @@ export class DischargeComponent implements OnInit {
       this.pd.discharge_diagnosis = 0;
       this.pd.discharged_to = "";
       this.pd.full_description = "";
-    } else {
-      this.pd.dead_cause = "";
-      this.pd.dead_date = new Date();
-      this.pd.dead_location = "";
     }
+    else {
+      this.alertify.error('not dead now'); 
+    }
+    this.pd.dead_cause = "";
+    this.pd.dead_date = new Date();
+    this.pd.dead_location = "";
+
   }
 
   saveDischarge() {
@@ -174,7 +177,14 @@ export class DischargeComponent implements OnInit {
       this.zeroTheDeadData();
     } */
 
+
+    
+
     this.disch.saveDischarge(this.pd).subscribe((next) => { });
+
+
+
+
   }
 
   canDeactivate() {
