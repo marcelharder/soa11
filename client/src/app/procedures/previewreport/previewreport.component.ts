@@ -64,8 +64,7 @@ export class PreviewreportComponent implements OnInit {
   sug: Suggestion;
   proc: ProcedureDetails;
   cabgDetails: CABG;
-  valveDetails: Valve;
-  // tslint:disable-next-line:max-line-length
+ 
   ref: RefPhysModel = { Id: 0, hospital_id: 0, name: '', image: '', address: '', street: '', postcode: '', city: '', state: '', country: '', tel: '', fax: '', email: '', send_email: false, active: false };
   email: EmailModel = { id: 0, from: '', to: '', subject: '', body: '', surgeon: '', phone: '',surgeon_image: '', soort: '', hash: '' ,cardiologist:''};
   MitralValveDetails = { Model: '', Serial: '', Size: '' };
@@ -101,7 +100,7 @@ export class PreviewreportComponent implements OnInit {
         this.proc = next;
         this.refPhys.getSpecificRefPhys(+this.proc.refPhys).subscribe((ne) => { this.ref = ne; })
         this.preview.getReportCode(this.proc.fdType).subscribe((nex) => {
-          this.reportCode = nex;
+         this.reportCode = nex;
            this.getAdditionalStuff(this.reportCode);// gets the cabg / valve details
         });
       });
@@ -251,14 +250,8 @@ export class PreviewreportComponent implements OnInit {
     })
   }
   getCabgStuff(id: number) {
-   
     this.cabgService.getCABG(id.toString()).subscribe((next) => {
-     
-      this.cabgDetails = next;
-    }, (error) => {
-
-      this.alertify.error(error);
-    })
+       this.cabgDetails = next;}, (error) => {this.alertify.error(error);})
   }
 
 

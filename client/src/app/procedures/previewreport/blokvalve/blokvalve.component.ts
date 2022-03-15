@@ -7,7 +7,7 @@ import { Valve } from 'src/app/_models/Valve';
   styleUrls: ['./blokvalve.component.css']
 })
 export class BlokvalveComponent implements OnInit {
-  @Input() vd: Valve;
+  @Input() vd: any;
 
   constructor() {   }
   ngOnInit(): void {    }
