@@ -7,6 +7,7 @@ import { ModelTimes } from 'src/app/_models/modelTimes';
 import { PostOp } from 'src/app/_models/PostOp';
 import { DropdownService } from 'src/app/_services/dropdown.service';
 import { PostOpService } from 'src/app/_services/postop.service';
+import { ProcedureService } from 'src/app/_services/procedure.service';
 
 @Component({
   selector: 'app-postop',
@@ -51,6 +52,7 @@ export class PostopComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private drops: DropdownService,
+    private proc: ProcedureService,
     private postOpservice: PostOpService,
     private alertify: ToastrService
   ) {}

@@ -39,9 +39,16 @@ namespace api.Implementations
             }
             else
             {
+                var cp = await _context.Procedures.FirstOrDefaultAsync(u => u.ProcedureId == id);
+              
                 var po = new Class_PostOp();
                 po.PROCEDURE_ID = id;
-                po.ICU_ARRIVAL_DATE = DateTime.UtcNow;
+
+                po.ICU_ARRIVAL_DATE = cp.DateOfSurgery.Date;
+                po.ICU_ARRIVAL_DATE = po.ICU_ARRIVAL_DATE.AddHours(cp.SelectedStopHr);
+                po.ICU_ARRIVAL_DATE = po.ICU_ARRIVAL_DATE.AddMinutes(cp.SelectedStopMin);
+                po.ICU_ARRIVAL_DATE = po.ICU_ARRIVAL_DATE.AddMinutes(10);// add 10 minutes for walking from theatre to ICU
+
                 po.ICU_DISCHARGE_DATE = po.ICU_ARRIVAL_DATE.AddDays(1);
                 po.EXTUBATION_DATE = po.ICU_ARRIVAL_DATE.AddDays(1);
                 po.readmitted = "1";
