@@ -90,24 +90,16 @@ export class EmailRefPhysComponent implements OnInit {
       this.alertify.show(nex);
       this.sendCancel.emit('1');
     },
-      (error) => {
-        debugger;
-        this.alertify.error('Sending email failed ...' + error);
-      });
+      (error) => {this.alertify.error('Sending email failed ...' + error); });
   }
 
   SendSMS() {
-
-
     if (this.sms.Phone !== '' && this.sms.Body !== '') {
       this.refPhys.sendSMS(this.sms).subscribe((nex) => {
         this.alertify.show(nex);
         this.sendCancel.emit('1');
       },
-        (error) => {
-          debugger;
-          this.alertify.error('Sending sms failed ...' + error);
-        });
+        (error) => {this.alertify.error('Sending sms failed ...' + error); });
     } else { this.alertify.error('Phone or Text cannot be empty ...') }
   }
 

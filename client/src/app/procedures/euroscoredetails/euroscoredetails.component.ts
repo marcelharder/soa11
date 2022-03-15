@@ -59,7 +59,7 @@ export class EuroscoredetailsComponent implements OnInit {
   ngOnInit() {
       this.loadDrops();
       this.route.data.subscribe(data => {
-          debugger;
+         
           this.wl = data.patient;
           this.wl.dialysis = false;
           if (this.wl.age === 0) { this.alertify.warning('Age is missing');} else {this.creatinine_clearance(); }

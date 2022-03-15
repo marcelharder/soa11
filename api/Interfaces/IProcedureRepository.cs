@@ -18,7 +18,8 @@ namespace api.Interfaces
         Task<int> updateProcedure(Class_Procedure p);
         Task<bool> SaveAll();
         Task<int> DeleteAsync(int id);
-        Task<List<int>> getProceduresFromPatientId(string mrn);
+        Task<List<int>> getProceduresFromMRN(string mrn);
+        Task<List<int>> getProceduresFromPatientId(int id);
         Task<ButtonPerProcedureSoortDTO> getButtonsAndActions(int soort);
         Task<string> getProdedureDescription(int soort);
         Task<string> refPhysEmailHash(int id);

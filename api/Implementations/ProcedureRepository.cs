@@ -151,7 +151,20 @@ namespace api.Implementations
 
             return 1;
         }
-        public async Task<List<int>> getProceduresFromPatientId(string mrn)
+        public async Task<List<int>> getProceduresFromPatientId(int id)
+        {
+            var result = new List<int>();
+         
+            var selectedPatient = await _context.Patients
+            .Include(a => a.procedures)
+            .FirstOrDefaultAsync(a => a.PatientId == id);
+
+            foreach(Class_Procedure p in selectedPatient.procedures){
+                result.Add(p.ProcedureId);}
+           
+            return result;
+        }
+        public async Task<List<int>> getProceduresFromMRN(string mrn)
         {
             var result = new List<int>();
          
@@ -263,7 +276,7 @@ namespace api.Implementations
            return result;
         }
 
-        
+      
     }
 
     public class Salt

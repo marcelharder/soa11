@@ -106,7 +106,7 @@ export class AddEuroScoreDetailsComponent implements OnInit {
                             this.modalRef = this.modalService.show(patienttemplate);
                         } else {
                             if (response.toString() === '1') { // a patient was found, get list of procedure ids
-                                this.patientservice.getProceduresFromPatientId(this.mrn).subscribe((next) => {
+                                this.patientservice.getProceduresFromMRN(this.mrn).subscribe((next) => {
                                     this.foundProcedures = next;
                                     this.procedures = [];
                                     this.showPanel = false;

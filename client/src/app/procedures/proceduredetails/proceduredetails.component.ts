@@ -15,11 +15,11 @@ import { ProcedureService } from 'src/app/_services/procedure.service';
   styleUrls: ['./proceduredetails.component.css']
 })
 export class ProceduredetailsComponent implements OnInit {
-  id = 0;
   currentPatientId = 0;
   dischargeFlag = 0;
-  foundProcedures: Array<number> = [];
+ 
   procedures: Array<ProcedureDetails> = [];
+  currentProcedureId = 0;
 
   currentHospitalName = "";
   destinationUrl = 'detailsMain';
@@ -59,12 +59,11 @@ export class ProceduredetailsComponent implements OnInit {
     });
 
     this.auth.currentProcedure$.pipe(take(1)).subscribe((u) => {
-      this.id = u;
+      this.currentProcedureId = u;
 
     })
-    this.procedureService.getProcedure(this.id).subscribe((result) => {
-      this.currentPatientId = result.patientId;
-      this.shouldDischargeButtonBeShown(this.currentPatientId);
+    this.procedureService.getProcedure(this.currentProcedureId).subscribe((result) => {
+      this.shouldDischargeButtonBeShown(result.patientId);
       this.procedureDescription = result.description;
 
       this.procedureService.getButtonsAndCaptions(result.fdType).subscribe(response => {
@@ -86,36 +85,12 @@ export class ProceduredetailsComponent implements OnInit {
     this.goToDestination(this.destinationUrl);
   }
 
-  shouldDischargeButtonBeShown(id: number) {
+  shouldDischargeButtonBeShown(patientId: number) {
     // the idea here is that if there are multiple procedures for this patient only the first procedure has a discharge button
-    let MRN = '';
-    this.patientService.getPatientFromId(id).subscribe((next) => {
-      MRN = next.mrn;
-      this.patientService.getProceduresFromPatientId(MRN).subscribe((next) => {
-        this.foundProcedures = next;
-        if (this.foundProcedures.length === 1) { this.dischargeFlag = 1; };
-        if (this.foundProcedures.length > 1) {
-          this.procedures = [];
-          for (let i = 0; i < this.foundProcedures.length; i++) {
-            this.procedureService.getProcedure(this.foundProcedures[i]).subscribe((next) => {
-              this.procedures.push(next);
-              // only the first procedure in the list should enable the discharge buttom
-              if (this.id === this.procedures[0].procedureId) { this.dischargeFlag = 1; }
-            })
-          }
-        }
-
-
-
-
-
-
-
-
+      this.patientService.getProceduresFromPatientId(patientId).subscribe((next) => {
+        if (next.length <= 1) { this.dischargeFlag = 1; };
+        if (next.length > 1) { if (this.currentProcedureId === next[0]) { this.dischargeFlag = 1; } }
       })
-    })
-
-
   }
 
   showDischarge() { if (this.dischargeFlag === 1) { return true; } }
@@ -156,14 +131,14 @@ export class ProceduredetailsComponent implements OnInit {
       };
       default: { this.destinationUrl = d; break; }
     }
-    this.router.navigate(['/procedureDetails', { outlets: { details: [this.destinationUrl, this.id] } }]);
+    this.router.navigate(['/procedureDetails', { outlets: { details: [this.destinationUrl, this.currentProcedureId] } }]);
 
   }
   goDelete(template: TemplateRef<any>) { //ask if the user wants to delete this procedure
     this.modalRef = this.modalService.show(template);
   }
   confirm(): void {
-    this.procedureService.deleteProcedure(this.id).subscribe(
+    this.procedureService.deleteProcedure(this.currentProcedureId).subscribe(
       (next) => {
         this.alertify.success('Procedure deleted');
         this.router.navigate(['/procedures']);

@@ -140,7 +140,7 @@ export class PreviewreportComponent implements OnInit {
         this.email.phone = this.ref.tel,
         this.email.soort = '1';
         this.email.hash = next;
-        debugger;
+       
         this.email.body = 'Dear dr. '+ this.ref.name + ' your patient named ' +
                            this.reportHeader.patient_name + ' was diagnosed with ' +
                            this.reportHeader.diagnosis + ' , we performed a ' +

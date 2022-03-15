@@ -57,7 +57,7 @@ export class ListhospitalsComponent implements OnInit {
    }
    editHospital(ret: string) {
     this.hospitalService.getSpecificHospital(+ret).subscribe((next)=>{ 
-      debugger;
+    
       this.selectedHospital = next});
     this.addFlag = 0;
     this.listFlag = 0;

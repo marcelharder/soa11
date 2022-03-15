@@ -60,9 +60,17 @@ namespace api.Controllers
        
         [HttpGet]
         [AllowAnonymous]
-        [Route("proceduresFromPatientId/{mrn}")]
-         public async Task<IActionResult> getiets(string mrn) {
-             var result = await _proc.getProceduresFromPatientId(mrn);
+        [Route("proceduresFromPatientId/{id}")]
+         public async Task<IActionResult> getiets(int id) {
+             var result = await _proc.getProceduresFromPatientId(id);
+             return Ok(result);
+         }
+
+        [HttpGet]
+        [AllowAnonymous]
+        [Route("proceduresFromMRN/{mrn}")]
+         public async Task<IActionResult> getietsr(string mrn) {
+             var result = await _proc.getProceduresFromMRN(mrn);
              return Ok(result);
          }
 
