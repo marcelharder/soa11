@@ -18,10 +18,10 @@ using Microsoft.Extensions.Options;
 
 namespace api.Controllers
 {
-  
+
     [ServiceFilter(typeof(LogUserActivity))] // this records the last user activity
-    
-   
+
+
     public class UsersController : BaseApiController
     {
 
@@ -30,12 +30,12 @@ namespace api.Controllers
         private readonly IOptions<CloudinarySettings> _cloudinaryConfig;
         private Cloudinary _cloudinary;
         private SpecialMaps _mapper;
-      
+
 
         public UsersController(
             IUserOnline online,
-            IUserRepository rep, 
-            SpecialMaps map, 
+            IUserRepository rep,
+            SpecialMaps map,
             DataContext context,
             IOptions<CloudinarySettings> cloudinaryConfig)
         {
@@ -43,8 +43,8 @@ namespace api.Controllers
             _mapper = map;
             _online = online;
             _cloudinaryConfig = cloudinaryConfig;
-           
-           
+
+
 
 
             Account acc = new Account(
@@ -85,19 +85,20 @@ namespace api.Controllers
         [HttpGet("getAiosByHospital")]
         public async Task<IActionResult> GetAByHospital([FromQuery] UserParams userParams)
         {
-           return Ok( await _rep.GetAiosByHospital(userParams));
+            return Ok(await _rep.GetAiosByHospital(userParams));
         }
         [HttpGet("getSurgeonsByHospital")]
         public async Task<IActionResult> GetSurgeonsByHospital([FromQuery] UserParams userParams)
         {
-           return Ok( await _rep.GetSurgeonsByHospital(userParams));
+            return Ok(await _rep.GetSurgeonsByHospital(userParams));
         }
         [HttpGet("getChefsByHospital/{centerId}")]
         public async Task<IActionResult> GetChefsByHospital(int centerId)
         {
-            var chef =  await _rep.GetChefsByHospital(centerId);
-            if(chef.hospital_id != 9999){
-            return Ok(_mapper.mapToUserForReturn(chef));
+            var chef = await _rep.GetChefsByHospital(centerId);
+            if (chef.hospital_id != 9999)
+            {
+                return Ok(_mapper.mapToUserForReturn(chef));
             }
             return BadRequest("No chef found in this hospital ...");
         }
@@ -136,10 +137,11 @@ namespace api.Controllers
         [HttpPut("{id}")]
         public async Task<ActionResult> UpdateUser(UserForUpdateDto up, int id)
         {
-           // if (id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value)) return Unauthorized();
+            // if (id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value)) return Unauthorized();
 
             var user = await _rep.GetUser(up.Id);
-            if(user.Country == null){
+            if (user.Country == null)
+            {
                 // get the country from the hospital_id
             }
             var userupdated = _mapper.mapToUser(up, user);
@@ -167,7 +169,7 @@ namespace api.Controllers
                     };
                     uploadResult = _cloudinary.Upload(uploadParams);
                 }
-                user.PhotoUrl =  uploadResult?.SecureUrl?.AbsoluteUri;
+                user.PhotoUrl = uploadResult?.SecureUrl?.AbsoluteUri;
 
 
                 if (await _rep.SaveAll())
@@ -191,11 +193,20 @@ namespace api.Controllers
         }
 
         [HttpGet("users-online")]
-        public async Task<IActionResult> getUsersOnline(){
+        public async Task<IActionResult> getUsersOnline()
+        {
             return Ok(await _online.getOnlineUsers());
         }
 
-     
+        [HttpPost("addPayment/{id}")]
+        public async Task<IActionResult> addPayment(int id, [FromQuery] DateTime d)
+        {
+            var user = await _rep.GetUser(id);
+            if (await _rep.UpdatePayment(d, id)) { return Ok("Payment updated ..."); }
+            return BadRequest("Updating payment went wrong");
+        }
+
+
 
 
 

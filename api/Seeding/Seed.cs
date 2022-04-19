@@ -20,6 +20,7 @@ namespace api.Seeding
 
              var roles = new List<AppRole>{
                  new AppRole{Name = "Surgery"},
+                 new AppRole{Name = "Premium"},
                  new AppRole{Name = "Moderator"},
                  new AppRole{Name = "Sponsor"},
                  new AppRole{Name = "Refcard"},
@@ -44,6 +45,7 @@ namespace api.Seeding
                   Country = "NL" };
              await manager.CreateAsync(admin, "Pa$$w0rd");
              await manager.AddToRoleAsync(admin, "Admin");
+             await manager.AddToRoleAsync(admin, "Premium");
 
 
          } 

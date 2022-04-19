@@ -57,8 +57,6 @@ namespace api.Controllers
             if (!result.Succeeded) { return BadRequest(result.Errors); }
 
             var roleResult = await _manager.AddToRoleAsync(user, "Surgery");
-            roleResult = await _manager.AddToRoleAsync(user, "Normal");
-
             if(!roleResult.Succeeded){return BadRequest(roleResult.Errors); }
 
             return new UserDto
@@ -77,10 +75,17 @@ namespace api.Controllers
            var user = await _manager.Users.SingleOrDefaultAsync(x => x.UserName == ufl.UserName.ToLower());
            if (user == null) return Unauthorized();
 
+           // check if this is a premium user
+           var now = DateTime.UtcNow;
+
+           if(now.Ticks < user.PaidTill.Ticks){
+            var roleResult = await _manager.AddToRoleAsync(user, "Premium");
+            if(!roleResult.Succeeded){return BadRequest(roleResult.Errors); }
+           }
+
            var result = await _signIn.CheckPasswordSignInAsync(user, ufl.password, false);
            if(!result.Succeeded) return Unauthorized();
-
-           
+          
 
            return new UserDto
             {

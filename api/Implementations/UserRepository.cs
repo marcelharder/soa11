@@ -130,5 +130,15 @@ namespace api.Implementations
             .FirstOrDefaultAsync(x => x.Id == id);
             return selectedUser.Epa.ToList();
         }
+
+        public async Task<bool> UpdatePayment(DateTime d, int id)
+        {
+           var help = false;
+           var user = await GetUser(id);
+           user.PaidTill = d;
+           _context.Update(user);
+           if(await _context.SaveChangesAsync() > 0){ help = true;}
+           return help;
+        }
     }
 }
