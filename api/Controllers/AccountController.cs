@@ -57,6 +57,8 @@ namespace api.Controllers
             if (!result.Succeeded) { return BadRequest(result.Errors); }
 
             var roleResult = await _manager.AddToRoleAsync(user, "Surgery");
+           // roleResult = await _manager.AddToRoleAsync(user, "Normal");
+
             if(!roleResult.Succeeded){return BadRequest(roleResult.Errors); }
 
             return new UserDto
