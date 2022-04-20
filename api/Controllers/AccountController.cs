@@ -47,6 +47,7 @@ namespace api.Controllers
                 Country = "NL",
                 Created = DateTime.Now,
                 LastActive = DateTime.Now,
+                PhotoUrl = registerDto.PhotoUrl,
                 active = true,
                 ltk = false
                              

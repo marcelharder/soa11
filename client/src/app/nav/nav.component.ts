@@ -35,7 +35,6 @@ export class NavComponent implements OnInit {
    }
   }
 
-  loginFailed(){if(this.reg === 1){return true;}else{return false;}}
   RegisterNewClient(){this.router.navigate(['/register']);}
 
   login(){this.accountService.login(this.model).subscribe((next)=>{

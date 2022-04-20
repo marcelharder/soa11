@@ -30,7 +30,7 @@
     </li>
   </ul>
 
-  <div class="ml-auto"  *ngIf="!loginFailed()">
+  <div class="ml-auto">
     <div class="dropdown" *ngIf="accountService.currentUser$ |async" dropdown>
       <a class="dropdown-toggle text-light" dropdownToggle>Welcome {{model.username | titlecase}}</a>
       <div class="dropdown-menu mt-3" *dropdownMenu>
@@ -40,7 +40,7 @@
       </div>
     </div>
   </div>
-  <div class="ml-auto"  *ngIf="!loginFailed()">
+  <div class="ml-auto" >
     <form *ngIf="(accountService.currentUser$ |async) === null" #loginForm="ngForm" class="form-inline mt-2 mt-md-0"
       (ngSubmit)="login()" autocomplete="off">
       <input class="form-control mr-sm-2" name="username" type="text" placeholder="Username"
@@ -48,10 +48,9 @@
       <input class="form-control mr-sm-2" name="password" type="password" placeholder="Password"
         [(ngModel)]="model.password">
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Login</button>
+      <button class="btn btn-outline-warning my-2 my-sm-0 ml-1" type="button" (click)="RegisterNewClient()">Register</button>
     </form>
 
   </div>
-  <div class="ml-auto" *ngIf="loginFailed()">
-    <button class="btn btn-outline-warning my-2 my-sm-0" type="button" (click)="RegisterNewClient()">Register</button>
-  </div>
+ 
 </nav>

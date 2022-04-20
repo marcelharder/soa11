@@ -64,11 +64,13 @@ import { UserDetailsResolver } from './_resolvers/user-details.resolver';
 import { OnlineUserResolver } from './_resolvers/OnlineUser.resolver ';
 import { AddUserComponent } from './users/add-user/add-user.component';
 import { ListhospitalsComponent } from './admin/listhospitals/listhospitals.component';
+import { RegisterComponent } from './register/register.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'errors', component: TestErrorsComponent },
   { path: 'about', component: AboutComponent },
+  { path: 'register', component: RegisterComponent},
   {
     path: 'procedureDetails',component: ProceduredetailsComponent,
     runGuardsAndResolvers: 'always',
