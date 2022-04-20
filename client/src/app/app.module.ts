@@ -137,6 +137,7 @@ import { AddUserComponent } from './users/add-user/add-user.component';
 import { AddhospitalComponent } from './admin/addhospital/addhospital.component';
 import { EdithospitalComponent } from './admin/edithospital/edithospital.component';
 import { ListhospitalsComponent } from './admin/listhospitals/listhospitals.component';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
@@ -206,7 +207,8 @@ import { ListhospitalsComponent } from './admin/listhospitals/listhospitals.comp
     AddUserComponent,
     AddhospitalComponent,
     EdithospitalComponent,
-    ListhospitalsComponent
+    ListhospitalsComponent,
+    RegisterComponent
     
   ],
   imports: [

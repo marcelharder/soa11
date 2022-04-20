@@ -29,6 +29,7 @@ export class NavComponent implements OnInit {
     private userService: UserService) { }
 
   ngOnInit(): void {
+  
    if(this.model.username == ''){
     this.accountService.currentUser$.pipe(take(1)).subscribe((u) => { this.model.username = u.Username;})
    }
@@ -38,7 +39,7 @@ export class NavComponent implements OnInit {
   RegisterNewClient(){this.router.navigate(['/register']);}
 
   login(){this.accountService.login(this.model).subscribe((next)=>{
-    
+
     this.accountService.currentUser$.pipe(take(1)).subscribe((u) => { 
       this.currentUserId = u.UserId;
       this.model.username = u.Username;
@@ -53,7 +54,11 @@ export class NavComponent implements OnInit {
       })
 
      }
-     console.log(next); })}
+     console.log(next); }, (error)=>{if(error.status === 401){
+       this.reg = 1;
+      
+      
+      }})}
 
   logout(){ 
     this.model.username = "";
