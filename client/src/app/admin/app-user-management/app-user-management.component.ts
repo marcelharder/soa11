@@ -53,10 +53,11 @@ export class AppUserManagementComponent implements OnInit {
     const userRoles = user.Roles;
     const availableRoles: any[] = [
       { name: 'Admin', value: 'Admin' },
+      { name: 'Premium', value: 'Premium' },
       { name: 'Moderator', value: 'Moderator' },
+      { name: 'Refcard', value: 'Refcard' },
       { name: 'Surgery', value: 'Surgery' },
-      { name: 'Chef', value: 'Chef' },
-      { name: 'Sponsor', value: 'Sponsor' }
+      { name: 'Chef', value: 'Chef' }
     ];
     availableRoles.forEach(role => {
       let isMatch = false;

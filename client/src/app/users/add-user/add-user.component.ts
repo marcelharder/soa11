@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { take } from 'rxjs/operators';
 import { loginModel } from 'src/app/_models/loginModel';
+import { User } from 'src/app/_models/User';
 import { AccountService } from 'src/app/_services/account.service';
 
 @Component({
@@ -14,7 +15,22 @@ export class AddUserComponent implements OnInit {
   @Output() fromUserAdd = new EventEmitter<number>();
   @Output() cancelThis = new EventEmitter<number>();
   currentHospitalId = 0;
-  lm: loginModel = { username: "", password: "" };
+  user:Partial<User> = {
+    UserId:0,
+    hospital_id: 0,
+    password: '',
+    Username:  '',
+    Token:  '',
+    knownAs:  '',
+    age: 0,
+    gender:  '',
+    city:  '',
+    mobile:  '',
+    email:  '',
+    country:  '',
+    worked_in:  '',
+  };
+  //lm: loginModel = { username: "", password: "" };
   newUserId = 0;
   constructor(private auth: AccountService,
     private alertify: ToastrService) { }
@@ -24,9 +40,9 @@ export class AddUserComponent implements OnInit {
   Cancel() { this.cancelThis.emit(1); }
 
   registerNewUser() {
-    if (this.checkUserNameIsEmail(this.lm)) {
-      if (this.readytobeSentUp(this.lm)) {
-        this.auth.register(this.lm).subscribe((next) => {
+    if (this.checkUserNameIsEmail(this.user)) {
+      if (this.readytobeSentUp(this.user)) {
+        this.auth.register(this.user).subscribe((next) => {
           this.auth.newlyRegisteredUser$.pipe(take(1)).subscribe((u) => { this.newUserId = u.UserId; });
           this.fromUserAdd.emit(this.newUserId);
         }, (error) => { this.alertify.error(error) });
@@ -34,17 +50,17 @@ export class AddUserComponent implements OnInit {
     } else { this.alertify.error("Username is not a valid email")}
   }
 
-  checkUserNameIsEmail(test: loginModel) {
+  checkUserNameIsEmail(test: Partial<User>) {
     var help = false;
     let regexpEmail =
       new RegExp('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$');
-    help = regexpEmail.test(test.username);
+    help = regexpEmail.test(test.Username);
     return help;
   }
 
 
 
-  readytobeSentUp(test: loginModel) {
+  readytobeSentUp(test: Partial<User>) {
     let helpDigit = false;
     let helpUpper = false;
     let helpLength = false;

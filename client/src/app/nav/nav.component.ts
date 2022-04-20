@@ -18,6 +18,7 @@ import { UserService } from '../_services/user.service';
 export class NavComponent implements OnInit {
   model: loginModel = {username:'',password:''};
   currentRole = '';
+  reg = 0;
   currentUserId = 0;
   currentRoles:Array<string> = [];
 
@@ -32,6 +33,9 @@ export class NavComponent implements OnInit {
     this.accountService.currentUser$.pipe(take(1)).subscribe((u) => { this.model.username = u.Username;})
    }
   }
+
+  loginFailed(){if(this.reg === 1){return true;}else{return false;}}
+  RegisterNewClient(){this.router.navigate(['/register']);}
 
   login(){this.accountService.login(this.model).subscribe((next)=>{
     

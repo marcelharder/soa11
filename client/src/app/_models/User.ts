@@ -5,6 +5,7 @@ import { Invoice } from './Invoice';
 export interface User {
     UserId: number; // this comes from localstorage uit de token so dont change
     hospital_id: number;
+    password: string;
     Username: string;
     Token: string;
     roles: string[];

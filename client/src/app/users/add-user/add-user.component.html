@@ -1,3 +1,5 @@
+
+
 <div class="card m-5">
     <div class="card-header">
         <h5><span class="badge badge-info">Add User</span></h5>
@@ -6,11 +8,11 @@
         <form  #registerForm="ngForm" id="registerForm" (ngSubmit)="registerNewUser()">
         <div class="row">
             <div class="clss-sm-6"><h5><span class="badge badge-secondary">New Username: </span></h5></div>
-            <div class="clss-sm-6 ml-2"><input type=text [(ngModel)]="lm.username" class="form-model" name="username"></div>
+            <div class="clss-sm-6 ml-2"><input type=text [(ngModel)]="user.Username" class="form-model" name="username"></div>
         </div>
         <div class="row mt-2 mb-2">
             <div class="clss-sm-6"><h5><span class="badge badge-secondary">New Password: </span></h5></div>
-            <div class="clss-sm-6 ml-2"><input type=password [(ngModel)]="lm.password" class="form-model" name="password"></div>
+            <div class="clss-sm-6 ml-2"><input type=password [(ngModel)]="user.password" class="form-model" name="password"></div>
         </div>
        </form>
     </div>
