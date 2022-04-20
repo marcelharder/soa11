@@ -162,9 +162,8 @@ export class UserService {
     );
   }
  
-
-
   getUser(id: number): Observable<User> {return this.http.get<User>(this.baseUrl + 'Users/' + id); }
+  getNewUser(id: number): Observable<User> {return this.http.get<User>(this.baseUrl + 'users/newUser/' + id); }
   updateUser(id: number, user: User) {return this.http.put(this.baseUrl + 'users/' + id, user);  }
   getLtk(id: number){return this.http.get<boolean>(this.baseUrl + 'users/ltk/' + id);}
   deleteUser(id: number) {return this.http.delete(this.baseUrl + 'users/' + id,{ responseType: 'text' as 'json' });  }

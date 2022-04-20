@@ -46,7 +46,7 @@ export class AccountService {
   }
 
 
-   register(model: Partial<User>){
+   register(model: loginModel){
      return this.http.post(this.baseUrl + 'account/register', model).pipe(
        map((user: User)=>{
          if (user) {

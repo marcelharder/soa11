@@ -2,8 +2,10 @@ using System;
 using System.Threading.Tasks;
 using api.DTOs;
 using api.Entities;
+using api.Helpers;
 using api.Interfaces;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -16,10 +18,13 @@ namespace api.Controllers
 
         private readonly ITokenService _ts;
         private IMapper _mapper;
+
+       
         private readonly UserManager<AppUser> _manager;
         private readonly SignInManager<AppUser> _signIn;
         private readonly IConfiguration _config;
         public AccountController(
+            
             ITokenService ts,
             IMapper mapper,
             IConfiguration config,
@@ -32,12 +37,14 @@ namespace api.Controllers
             _signIn = signIn;
             _mapper = mapper;
             _ts = ts;
+            
         }
+
+        
 
         [HttpPost("register")]
         public async Task<ActionResult<UserDto>> Register(UserForRegisterDto registerDto)
         {
-
             var user = await _manager.Users.SingleOrDefaultAsync(x => x.UserName == registerDto.UserName.ToLower());
             if (user != null) { return BadRequest("User already exists ..."); }
 
@@ -47,7 +54,6 @@ namespace api.Controllers
                 Country = "NL",
                 Created = DateTime.Now,
                 LastActive = DateTime.Now,
-                PhotoUrl = registerDto.PhotoUrl,
                 active = true,
                 ltk = false
                              

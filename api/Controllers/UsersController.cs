@@ -206,6 +206,13 @@ namespace api.Controllers
             return BadRequest("Updating payment went wrong");
         }
 
+        [HttpGet("newUser/{id}")]
+        [AllowAnonymous]
+        public async Task<IActionResult> getNewUser(int id)
+        {
+            return Ok(await GetUser(id));
+        }
+
 
 
 

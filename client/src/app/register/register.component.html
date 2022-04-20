@@ -1,1 +1,14 @@
-<p>register works!</p>
+<div class="card mt-5">
+    <div class="card-header"><h5><span>Please register now</span></h5></div>
+    <div class="card-body">
+        <div *ngIf="showAdd()">
+            <app-add-user (cancelThis)="cancelAdd($event)" (fromUserAdd)="returnFromAddUser($event)"></app-add-user>
+        </div>
+        <div *ngIf="showEdit()">
+            <app-userdetails (cancelThis)="cancelEdit($event)" [user]='user' (fromUserEdit)="returnFromUserEdit($event)"></app-userdetails>
+        </div>
+        
+    </div>
+    <div class="card-footer"></div>
+</div>
+      

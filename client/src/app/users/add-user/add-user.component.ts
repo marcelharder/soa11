@@ -15,22 +15,7 @@ export class AddUserComponent implements OnInit {
   @Output() fromUserAdd = new EventEmitter<number>();
   @Output() cancelThis = new EventEmitter<number>();
   currentHospitalId = 0;
-  user:Partial<User> = {
-    UserId:0,
-    hospital_id: 0,
-    password: '',
-    Username:  '',
-    Token:  '',
-    knownAs:  '',
-    age: 0,
-    gender:  '',
-    city:  '',
-    mobile:  '',
-    email:  '',
-    country:  '',
-    worked_in:  '',
-  };
-  //lm: loginModel = { username: "", password: "" };
+  model: loginModel = {username:"",password:''}
   newUserId = 0;
   constructor(private auth: AccountService,
     private alertify: ToastrService) { }
@@ -40,27 +25,27 @@ export class AddUserComponent implements OnInit {
   Cancel() { this.cancelThis.emit(1); }
 
   registerNewUser() {
-    if (this.checkUserNameIsEmail(this.user)) {
-      if (this.readytobeSentUp(this.user)) {
-        this.auth.register(this.user).subscribe((next) => {
+    if (this.checkUserNameIsEmail(this.model)) {
+      if (this.readytobeSentUp(this.model)) {
+        this.auth.register(this.model).subscribe((next) => {
           this.auth.newlyRegisteredUser$.pipe(take(1)).subscribe((u) => { this.newUserId = u.UserId; });
           this.fromUserAdd.emit(this.newUserId);
-        }, (error) => { this.alertify.error(error) });
+        }, (error) => { this.alertify.error(error.error) });
       }
     } else { this.alertify.error("Username is not a valid email")}
   }
 
-  checkUserNameIsEmail(test: Partial<User>) {
+  checkUserNameIsEmail(test: loginModel) {
     var help = false;
     let regexpEmail =
       new RegExp('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$');
-    help = regexpEmail.test(test.Username);
+    help = regexpEmail.test(test.username);
     return help;
   }
 
 
 
-  readytobeSentUp(test: Partial<User>) {
+  readytobeSentUp(test: loginModel) {
     let helpDigit = false;
     let helpUpper = false;
     let helpLength = false;
