@@ -138,9 +138,10 @@ import { AddhospitalComponent } from './admin/addhospital/addhospital.component'
 import { EdithospitalComponent } from './admin/edithospital/edithospital.component';
 import { ListhospitalsComponent } from './admin/listhospitals/listhospitals.component';
 import { RegisterComponent } from './register/register.component';
+import { PremiumComponent } from './premium/premium.component';
 
 @NgModule({
-  declarations: [
+  declarations: [	
     AppComponent,
     NavComponent,
     HomeComponent,
@@ -208,9 +209,9 @@ import { RegisterComponent } from './register/register.component';
     AddhospitalComponent,
     EdithospitalComponent,
     ListhospitalsComponent,
-    RegisterComponent
-    
-  ],
+    RegisterComponent,
+      PremiumComponent
+   ],
   imports: [
     FileUploadModule,
     TabsModule.forRoot(),

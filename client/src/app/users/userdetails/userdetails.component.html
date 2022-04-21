@@ -59,6 +59,15 @@
                             <ui-switch [(ngModel)]="user.ltk" name="licenseToKill"></ui-switch>
                         </div>
                     </div>
+                    <div class="row" *appHasRole='["Admin"]'>
+                        <div class="col-sm-6">
+                            <h5><span class="badge badge-secondary">Change paidTill date:</span></h5>
+                        </div>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" #dp="bsDatepicker" bsDatepicker
+                            [(ngModel)]="user.paidTill" [bsConfig]="{ dateInputFormat: 'YYYY/MM/DD' }" name="datum" />
+                        </div>
+                    </div>
                 </div>
                 <div class="col-sm-4">
                     <div class="row">

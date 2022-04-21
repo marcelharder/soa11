@@ -10,6 +10,7 @@ import { ToastrService } from 'ngx-toastr';
 import { AccountService } from 'src/app/_services/account.service';
 import { countryItem } from 'src/app/_models/countryItem';
 import { take } from 'rxjs/operators';
+import * as moment from 'moment';
 
 
 @Component({
@@ -31,6 +32,7 @@ export class UserProfileComponent implements OnInit {
     password_02 = '';
     password_03 = '';
     CompliancePanel = 0;
+    premium = 0;
 
     @HostListener('window:beforeunload', ['$event'])
     unloadNotification($event: any) { if (this.editForm.dirty) { $event.returnValue = true; } }
@@ -46,15 +48,26 @@ export class UserProfileComponent implements OnInit {
 
         this.loadDrops();
 
-        this.auth.currentUser$.pipe(take(1)).subscribe((u) => { 
+        this.auth.currentUser$.pipe(take(1)).subscribe((u) => {
             this.currentUserName = u.Username;
-            this.currentUserId = u.UserId; });
+            this.currentUserId = u.UserId;
+        });
 
         this.route.data.subscribe((data: { user: User }) => {
             this.user = data.user;
             // focus on the correct drops
             this.changeCountry();// let the country name follow the change in country
+            const currentDate = new Date();
+            debugger;
+            if (moment(currentDate).isBefore(this.user.paidTill)) {  // find out if this is a premium client
+                debugger;
+                this.premium = 1; } else {
+                    debugger;
+                    this.premium = 0;}
+
         });
+       
+       
 
     }
 
@@ -67,14 +80,9 @@ export class UserProfileComponent implements OnInit {
         } else {
             this.optionCountries = JSON.parse(localStorage.getItem('optionCountries'));
         }
-
-
     }
-
     showCompliancePanel() { if (this.CompliancePanel === 1) { return true; } }
-
     updatePhoto(photoUrl: string) { this.user.PhotoUrl = photoUrl; }
-
     updateUser() {
         this.userService.updateUser(this.currentUserId, this.user).subscribe(next => {
             this.editForm.reset(this.user);
@@ -95,13 +103,9 @@ export class UserProfileComponent implements OnInit {
             error => { this.alertify.error(error); });
     }
 
-    requestPremium(){this.alertify.show("request premium");}
+    requestPremium() {this.router.navigate(['/premium']); }
 
-    showPremium(){
-        const currentDate = new Date();
-        const paidTill = this.user.paidTill;
-        if(paidTill > currentDate){return true} else {return false}
-    }
+    showPremium() {if (this.premium === 1) { return true } else { return false }}
 
     changePasswordNow() {
         this.CompliancePanel = 0;
@@ -114,10 +118,10 @@ export class UserProfileComponent implements OnInit {
                     if (this.meetsComplexity(this.password_02)) {
                         this.model.UserName = this.currentUserName;
                         this.model.password = this.password_01;
-                         this.auth.changePassword(this.model, this.password_02).subscribe((next)=>{
+                        this.auth.changePassword(this.model, this.password_02).subscribe((next) => {
                             // redirect to main page
                             this.router.navigate(['/procedures']);
-                        }, error => this.alertify.error(error)); 
+                        }, error => this.alertify.error(error));
                     } else {
                         this.password_02 = '';
                         this.password_03 = '';
@@ -134,7 +138,7 @@ export class UserProfileComponent implements OnInit {
         }
     }
 
-    cancel() {this.router.navigate(['/procedures']); }
+    cancel() { this.router.navigate(['/procedures']); }
 
 
     meetsComplexity(te: string) {

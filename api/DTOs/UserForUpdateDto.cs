@@ -15,7 +15,7 @@ namespace api.DTOs
         public DateTime dateOfBirth { get; set; }
         public DateTime created { get; set; }
         public DateTime lastActive { get; set; }
-      
+        public DateTime paidTill { get; set; }
         public string introduction { get; set; }
         public string lookingFor { get; set; }
         public string email {get; set;}

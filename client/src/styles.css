@@ -5,6 +5,11 @@
 @import '../node_modules/font-awesome/css/font-awesome.min.css';
 @import '../node_modules/ngx-bootstrap/datepicker/bs-datepicker.css';
 
+@font-face {
+  font-family: "Oxygen";
+  src: local("Oxygen"), url(./assets/fonts/Oxygen/Oxygen-Regular.ttf) format("truetype");
+}
+
 .tab-panel {
     border: 1px solid #ddd;
     padding: 10px;

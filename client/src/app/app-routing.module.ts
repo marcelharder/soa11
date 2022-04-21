@@ -65,12 +65,14 @@ import { OnlineUserResolver } from './_resolvers/OnlineUser.resolver ';
 import { AddUserComponent } from './users/add-user/add-user.component';
 import { ListhospitalsComponent } from './admin/listhospitals/listhospitals.component';
 import { RegisterComponent } from './register/register.component';
+import { PremiumComponent } from './premium/premium.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'errors', component: TestErrorsComponent },
   { path: 'about', component: AboutComponent },
   { path: 'register', component: RegisterComponent},
+  { path: 'premium', component: PremiumComponent},
   {
     path: 'procedureDetails',component: ProceduredetailsComponent,
     runGuardsAndResolvers: 'always',
