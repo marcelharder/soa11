@@ -64,7 +64,7 @@
                 id="sh" 
                 (change)="selectUserPerHospital()">
                 <option *ngFor="let item of hospitals" [value]=item.value>{{ item.description }}</option>
-            </select>
+                </select>
         </div>
         </div>
         <div *ngIf="showEdit()">

@@ -95,7 +95,13 @@ export class UserProfileComponent implements OnInit {
             error => { this.alertify.error(error); });
     }
 
+    requestPremium(){this.alertify.show("request premium");}
 
+    showPremium(){
+        const currentDate = new Date();
+        const paidTill = this.user.paidTill;
+        if(paidTill > currentDate){return true} else {return false}
+    }
 
     changePasswordNow() {
         this.CompliancePanel = 0;

@@ -23,6 +23,7 @@ export interface User {
     worked_in: string;
     active: boolean;
     ltk: boolean;
+    paidTill: Date;
     interests?: string;
     introduction?: string;
     lookingFor?: string;

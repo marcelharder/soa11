@@ -52,8 +52,10 @@ namespace api.Controllers
                 
                 UserName = registerDto.UserName.ToLower(),
                 Country = "NL",
+                hospital_id = 0,
                 Created = DateTime.Now,
                 LastActive = DateTime.Now,
+                Gender = "Choose",
                 active = true,
                 ltk = false
                              

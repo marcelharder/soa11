@@ -16,21 +16,40 @@
         <img class="card-img-top img-thumbnail" src="{{ user.PhotoUrl || '../../../../../assets/user.jpg'}}"
           alt="{{ user.knownAs }}" />
         <div class="card-body">
-          <div>
-            <strong><span class="badge badge-default">Location</span></strong>
-            <p>{{ user.city }}, {{ countryWhereUserLives }}</p>
-          </div>
-          <div>
-            <strong><span class="badge badge-default">Last active</span></strong>
-            <p>{{ user.lastActive | date}}</p>
-          </div>
-          <div class="card-footer">
-            <div class="btn-group d-flex mt-3">
-              <button class="btn btn-danger w-50 mr-5" (click)='cancel()'><span
-                  class="badge badge-default">Cancel</span></button>
-              <button class="btn btn-success w-50" [disabled]="!editForm.dirty" form="editForm"><span
-                  class="badge badge-default">Save</span></button>
+            <div class="row">
+              <div class="col-sm-12"><strong><span class="badge badge-default">Location</span></strong>
+                <p>{{ user.city }}, {{ countryWhereUserLives }}</p></div>
             </div>
+            <div class="row">
+              <div class="col-sm-12"><strong><span class="badge badge-default">Last active</span></strong>
+                <p>{{ user.lastActive | date}}</p></div>
+            </div>
+
+            <div class="row" *appHasRole='["Surgery"]'>
+              <div class="col-sm-12" *ngIf="showPremium()" ><h5><span>Premium service till {{user.paidTill | Date}}</span></h5></div>
+              <div class="col-sm-6" *ngIf="!showPremium()"><h5><span>Free service</span></h5></div>
+              <div class="col-sm-6" *ngIf="!showPremium()"><button class="btn btn-primary btn-xs" (click)="requestPremium()">Request premium service</button></div>
+          
+
+
+            </div>
+
+          
+
+
+
+
+
+            
+       
+         
+        </div>
+        <div class="card-footer">
+          <div class="btn-group d-flex mt-3">
+            <button class="btn btn-danger w-50 mr-5" (click)='cancel()'><span
+                class="badge badge-default">Cancel</span></button>
+            <button class="btn btn-success w-50" [disabled]="!editForm.dirty" form="editForm"><span
+                class="badge badge-default">Save</span></button>
           </div>
         </div>
       </div>

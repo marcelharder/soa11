@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { dropItem } from '../_models/dropItem';
 import { loginModel } from '../_models/loginModel';
 import { User } from '../_models/User';
+import { DropdownService } from '../_services/dropdown.service';
 import { UserService } from '../_services/user.service';
 
 @Component({
@@ -12,18 +14,24 @@ import { UserService } from '../_services/user.service';
 })
 export class RegisterComponent implements OnInit {
 user:Partial<User>;
+
 editFlag = 0;
 addFlag = 0;
 model:loginModel = {username:'',password:''};
 
-  constructor(private userService: UserService, private alertify:ToastrService, private router:Router) { }
+  constructor(
+    private userService: UserService, 
+    private alertify:ToastrService, 
+    private router:Router, 
+    private drop: DropdownService) { }
 
   ngOnInit(): void {
     this.addFlag = 1;
+    
   }
 
-  cancelAdd(){this.editFlag = 0; this.addFlag = 0;};
-  cancelEdit(){this.editFlag = 0; this.addFlag = 0;};
+  cancelAdd(){this.editFlag = 0; this.addFlag = 0;this.router.navigate(['/']);};
+  cancelEdit(){this.editFlag = 0; this.addFlag = 0;this.router.navigate(['/']);};
 
   showEdit() { if (this.editFlag === 1) return true; }
   showAdd() { if (this.addFlag === 1) return true; }
@@ -37,6 +45,7 @@ model:loginModel = {username:'',password:''};
   }
 
   returnFromUserEdit(ret: User){
+   
     this.userService.updateUser(0, ret).subscribe(
       (next)=>{
         this.editFlag = 0; this.addFlag = 0;
@@ -46,6 +55,7 @@ model:loginModel = {username:'',password:''};
       (error)=>{
         debugger;
         this.alertify.error(error)})
+      
   }
 
 }
