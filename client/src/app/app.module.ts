@@ -140,9 +140,10 @@ import { ListhospitalsComponent } from './admin/listhospitals/listhospitals.comp
 import { RegisterComponent } from './register/register.component';
 import { PremiumComponent } from './premium/premium.component';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
+import { TutorialsComponent } from './tutorials/tutorials.component';
 
 @NgModule({
-  declarations: [	
+  declarations: [		
     AppComponent,
     NavComponent,
     HomeComponent,
@@ -211,7 +212,8 @@ import { AccordionModule } from 'ngx-bootstrap/accordion';
     EdithospitalComponent,
     ListhospitalsComponent,
     RegisterComponent,
-      PremiumComponent
+      PremiumComponent,
+      TutorialsComponent
    ],
   imports: [
     
