@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import { dropItem } from 'src/app/_models/dropItem';
 import { ModelTimes } from 'src/app/_models/modelTimes';
@@ -17,6 +18,7 @@ import { ProcedureService } from 'src/app/_services/procedure.service';
 export class PostopComponent implements OnInit {
   @ViewChild('postOpDetailsForm') postopForm: NgForm;
   pd: PostOp;
+
 
   model: ModelTimes = {
     beginDate: new Date(),
@@ -55,18 +57,24 @@ export class PostopComponent implements OnInit {
     private proc: ProcedureService,
     private postOpservice: PostOpService,
     private alertify: ToastrService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.route.data.subscribe((data) => {
       this.pd = data.postop;
+      this.proc.getProcedure(this.pd.procedure_id).subscribe((pr) => {
+         let surgeryEnd = moment(pr.dateOfSurgery).hour(pr.selectedStopHr).minute(pr.selectedStopMin + 10);
+        this.pd.ICU_ARRIVAL_DATE = surgeryEnd.toDate();
+        this.pd.ICU_ARRIVAL_DATE_HOURS = moment(surgeryEnd).hour();
+        this.pd.ICU_ARRIVAL_DATE_MINUTES = moment(surgeryEnd).minutes();
+      })
       this.calculatedTime = this.calculateTime(this.pd.EXTUBATION_DATE);
       this.calculatedTimeStay = this.calculateTime(this.pd.ICU_DISCHARGE_DATE);
     });
     this.loadDrops();
     // check to see if there is any complication, if so then this.complication = '2'
-    if(this.checkComplication()){this.complication = 2;} else {this.complication = 1;}
-    
+    if (this.checkComplication()) { this.complication = 2; } else { this.complication = 1; }
+
   }
 
   loadDrops() {
@@ -230,12 +238,13 @@ export class PostopComponent implements OnInit {
     }
   }
   showComplication() {
-    if(this.complication !== null){
-    if (this.complication.toString() === '2') {
-      return true;
-    } else {
-      return false;
-    }}
+    if (this.complication !== null) {
+      if (this.complication.toString() === '2') {
+        return true;
+      } else {
+        return false;
+      }
+    }
   }
   showReintubation() {
     if (this.pd.reintubated === '2') {
@@ -244,20 +253,20 @@ export class PostopComponent implements OnInit {
       return false;
     }
   }
-  calculateTime(d: Date):number {
+  calculateTime(d: Date): number {
     let help = 0;
-    help = (new Date(d).getTime() - new Date(this.pd.ICU_ARRIVAL_DATE).getTime())/3600000;
+    help = (new Date(d).getTime() - new Date(this.pd.ICU_ARRIVAL_DATE).getTime()) / 3600000;
     return help;
   }
   setICUDischargeTime() {
     const currentDate1 = new Date();
     this.pd.ICU_DISCHARGE_DATE = new Date(currentDate1.getTime());
-    this.pd.ICU_DISCHARGE_DATE_HOURS =  currentDate1.getHours();
-    this.pd.ICU_DISCHARGE_DATE_MINUTES =  currentDate1.getMinutes();
+    this.pd.ICU_DISCHARGE_DATE_HOURS = currentDate1.getHours();
+    this.pd.ICU_DISCHARGE_DATE_MINUTES = currentDate1.getMinutes();
 
     const n = this.pd.ICU_DISCHARGE_DATE.getTimezoneOffset() * 60 * 1000;
     this.pd.ICU_DISCHARGE_DATE = new Date(this.pd.ICU_DISCHARGE_DATE.getTime() - n);
-    this.postOpservice.savePostOp(this.pd).subscribe((next) => {});
+    this.postOpservice.savePostOp(this.pd).subscribe((next) => { });
   }
   setExtubationTime() {
     const currentDate1 = new Date();
@@ -267,31 +276,31 @@ export class PostopComponent implements OnInit {
 
     const n = this.pd.EXTUBATION_DATE.getTimezoneOffset() * 60 * 1000;
     this.pd.EXTUBATION_DATE = new Date(this.pd.EXTUBATION_DATE.getTime() - n);
-    this.postOpservice.savePostOp(this.pd).subscribe((next) => {});
+    this.postOpservice.savePostOp(this.pd).subscribe((next) => { });
   }
   setICUSecondDischargeTime() {
     const currentDate1 = new Date();
     this.pd.ICU_DISCHARGE_1_DATE = currentDate1;
-   // this.pd.ICU_DISCHARGE_1_DATE_HOURS.setHours(currentDate1.getHours());
-   // this.pd.ICU_DISCHARGE_1_DATE_MINUTES.setMinutes( currentDate1.getMinutes());
+    // this.pd.ICU_DISCHARGE_1_DATE_HOURS.setHours(currentDate1.getHours());
+    // this.pd.ICU_DISCHARGE_1_DATE_MINUTES.setMinutes( currentDate1.getMinutes());
   }
   setReintubationStartTime() {
     const currentDate1 = new Date();
     this.pd.REINTUBATION_DATE = currentDate1;
-   // this.pd.REINTUBATION_DATE_HOURS.setHours(currentDate1.getHours());
-   // this.pd.REINTUBATION_DATE.setMinutes( currentDate1.getMinutes());
+    // this.pd.REINTUBATION_DATE_HOURS.setHours(currentDate1.getHours());
+    // this.pd.REINTUBATION_DATE.setMinutes( currentDate1.getMinutes());
   }
   setReintubationStopTime() {
     const currentDate1 = new Date();
     this.pd.EXTUBATION_1_DATE = currentDate1;
-   // this.pd.EXTUBATION_1_DATE.setHours(currentDate1.getHours());
-   // this.pd.EXTUBATION_1_DATE.setMinutes( currentDate1.getMinutes());
+    // this.pd.EXTUBATION_1_DATE.setHours(currentDate1.getHours());
+    // this.pd.EXTUBATION_1_DATE.setMinutes( currentDate1.getMinutes());
   }
   setICUSecondArrivalTime() {
     const currentDate1 = new Date();
     this.pd.ICU_ARRIVAL_1_DATE = currentDate1;
-   // this.pd.ICU_ARRIVAL_1_DATE_HOURS = currentDate1.getHours();
-   // this.pd.ICU_ARRIVAL_1_DATE_MINUTES =  currentDate1.getMinutes();
+    // this.pd.ICU_ARRIVAL_1_DATE_HOURS = currentDate1.getHours();
+    // this.pd.ICU_ARRIVAL_1_DATE_MINUTES =  currentDate1.getMinutes();
   }
   savePostOp() {
     const d = new Date();
@@ -308,21 +317,21 @@ export class PostopComponent implements OnInit {
     this.pd.EXTUBATION_DATE = new Date(test.getTime() - n);
 
 
-    this.postOpservice.savePostOp(this.pd).subscribe((next) => {});
+    this.postOpservice.savePostOp(this.pd).subscribe((next) => { });
     this.postopForm.reset(this.pd);
   }
-  checkComplication(): boolean{
+  checkComplication(): boolean {
     let help = false;
 
-    if(this.pd.complicatie_1 != null && this.pd.complicatie_1 != "0") {help = true;}
-    if(this.pd.complicatie_2 != null && this.pd.complicatie_2 != "0") {help = true;}
-    if(this.pd.complicatie_3 != null && this.pd.complicatie_3 != "0") {help = true;}
-    if(this.pd.complicatie_4 != null && this.pd.complicatie_4 != "0") {help = true;}
-    if(this.pd.complicatie_5 != null && this.pd.complicatie_5 != "0") {help = true;}
-    if(this.pd.complicatie_6 != null && this.pd.complicatie_6 != "0") {help = true;}
-    if(this.pd.complicatie_7 != null && this.pd.complicatie_7 != "0") {help = true;}
-    if(this.pd.complicatie_8 != null && this.pd.complicatie_8 != "0") {help = true;}
-    if(this.pd.complicatie_9 != null && this.pd.complicatie_9 != "0") {help = true;}
+    if (this.pd.complicatie_1 != null && this.pd.complicatie_1 != "0") { help = true; }
+    if (this.pd.complicatie_2 != null && this.pd.complicatie_2 != "0") { help = true; }
+    if (this.pd.complicatie_3 != null && this.pd.complicatie_3 != "0") { help = true; }
+    if (this.pd.complicatie_4 != null && this.pd.complicatie_4 != "0") { help = true; }
+    if (this.pd.complicatie_5 != null && this.pd.complicatie_5 != "0") { help = true; }
+    if (this.pd.complicatie_6 != null && this.pd.complicatie_6 != "0") { help = true; }
+    if (this.pd.complicatie_7 != null && this.pd.complicatie_7 != "0") { help = true; }
+    if (this.pd.complicatie_8 != null && this.pd.complicatie_8 != "0") { help = true; }
+    if (this.pd.complicatie_9 != null && this.pd.complicatie_9 != "0") { help = true; }
 
     return help;
   }

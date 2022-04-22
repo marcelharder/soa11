@@ -92,20 +92,31 @@ export class PreviewreportComponent implements OnInit {
     private preview: PreViewReportService) { }
 
   ngOnInit() {
-    this.auth.currentUser$.pipe(take(1)).subscribe((u) => {this.currentUserName = u.Username;})
-    this.route.data.subscribe(data => {
-      this.prev = data.preView;
-      this.procedureId = this.prev.procedure_id;
-      this.procedureservice.getProcedure(this.procedureId).subscribe((next) => {
-        this.proc = next;
-        this.refPhys.getSpecificRefPhys(+this.proc.refPhys).subscribe((ne) => { this.ref = ne; })
-        this.preview.getReportCode(this.proc.fdType).subscribe((nex) => {
-         this.reportCode = nex;
-           this.getAdditionalStuff(this.reportCode);// gets the cabg / valve details
+
+    this.auth.currentServiceLevel$.pipe(take(1)).subscribe((n)=>{
+      if(n === 1){
+        this.auth.currentUser$.pipe(take(1)).subscribe((u) => {this.currentUserName = u.Username;})
+        this.route.data.subscribe(data => {
+          this.prev = data.preView;
+          this.procedureId = this.prev.procedure_id;
+          this.procedureservice.getProcedure(this.procedureId).subscribe((next) => {
+            this.proc = next;
+            this.refPhys.getSpecificRefPhys(+this.proc.refPhys).subscribe((ne) => { this.ref = ne; })
+            this.preview.getReportCode(this.proc.fdType).subscribe((nex) => {
+             this.reportCode = nex;
+               this.getAdditionalStuff(this.reportCode);// gets the cabg / valve details
+            });
+          });
         });
-      });
+        this.preview.getReportHeader(this.procedureId).subscribe((next) => { this.reportHeader = next; });
+      } else {
+        this.router.navigate(['/']);
+        this.alertify.error("You need a premium subscription ...")
+      }
     });
-    this.preview.getReportHeader(this.procedureId).subscribe((next) => { this.reportHeader = next; });
+
+   
+
   }
 
 

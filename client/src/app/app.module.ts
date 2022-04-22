@@ -139,6 +139,7 @@ import { EdithospitalComponent } from './admin/edithospital/edithospital.compone
 import { ListhospitalsComponent } from './admin/listhospitals/listhospitals.component';
 import { RegisterComponent } from './register/register.component';
 import { PremiumComponent } from './premium/premium.component';
+import { AccordionModule } from 'ngx-bootstrap/accordion';
 
 @NgModule({
   declarations: [	
@@ -213,6 +214,7 @@ import { PremiumComponent } from './premium/premium.component';
       PremiumComponent
    ],
   imports: [
+    
     FileUploadModule,
     TabsModule.forRoot(),
     UiSwitchModule,
@@ -222,6 +224,7 @@ import { PremiumComponent } from './premium/premium.component';
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    AccordionModule.forRoot(),
     FormsModule,
     BsDropdownModule.forRoot(),
     BsDatepickerModule.forRoot(),

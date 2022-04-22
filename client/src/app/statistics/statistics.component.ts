@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { take } from 'rxjs/operators';
 import { CasesPerMonthModel } from '../_models/CasesPerMonthModel';
@@ -24,31 +24,40 @@ export class StatisticsComponent implements OnInit {
     gm: GraphModel = { dataXas: [], dataYas: [], caption: "" };
 
     constructor(private drop: DropdownService,
+        private router: Router,
         private userservice: UserService,
         private graph: GraphService,
         private auth: AccountService,
         private alertify: ToastrService) { }
 
     ngOnInit() {
-        this.auth.currentUser$.pipe(take(1)).subscribe((u) => { this.currentUserId = u.UserId; });
 
-        this.drop.getHospitals(this.currentUserId).subscribe(response => {
-            this.hospitals = response;
-            this.hospitals.unshift({ value: 0, description: 'All hospitals' });
-        }, (error) => { console.log(error); });
+        this.auth.currentServiceLevel$.pipe(take(1)).subscribe((s) => {
+            if (s === 1) {
+                this.auth.currentUser$.pipe(take(1)).subscribe((u) => { this.currentUserId = u.UserId; });
 
-        this.userservice.getUser(this.currentUserId).subscribe((response) => {
-            this.selectedHospital = response.hospital_id;
-            this.getAG();
+                this.drop.getHospitals(this.currentUserId).subscribe(response => {
+                    this.hospitals = response;
+                    this.hospitals.unshift({ value: 0, description: 'All hospitals' });
+                }, (error) => { console.log(error); });
+
+                this.userservice.getUser(this.currentUserId).subscribe((response) => {
+                    this.selectedHospital = response.hospital_id;
+                    this.getAG();
+                })
+            } else {
+                this.router.navigate(['/']);
+                this.alertify.error("You need a premium subscription ...")
+            }
         })
     }
 
 
-    getVL() { this.graph.getVlad(this.currentUserId, this.selectedHospital).subscribe((next) => {this.gm = next; this.showGraphNo = 1; }); }
-    getCM() { this.graph.getCM(this.currentUserId, this.selectedHospital).subscribe((next) =>   {this.gm = next; this.showGraphNo = 2; }); }
-    getAG() { this.graph.getAge(this.currentUserId, this.selectedHospital).subscribe((next) =>  {this.gm = next; this.showGraphNo = 3; }); }
-    getEU() { this.graph.getBand(this.currentUserId, this.selectedHospital).subscribe((next) => {this.gm = next; this.showGraphNo = 4; }); }
-    getPY() { this.graph.getPY(this.currentUserId, this.selectedHospital).subscribe((next) =>   {this.gm = next; this.showGraphNo = 5; }); }
-    getPM() { this.graph.getPM(this.currentUserId, this.selectedHospital).subscribe((next) =>   {this.gm = next; this.showGraphNo = 6; }); }
+    getVL() { this.graph.getVlad(this.currentUserId, this.selectedHospital).subscribe((next) => { this.gm = next; this.showGraphNo = 1; }); }
+    getCM() { this.graph.getCM(this.currentUserId, this.selectedHospital).subscribe((next) => { this.gm = next; this.showGraphNo = 2; }); }
+    getAG() { this.graph.getAge(this.currentUserId, this.selectedHospital).subscribe((next) => { this.gm = next; this.showGraphNo = 3; }); }
+    getEU() { this.graph.getBand(this.currentUserId, this.selectedHospital).subscribe((next) => { this.gm = next; this.showGraphNo = 4; }); }
+    getPY() { this.graph.getPY(this.currentUserId, this.selectedHospital).subscribe((next) => { this.gm = next; this.showGraphNo = 5; }); }
+    getPM() { this.graph.getPM(this.currentUserId, this.selectedHospital).subscribe((next) => { this.gm = next; this.showGraphNo = 6; }); }
 }
 

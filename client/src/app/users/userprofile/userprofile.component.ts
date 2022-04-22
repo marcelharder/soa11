@@ -10,7 +10,6 @@ import { ToastrService } from 'ngx-toastr';
 import { AccountService } from 'src/app/_services/account.service';
 import { countryItem } from 'src/app/_models/countryItem';
 import { take } from 'rxjs/operators';
-import * as moment from 'moment';
 
 
 @Component({
@@ -48,6 +47,8 @@ export class UserProfileComponent implements OnInit {
 
         this.loadDrops();
 
+        this.auth.currentServiceLevel$.pipe(take(1)).subscribe((n) => {this.premium = n})
+
         this.auth.currentUser$.pipe(take(1)).subscribe((u) => {
             this.currentUserName = u.Username;
             this.currentUserId = u.UserId;
@@ -57,14 +58,6 @@ export class UserProfileComponent implements OnInit {
             this.user = data.user;
             // focus on the correct drops
             this.changeCountry();// let the country name follow the change in country
-            const currentDate = new Date();
-            debugger;
-            if (moment(currentDate).isBefore(this.user.paidTill)) {  // find out if this is a premium client
-                debugger;
-                this.premium = 1; } else {
-                    debugger;
-                    this.premium = 0;}
-
         });
        
        

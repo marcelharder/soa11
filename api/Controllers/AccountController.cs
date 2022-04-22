@@ -72,7 +72,8 @@ namespace api.Controllers
             {
                 Username = user.UserName,
                 Token = await _ts.CreateToken(user),
-                UserId = user.Id
+                UserId = user.Id,
+                paidTill = user.PaidTill
             };
 
            
@@ -92,7 +93,8 @@ namespace api.Controllers
             {
                 Username = user.UserName,
                 Token = await _ts.CreateToken(user),
-                UserId = user.Id
+                UserId = user.Id,
+                paidTill = user.PaidTill
             };
         }
 
@@ -108,7 +110,8 @@ namespace api.Controllers
             {
                 Username = user.UserName,
                 Token = await _ts.CreateToken(user),
-                UserId = user.Id
+                UserId = user.Id,
+                paidTill = user.PaidTill
             };
         }
 
