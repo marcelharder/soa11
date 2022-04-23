@@ -141,9 +141,10 @@ import { RegisterComponent } from './register/register.component';
 import { PremiumComponent } from './premium/premium.component';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { TutorialsComponent } from './tutorials/tutorials.component';
+import { DocumentationComponent } from './documentation/documentation.component';
 
 @NgModule({
-  declarations: [		
+  declarations: [			
     AppComponent,
     NavComponent,
     HomeComponent,
@@ -213,10 +214,10 @@ import { TutorialsComponent } from './tutorials/tutorials.component';
     ListhospitalsComponent,
     RegisterComponent,
       PremiumComponent,
-      TutorialsComponent
+      TutorialsComponent,
+      DocumentationComponent
    ],
   imports: [
-    
     FileUploadModule,
     TabsModule.forRoot(),
     UiSwitchModule,

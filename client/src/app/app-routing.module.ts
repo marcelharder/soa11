@@ -67,6 +67,7 @@ import { ListhospitalsComponent } from './admin/listhospitals/listhospitals.comp
 import { RegisterComponent } from './register/register.component';
 import { PremiumComponent } from './premium/premium.component';
 import { TutorialsComponent } from './tutorials/tutorials.component';
+import { DocumentationComponent } from './documentation/documentation.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -75,6 +76,7 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent},
   { path: 'premium', component: PremiumComponent},
   { path: 'tutorials', component: TutorialsComponent},
+  { path: 'documentation', component: DocumentationComponent},
   {
     path: 'procedureDetails',component: ProceduredetailsComponent,
     runGuardsAndResolvers: 'always',
