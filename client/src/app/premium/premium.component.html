@@ -1,5 +1,5 @@
 <div class="card mt-5">
-  <div class="card-body">
+  <div class="card-body" *ngIf="!showPRequest()">
     <div class="row">
       <div class="col-sm-8">
         <div class="card">
@@ -94,7 +94,7 @@
                   <div class="col-sm-6">
                       <div class="btn-group" role="group" aria-label="Basic mixed styles example">
                           <button type="button" class="btn btn-danger" (click)='Cancel()'>Cancel</button>
-                          <button type="submit" class="btn btn-success"  (click)='RequestPremium()'>Request premium service</button>
+                          <button type="button" class="btn btn-success"  (click)='RequestPremium()'>Request premium service</button>
                       </div>
                   </div>
                   <div class="col-sm-6"></div>
@@ -110,5 +110,8 @@
 
       </div>
     </div>
+  </div>
+  <div class="card-body" *ngIf="showPRequest()">
+    
   </div>
 </div>
