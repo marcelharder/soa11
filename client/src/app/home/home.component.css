@@ -14,7 +14,7 @@
 }
 
 .bg {
-    background: url('https://res.cloudinary.com/marcelcloud/image/upload/v1568390265/backgrounds/operating-room.jpg') no-repeat center;
+    background: url('../../assets/operating-room.JPG') no-repeat center;
     background-size: 95% 95%;
     background-position: bottom center;
   }

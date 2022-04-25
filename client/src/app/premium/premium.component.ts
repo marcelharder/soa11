@@ -1,7 +1,9 @@
 import { ThrowStmt } from '@angular/compiler';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { Router } from '@angular/router';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
+import { dropItem } from '../_models/dropItem';
 import { EmailModel } from '../_models/EmailModel';
 import { RefPhysService } from '../_services/refPhys.service';
 
@@ -11,6 +13,13 @@ import { RefPhysService } from '../_services/refPhys.service';
   styleUrls: ['./premium.component.css']
 })
 export class PremiumComponent implements OnInit {
+
+  modalRef: BsModalRef;
+  commitTime: any = {};
+
+  vrijeText = "";
+  money = 0.00;
+  optionTimePeriod: Array<dropItem> = [];
 
   check_free_1 = true;
   check_free_2 = false;
@@ -41,12 +50,28 @@ export class PremiumComponent implements OnInit {
    }
 
   constructor(
+    private modalService: BsModalService,
     private alertify: ToastrService, 
     private router: Router, 
     private refService: RefPhysService) { }
 
   ngOnInit() {
+
+    this.loadDrops();
+     this.commitTime = 0;
     
+  }
+
+  calculateFee(id: number){
+    this.money = id;
+  }
+
+  loadDrops(){
+    this.optionTimePeriod.push(
+      {value:0, description: 'Choose'},
+      {value:50, description: '3 months'},
+      {value:99, description: '6 months'},
+      {value:190, description: '1 year'})
   }
 
   showPRequest(){if(this.req === 1){return true;} else {return false;}}
@@ -70,10 +95,28 @@ export class PremiumComponent implements OnInit {
 
   }
 
-
-  sendEmail(){
-    this.refService.sendEmail(this.emodel).subscribe((next)=>{});
+  openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template, {class: 'modal-sm'});
   }
+  
+
+  confirm(): void {
+    // fill in all the details we need for the email
+    this.emodel.to = "marcelharder@protonmail.com";
+    this.emodel.from = "";
+
+
+    this.refService.sendEmail(this.emodel).subscribe((next)=>{});
+    this.router.navigate(['/addProcedure']);
+    this.modalRef?.hide();
+  }
+  
+  decline(): void {
+    this.modalRef?.hide();
+  }
+
+
+  
 
 
 
