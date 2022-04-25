@@ -80,7 +80,7 @@ export class PremiumComponent implements OnInit {
   RequestPremium() {this.req = 1; }
   Cancel() { 
    // go back to the requesting page
-
+   this.router.navigate(['/profile'])
 
   }
 
