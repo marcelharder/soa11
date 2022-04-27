@@ -1,6 +1,11 @@
 <div class="card m-5">
     <div class="card-header">
-        <h5><span class="badge badge-info">About</span></h5>
+        <div class="d-flex flex-row">
+         <div class="p-2"><h5><button class="btn btn-info" (click)="displayStart()">About</button></h5></div>
+         <div class="p-2"><h5><button class="btn btn-info" (click)="displayCredits()">Credits</button></h5></div>
+          </div>
+       
+        
     </div>
     <div class="class-body">
         <div class="row" *ngIf="showVersion()">
