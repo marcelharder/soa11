@@ -8,21 +8,21 @@
         <div class="card">
           <div class="card-header"></div>
           <div class="card-body">
-            <accordion>
-              <accordion-group heading="Getting started">
-                This content is straight in the template.
+            <accordion [closeOthers] = "oneAtATime">
+              <accordion-group heading="Getting started"  [isOpen]="isFirstOpen" >
+                This chapter will get you going with the application ... <a (click)="linkToFeatures()" style="color:green">read more</a>
               </accordion-group>
               <accordion-group heading="Configuration">
-                <p>Some content</p>
+                How to configure the application  ... <a (click)="linkToConfiguration()" style="color:green">read more</a>
               </accordion-group>
               <accordion-group heading="Adding procedures">
-                <p>Some content</p>
+                This will be your daily interaction with the application ... <a (click)="linkToAddingProcedures()" style="color:green">read more</a>
               </accordion-group>
               <accordion-group heading="Reporting">
-                <p>Some content</p>
+                Explains and walks you through the many features of the reporting system ... <a (click)="linkToReporting()" style="color:green">read more</a>
               </accordion-group>
               <accordion-group heading="Statistics">
-                <p>Some content</p>
+                The outcomes, the meat of the application let's say ... <a (click)="linkToStatistics()" style="color:green">read more</a>
               </accordion-group>
             </accordion>
           </div>

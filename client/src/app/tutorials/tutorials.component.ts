@@ -6,12 +6,23 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./tutorials.component.css']
 })
 export class TutorialsComponent implements OnInit {
-
+  isFirstOpen = true;
+  oneAtATime = true;
   constructor() { }
 
   ngOnInit() {
   }
 
   linkToCSD(){ window.location.href = "https://csd-website.azurewebsites.net";}
+
+  linkToFeatures(){}
+
+  linkToConfiguration(){}
+
+  linkToAddingProcedures(){}
+
+  linkToReporting(){}
+
+  linkToStatistics(){}
 
 }

@@ -64,6 +64,7 @@ export class PremiumComponent implements OnInit {
 
   calculateFee(id: number){
     this.money = id;
+    this.emodel.subject = "requested tier " + this.money;
   }
 
   loadDrops(){
@@ -106,8 +107,9 @@ export class PremiumComponent implements OnInit {
     this.emodel.from = "";
 
 
+
     this.refService.sendEmail(this.emodel).subscribe((next)=>{});
-    this.router.navigate(['/addProcedure']);
+    this.router.navigate(['/']);
     this.modalRef?.hide();
   }
   

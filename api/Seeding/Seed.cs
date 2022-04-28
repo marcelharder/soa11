@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
@@ -40,11 +41,12 @@ namespace api.Seeding
                   UserName = "Admin",
                   Gender = "male",
                   ltk = false,
+                  PaidTill = new DateTime().AddYears(250),
                   active = true,
                   Country = "NL" };
              await manager.CreateAsync(admin, "Pa$$w0rd");
              await manager.AddToRoleAsync(admin, "Admin");
-             await manager.AddToRoleAsync(admin, "Premium");
+           
 
 
          } 

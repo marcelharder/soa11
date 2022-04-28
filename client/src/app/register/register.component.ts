@@ -53,7 +53,7 @@ model:loginModel = {username:'',password:''};
         this.router.navigate(['/']);
       }, 
       (error)=>{
-        debugger;
+     
         this.alertify.error(error)})
       
   }

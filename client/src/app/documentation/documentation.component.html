@@ -5,21 +5,19 @@
   <div class="class-body">
     <div class="row">
       <div class="col-sm-8">
-        <accordion>
-          <accordion-group heading="Adding procedure data">
-            This content is straight in the template.
+        <accordion [closeOthers]="oneAtATime">
+          <accordion-group heading="Introduction" [isOpen]="isFirstOpen">
+            This application was created in Saudi Arabia when we started the cardiac surgery 
+            service in the King Fahd Armed Forces Hospital in Jeddah ... <a (click)="linkToIntroduction()" style="color:green">read more</a>
           </accordion-group>  
-          <accordion-group heading="Reporting">
-            This content is straight in the template.
+          <accordion-group heading="History">
+            Initially the application was developed in Delphi with a DBaseIV database backend ... <a (click)="linkToHistory()" style="color:green">read more</a>
           </accordion-group>
-          <accordion-group heading="Share operative report with ref physician in near realtime">
-            <p>Some content</p>
+          <accordion-group heading="Features">
+            Over the years we implemented a host of new features and improvements ... <a (click)="linkToFeatures()" style="color:green">read more</a>
           </accordion-group>
-          <accordion-group heading="Statistics and Outcomes(VLAD)">
-            <p>Some content</p>
-          </accordion-group>
-          <accordion-group heading="Configuration">
-            <p>Some content</p>
+          <accordion-group heading="Deployment">
+            The application is designed as an Angular 12 Single Page Application with  ... <a (click)="linkToDeployment()" style="color:green">read more</a>
           </accordion-group>
         </accordion>
       </div>

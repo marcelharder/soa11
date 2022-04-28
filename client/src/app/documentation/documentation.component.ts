@@ -6,14 +6,24 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./documentation.component.css']
 })
 export class DocumentationComponent implements OnInit {
- 
+  isFirstOpen = true;
+  oneAtATime = true;
   constructor() { }
  
 
   ngOnInit() {
+   
   }
 
   linkToCSD(){ window.location.href = "https://csd-website.azurewebsites.net";}
+
+  linkToIntroduction(){}
+
+  linkToFeatures(){}
+
+  linkToHistory(){}
+
+  linkToDeployment(){}
 
 
 }
