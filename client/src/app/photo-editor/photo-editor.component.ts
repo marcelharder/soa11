@@ -36,6 +36,8 @@ export class PhotoEditorComponent implements OnInit {
         //    test = this.baseUrl + 'addEmployeePhoto/' + this.employeeId
         // }
         // else {
+
+        debugger;
         if (this.userId !== 0) {
             test = this.baseUrl + 'users/addUserPhoto/' + this.userId
         }

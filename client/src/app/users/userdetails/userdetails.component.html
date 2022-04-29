@@ -79,14 +79,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <button class="btn btn-primary" *ngIf="!showChangeImage()" (click)="image = 1">Change
-                                image</button>
-                            <app-photo-editor *ngIf="showChangeImage()" [userId]="user.Id" [refId]="0" [hospitalId]="0"
-                                (getMemberPhotoChange)="updatePhoto($event)"></app-photo-editor>
-                        </div>
-                    </div>
+                    
 
                 </div>
             </div>

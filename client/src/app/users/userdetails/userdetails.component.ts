@@ -79,9 +79,7 @@ export class UserdetailsComponent implements OnInit {
         });
 }
 
-  showChangeImage(){if(this.image == 1) {return true;}}
-
-  updatePhoto(photoUrl: string) { this.image = 0; this.user.PhotoUrl = photoUrl; }
+ 
 
 
 
