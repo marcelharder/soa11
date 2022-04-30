@@ -1157,6 +1157,7 @@ namespace api.Data
         }
         public async Task<List<Class_Item>> getAllHospitalsPerCountry(string country)
         {
+            
             var cl = new List<Class_Item>();
             Class_Item ci;
             var all_hospitals = await _context.Hospitals.ToListAsync();
