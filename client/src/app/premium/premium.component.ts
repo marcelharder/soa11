@@ -3,8 +3,10 @@ import { Component, OnInit, TemplateRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
+import { take } from 'rxjs/operators';
 import { dropItem } from '../_models/dropItem';
 import { EmailModel } from '../_models/EmailModel';
+import { AccountService } from '../_services/account.service';
 import { RefPhysService } from '../_services/refPhys.service';
 
 @Component({
@@ -13,7 +15,7 @@ import { RefPhysService } from '../_services/refPhys.service';
   styleUrls: ['./premium.component.css']
 })
 export class PremiumComponent implements OnInit {
-
+  additionalComments = "";
   modalRef: BsModalRef;
   commitTime: any = {};
 
@@ -34,6 +36,7 @@ export class PremiumComponent implements OnInit {
   check_premium_5 = true;
 
   req = 0;
+  currentUserName = '';
 
   emodel: EmailModel = {
     id: 0,
@@ -51,6 +54,7 @@ export class PremiumComponent implements OnInit {
 
   constructor(
     private modalService: BsModalService,
+    private auth: AccountService,
     private alertify: ToastrService, 
     private router: Router, 
     private refService: RefPhysService) { }
@@ -59,6 +63,9 @@ export class PremiumComponent implements OnInit {
 
     this.loadDrops();
      this.commitTime = 0;
+     this.auth.currentUser$.pipe(take(1)).subscribe((u) => {
+      this.currentUserName = u.Username;
+  });
     
   }
 
@@ -104,8 +111,7 @@ export class PremiumComponent implements OnInit {
   confirm(): void {
     // fill in all the details we need for the email
     this.emodel.to = "marcelharder@protonmail.com";
-    this.emodel.from = "";
-
+    this.emodel.body = "Requested by: " + this.currentUserName + " comments: " + this.additionalComments;
 
 
     this.refService.sendEmail(this.emodel).subscribe((next)=>{});
