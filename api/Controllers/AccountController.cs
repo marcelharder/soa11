@@ -55,6 +55,7 @@ namespace api.Controllers
                 hospital_id = 0,
                 Created = DateTime.Now,
                 LastActive = DateTime.Now,
+                PaidTill = DateTime.Now.AddDays(30),
                 Gender = "Choose",
                 active = true,
                 ltk = false
