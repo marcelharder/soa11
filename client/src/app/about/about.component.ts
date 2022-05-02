@@ -41,5 +41,7 @@ export class AboutComponent implements OnInit {
   showVersion(){if(this.version === 1){return true;}}
 
   linkToCSD(){ window.location.href = "https://csd-website.azurewebsites.net";}
+  linkToCredit01(){window.location.href = "https://docs.google.com/document/d/1vLW1bOdBKDYKP-GqfAAlo43xttomhjTniMjOSxUI01c/edit?usp=sharing";}
+  linkToCredit02(){window.location.href = "https://docs.google.com/document/d/1a8WQtk5av7YUR9P8oQKNR74S0lrzAaf-V9q5Kic10f8/edit?usp=sharing";}
 
 }
