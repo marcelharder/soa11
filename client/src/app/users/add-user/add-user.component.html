@@ -1,17 +1,17 @@
 
 
 <div class="card m-5">
-    <div class="card-header">
-        <h5><span class="badge badge-info">Add User</span></h5>
+    <div class="card-header" *appHasRole='["Admin"]'>
+        <h5><span class="badge badge-info" >Add User</span></h5>
     </div>
-    <div class="card-body" style="background-color: antiquewhite;">
+    <div class="card-body">
         <form  #registerForm="ngForm" id="registerForm" (ngSubmit)="registerNewUser()">
         <div class="row">
-            <div class="clss-sm-6"><h5><span class="badge badge-primary">Username: </span></h5></div>
+            <div class="clss-sm-6"><h5><span class="badge badge-secondary">Username: </span></h5></div>
             <div class="clss-sm-6 ml-2"><input type=text [(ngModel)]="model.username" class="form-control" name="username"></div>
         </div>
         <div class="row mt-2 mb-2">
-            <div class="clss-sm-6"><h5><span class="badge badge-primary">Password: </span></h5></div>
+            <div class="clss-sm-6"><h5><span class="badge badge-secondary">Password: </span></h5></div>
             <div class="clss-sm-6 ml-2"><input type=password [(ngModel)]="model.password" class="form-control" name="password"></div>
         </div>
        </form>
