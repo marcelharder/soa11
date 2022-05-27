@@ -100,8 +100,8 @@ namespace api.Controllers
             Class_Hospital ch = new Class_Hospital();
             ch.Country = _map.getCountryFromCode(id);
             ch.HospitalNo = no.ToString().makeSureTwoChar();
-            _hos.addHospital(ch);
-            return CreatedAtRoute("GetHospital", new { id = ch.HospitalNo }, ch);
+            var new_hospital_number = _hos.addHospital(ch);
+            return CreatedAtRoute("GetHospital", new { id = new_hospital_number }, ch);
         }
 
         [HttpDelete("{id}")]

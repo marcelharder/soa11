@@ -27,7 +27,7 @@ services:
     depends_on: 
      - db
   tracPersonal:
-    image: sql_app:v33
+    image: sql_app:v34
     ports:
      - 8086:80
     networks: 
