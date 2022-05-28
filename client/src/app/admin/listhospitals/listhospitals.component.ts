@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { countryItem } from 'src/app/_models/countryItem';
 import { dropItem } from 'src/app/_models/dropItem';
 import { Hospital } from 'src/app/_models/Hospital';
 import { HospitalService } from 'src/app/_services/hospital.service';
@@ -14,8 +15,8 @@ export class ListhospitalsComponent implements OnInit {
 
   hospitals: Array<Partial<Hospital>> = [];
   selectedHospital: Hospital;
-  selectedCountry = 31;
-  listOfCountries:Array<dropItem> = [];
+  selectedCountry = "NL";
+  listOfCountries:Array<countryItem> = [];
   editFlag = 0;
   addFlag = 0;
   listFlag = 1;
@@ -31,13 +32,13 @@ export class ListhospitalsComponent implements OnInit {
   }
 
   loadDrops(){
-    this.listOfCountries.push({value:31,description:"Netherlands"});
-    this.listOfCountries.push({value:1,description:"US"});
-    this.listOfCountries.push({value:49,description:"UK"});
-    this.listOfCountries.push({value:63,description:"France"});
-    this.listOfCountries.push({value:37,description:"Germany"});
-    this.listOfCountries.push({value:39,description:"Italy"});
-    this.listOfCountries.push({value:966,description:"KSA"});
+    this.listOfCountries.push({value:"NL",description:"Netherlands"});
+    this.listOfCountries.push({value:"US",description:"US"});
+    this.listOfCountries.push({value:"GB",description:"UK"});
+    this.listOfCountries.push({value:"FR",description:"France"});
+    this.listOfCountries.push({value:"DE",description:"Germany"});
+    this.listOfCountries.push({value:"IT",description:"Italy"});
+    this.listOfCountries.push({value:"SA",description:"KSA"});
   }
 
   filterCountry(){
@@ -83,7 +84,7 @@ export class ListhospitalsComponent implements OnInit {
     this.editFlag = 0;
   }
 
-  receiveSelectedCountry(ret: number){
+  receiveSelectedCountry(ret: string){
     this.selectedCountry = ret;
     this.filterCountry();
     this.addFlag = 0;

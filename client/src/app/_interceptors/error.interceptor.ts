@@ -31,7 +31,8 @@ export class ErrorInterceptor implements HttpInterceptor {
                throw modalStateErrors.flat();
              } else {this.toastr.error(error.statusText, error.status);}
             break;
-            case 401: this.toastr.error(error.statusText, error.status); break;
+            case 401: this.toastr.error("The username/password combination is wrong",  "Consider registering ..."); break;
+          //  case 401: this.toastr.error("Response code: " + error.status + " " + error.statusText, " Consider registering ..."); break;
             case 404: this.router.navigateByUrl('/not-found');break;
             case 500: 
             const navigationExtras: NavigationExtras = {state: {error: error.error}};

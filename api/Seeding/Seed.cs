@@ -116,7 +116,7 @@ namespace api.Seeding
               foreach (var item in emp) { context.RefPhys.Add(item); }
               await context.SaveChangesAsync();
           }
-         public static async Task SeedEpaas(UserManager<AppUser> manager)
+        /*  public static async Task SeedEpaas(UserManager<AppUser> manager)
           {
               var listOfEpas = new List<Class_Epa>();
               var user = await manager.Users.Include(x => x.Epa).FirstOrDefaultAsync(x => x.Id == 2);
@@ -139,6 +139,6 @@ namespace api.Seeding
               var emp = JsonSerializer.Deserialize<List<Class_Course>>(userData);
               foreach (var item in emp) { user.Courses.Add(item); }
               await manager.UpdateAsync(user);
-          }
+          } */
     }
 }
