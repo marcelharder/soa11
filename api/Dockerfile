@@ -1,6 +1,6 @@
 
 FROM mcr.microsoft.com/dotnet/aspnet:5.0
-COPY .publish/ App/
+COPY Release/ App/
 WORKDIR /App
 
 COPY conf/*.xml /App/conf/

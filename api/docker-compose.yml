@@ -27,7 +27,7 @@ services:
     depends_on: 
      - db
   tracPersonal:
-    image: marcel88/sql_pod:v35
+    image: sql_pod:v41
     ports:
      - 8086:80
     networks: 
