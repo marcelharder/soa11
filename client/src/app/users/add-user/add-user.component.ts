@@ -25,14 +25,17 @@ export class AddUserComponent implements OnInit {
   Cancel() { this.cancelThis.emit(1); }
 
   registerNewUser() {
-    if (this.checkUserNameIsEmail(this.model)) {
+   // if (this.checkUserNameIsEmail(this.model)) {
+
       if (this.readytobeSentUp(this.model)) {
         this.auth.register(this.model).subscribe((next) => {
           this.auth.newlyRegisteredUser$.pipe(take(1)).subscribe((u) => { this.newUserId = u.UserId; });
           this.fromUserAdd.emit(this.newUserId);
         }, (error) => { this.alertify.error(error.error) });
       }
-    } else { this.alertify.error("Username is not a valid email")}
+   // } else { this.alertify.error("Username is not a valid email")}
+
+
   }
 
   checkUserNameIsEmail(test: loginModel) {
