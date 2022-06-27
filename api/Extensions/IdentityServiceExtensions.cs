@@ -18,6 +18,7 @@ namespace api.Extensions
             services.AddIdentityCore<AppUser>(opt =>
             {
                 opt.Password.RequireNonAlphanumeric = false;
+                // opt.Password.RequiredLength = 10;
             })
                  .AddRoles<AppRole>()
                  .AddRoleManager<RoleManager<AppRole>>()

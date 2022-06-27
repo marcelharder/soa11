@@ -60,12 +60,12 @@ namespace api.Controllers
         }
 
         [HttpGet("allFullHospitalsPerCountry/{id}")]
-        public async Task<IActionResult> getHospitalsperCountry(int id){
+        public async Task<IActionResult> getHospitalsperCountry(string id){
             // id is now bv 31 en moet NL worden
-            var iso_land = _map.getCountryFromCode(id);
+           // var iso_land = _map.getCountryFromCode(id);
 
             var ret = new List<HospitalForReturnDTO>();
-            var result = await _hos.getAllFullHospitalsPerCountry(iso_land);
+            var result = await _hos.getAllFullHospitalsPerCountry(id);
             foreach(Class_Hospital ch in result){ret.Add(_map.mapToHospitalForReturn(ch));}
             return Ok(ret);
         }
@@ -95,13 +95,13 @@ namespace api.Controllers
         }
 
         [HttpPost("{id}/{no}")]
-        public IActionResult PostHospitalAsync(int id, int no)
+        public IActionResult PostHospitalAsync(string id, int no)
         {
             Class_Hospital ch = new Class_Hospital();
-            ch.Country = _map.getCountryFromCode(id);
+            ch.Country = id;
             ch.HospitalNo = no.ToString().makeSureTwoChar();
-            _hos.addHospital(ch);
-            return CreatedAtRoute("GetHospital", new { id = ch.HospitalNo }, ch);
+            var new_hospital_number = _hos.addHospital(ch);
+            return CreatedAtRoute("GetHospital", new { id = new_hospital_number }, ch);
         }
 
         [HttpDelete("{id}")]

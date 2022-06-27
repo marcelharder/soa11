@@ -25,8 +25,8 @@ export class HospitalService {
   getAllThisUserWorkedInHospitals(userId: number) { return this.http.get<Hospital[]>(this.baseUrl + 'hospital_worked_in/' + userId); }
 
   allHospitals(): Observable<Hospital[]> { return this.http.get<Hospital[]>(this.baseUrl + 'Hospital/allFullHospitals'); }
-  getHospitalsInCountry(id: number): Observable<Hospital[]> { return this.http.get<Hospital[]>(this.baseUrl + 'Hospital/allFullHospitalsPerCountry/' + id); }
+  getHospitalsInCountry(id: string): Observable<Hospital[]> { return this.http.get<Hospital[]>(this.baseUrl + 'Hospital/allFullHospitalsPerCountry/' + id); }
 
-  addHospital(id: number, no: number) { return this.http.post<Hospital>(this.baseUrl + 'hospital/' + id + '/' + no, null); }
+  addHospital(country: string, no: number) { return this.http.post<Hospital>(this.baseUrl + 'hospital/' + country + '/' + no, null); }
   deleteHospital(id: string) { return this.http.delete<number>(this.baseUrl + 'hospital/' + id); }
 }

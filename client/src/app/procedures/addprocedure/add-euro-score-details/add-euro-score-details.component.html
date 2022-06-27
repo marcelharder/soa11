@@ -41,6 +41,11 @@
                 </select>
               </div>
             </div>
+            <div class="row">
+              <div class="col-sm-12" *ngIf="refphysicians.length === 0">
+                <h6><span style="color:brown">Please define the ref physicians in the configuration of this hospital</span></h6>
+              </div>
+            </div>
   
           </div>
         </div>

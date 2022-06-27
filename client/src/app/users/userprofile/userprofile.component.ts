@@ -85,7 +85,7 @@ export class UserProfileComponent implements OnInit {
     }
 
     changeCountry() {
-        let help = this.optionCountries.find(z => z.value === this.user.country);
+       let help = this.optionCountries.find(z => z.value === this.user.country);
         this.countryWhereUserLives = help.description;
     }
 

@@ -28,8 +28,7 @@ export class UserdetailsComponent implements OnInit {
     private drops: DropdownService) { }
 
   ngOnInit(): void {
-
-
+    this.selectedCountry = this.user.country;
 
     this.drops.getAllHospitals().subscribe(response => {
       this.hospitals = response;

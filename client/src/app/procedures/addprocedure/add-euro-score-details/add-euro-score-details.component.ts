@@ -152,6 +152,13 @@ export class AddEuroScoreDetailsComponent implements OnInit {
 
 
     addNewPatient() {
+        if(this.refphysicians.length === 0){this.alertify.error("This hospital should have ref physicians ..")}
+        else{
+
+
+
+
+
         let error = '';
         if (this.checkAge(this.patient.age)) {
             if (this.patient.gender !== '0') {
@@ -178,7 +185,7 @@ export class AddEuroScoreDetailsComponent implements OnInit {
 
                     });
         } else { this.alertify.error(error); }
-    }
+    }}
 
     loadDrops() {
         for (let _i = 18; _i < 100; _i++) { this.yearsOptions.push(_i); }

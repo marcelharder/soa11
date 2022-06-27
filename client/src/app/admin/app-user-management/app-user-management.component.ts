@@ -53,7 +53,6 @@ export class AppUserManagementComponent implements OnInit {
     const userRoles = user.Roles;
     const availableRoles: any[] = [
       { name: 'Admin', value: 'Admin' },
-      { name: 'Premium', value: 'Premium' },
       { name: 'Moderator', value: 'Moderator' },
       { name: 'Refcard', value: 'Refcard' },
       { name: 'Surgery', value: 'Surgery' },

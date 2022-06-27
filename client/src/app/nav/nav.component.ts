@@ -53,7 +53,12 @@ export class NavComponent implements OnInit {
       })
 
      }
-     console.log(next); }, (error)=>{if(error.status === 401){
+     console.log(next); 
+    
+    }, (error)=>{
+     
+      
+       if(error.status === 401){
        this.reg = 1;
       
       

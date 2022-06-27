@@ -11,9 +11,9 @@ import { HospitalService } from 'src/app/_services/hospital.service';
   styleUrls: ['./addhospital.component.css']
 })
 export class AddhospitalComponent implements OnInit {
-  @Output() pushResult = new EventEmitter<number>();
+  @Output() pushResult = new EventEmitter<string>();
   @Output() cancelThis = new EventEmitter<number>();
-  @Input() selectedCountry: number;
+  @Input() selectedCountry: string;
 
   pd: Hospital = {
     hospitalName: '',
